@@ -20,7 +20,7 @@ const AcercadeNosotros = () => {
         </div>
         {/* apartado vision, mision y valores */}
         <div className="col-12 col-md-12 vision-mision-valores">
-          <div className="row d-flex justify-content-around">
+          <div className="row d-flex justify-content-around g-1 g-md-0">
             <div className="col-12 col-md-3 col-lg-3 mb-3 mb-md-0 d-flex flex-column align-items-center">
               <i className="bi bi-eye-fill fs-2"></i>
               <h3>Visión</h3>
@@ -59,38 +59,38 @@ const AcercadeNosotros = () => {
         {/* apartado lo que nos diferencia */}
         <div className="col-12 vision-mision-valores">
           <h3 className="text-center mb-4">LO QUE NOS DIFERENCIA</h3>
-          <div className="row d-flex justify-content-around">
-            <div className="col-12 col-md-3 d-flex flex-column align-items-center">
+          <div className="row d-flex justify-content-around g-1 g-md-0">
+            <div className="col-12 col-md-3 mt-3 d-flex flex-column align-items-center">
               <i className="bi bi-camera-reels-fill fs-2"></i>
               <p>Catalogo variado y actualizado.</p>
             </div>
-            <div className="col-12 col-md-3 d-flex flex-column align-items-center">
+            <div className="col-12 col-md-3 mt-3 d-flex flex-column align-items-center">
               <i className="bi bi-cloud-arrow-down-fill fs-2"></i>
               <p>Descargar y ver sin conexion</p>
             </div>
-            <div className="col-12 col-md-3 d-flex flex-column align-items-center">
+            <div className="col-12 col-md-3 mt-3 d-flex flex-column align-items-center">
               <i className="bi bi-film fs-2"></i>
               <p>Contenidos exclusivos.</p>
             </div>
           </div>
         </div>
         {/* apartado nuestro equipo */}
-        <div className="col-12 border border-light">
+        <div className="col-12 degradeMorado">
           <h3 className="text-center">NUESTRO EQUIPO</h3>
           <div className="row">
-            <div className="col-12 col-md-3 col-lg-3 border border-light">
+            <div className="col-12 col-md-3 col-lg-3">
               <img src="kdsmd.jpg" alt="" />
               <p>Integrante 1</p>
             </div>
-            <div className="col-12 col-md-3 col-lg-3 border border-light">
+            <div className="col-12 col-md-3 col-lg-3">
               <img src="kdsmd.jpg" alt="" />
               <p>Integrante 2</p>
             </div>
-            <div className="col-12 col-md-3 col-lg-3 border border-light">
+            <div className="col-12 col-md-3 col-lg-3">
               <img src="kdsmd.jpg" alt="" />
               <p>Intregante 3</p>
             </div>
-            <div className="col-12 col-md-3 col-lg-3 border border-light">
+            <div className="col-12 col-md-3 col-lg-3">
               <img src="" alt="" />
               <p>Integrante 4</p>
             </div>
