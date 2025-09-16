@@ -49,10 +49,73 @@ footer {
 .tituloAcerca{
   font-size: 55px;
   color: white;
+  text-shadow: 0px 0px 10px #9D4EDD;
   z-index: 2;
 }
 .justificado{
   text-align: justify;
+}
+.quienes-somos{
+ background: linear-gradient(
+    135deg,
+    #0d0d0d 0%,  
+    #1a1a1a 50%,  
+    #2b0f3f 100%  
+  );
+  color: #ffffff;
+  padding: 2rem 1rem;
+  border-radius: 6px;
+
+}
+.quienes-somos h2 {
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.quienes-somos p {
+  color: #B5B5B5;
+}
+.vision-mision-valores {
+  background: linear-gradient(
+    135deg,
+    #0d0d0d 0%,  
+    #1a1a1a 50%,  
+    #2b0f3f 100%  
+  );
+  padding: 2.5rem 1rem;
+  border-radius: 6px;
+}
+
+.vision-mision-valores .col-12 {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(157, 78, 221, 0.4);
+  border-radius: 6px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.vision-mision-valores .col-12:hover {
+  transform: translateY(-6px);
+}
+.vision-mision-valores i {
+  color: #9D4EDD;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
+}
+
+/* Títulos */
+.vision-mision-valores h3 {
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Texto */
+.vision-mision-valores p {
+  color: #B5B5B5;
+  font-size: 1rem;
 }
 /*media query para dispositivos medianos*/
 @media(min-width: 768px) and (max-width: 991px){
