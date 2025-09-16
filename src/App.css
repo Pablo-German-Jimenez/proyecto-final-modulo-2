@@ -7,3 +7,24 @@
 main{
   flex-grow: 1;
 }
+
+
+.search-form{
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+@media (max-width: 992px) {
+  .search-form {
+    display: block;
+    width: 90%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .navbar .search-form {
+    order: 3; /* Asegura que se muestre debajo del toggle y logo */
+  }
+}
