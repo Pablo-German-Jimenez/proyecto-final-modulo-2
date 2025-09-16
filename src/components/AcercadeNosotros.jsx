@@ -76,22 +76,38 @@ const AcercadeNosotros = () => {
         </div>
         {/* apartado nuestro equipo */}
         <div className="col-12 degradeMorado">
-          <h3 className="text-center">NUESTRO EQUIPO</h3>
+          <h3 className="text-center fs-3">NUESTRO EQUIPO</h3>
           <div className="row">
-            <div className="col-12 col-md-3 col-lg-3">
-              <img src="kdsmd.jpg" alt="" />
+            <div className="col-12 col-md-3 mt-2 d-flex flex-column align-items-center">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/10542/10542459.png"
+                alt="integrante del equipo"
+                className="avatarIntegrantes"
+              />
               <p>Integrante 1</p>
             </div>
-            <div className="col-12 col-md-3 col-lg-3">
-              <img src="kdsmd.jpg" alt="" />
+            <div className="col-12 col-md-3 mt-2 d-flex flex-column align-items-center">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/10542/10542459.png"
+                alt="integrante del equipo"
+                className="avatarIntegrantes"
+              />
               <p>Integrante 2</p>
             </div>
-            <div className="col-12 col-md-3 col-lg-3">
-              <img src="kdsmd.jpg" alt="" />
+            <div className="col-12 col-md-3 mt-2 d-flex flex-column align-items-center">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/10542/10542459.png"
+                alt="integrante del equipo"
+                className="avatarIntegrantes"
+              />
               <p>Intregante 3</p>
             </div>
-            <div className="col-12 col-md-3 col-lg-3">
-              <img src="" alt="" />
+            <div className="col-12 col-md-3 mt-2 d-flex flex-column align-items-center">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/10542/10542459.png"
+                alt="integrante del equipo"
+                className="avatarIntegrantes"
+              />
               <p>Integrante 4</p>
             </div>
           </div>
