@@ -1,6 +1,7 @@
 import React from "react";
 import HeroMovie from "./components/HeroMovie";
 import Carrusel from "./components/Carrusel";
+import Planes from "./components/Planes";
 
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
 
       {/* Carrusel de películas */}
       <Carrusel />
+
+      <Planes />
     </div>
   );
 }

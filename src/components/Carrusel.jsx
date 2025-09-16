@@ -41,7 +41,7 @@ const Carrusel = () => {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h4 className="text-white mb-3 mb-lg-4" style={{ fontSize: "1.2rem" }}>También podrían gustarte</h4>
+            <h2 className="text-white mb-3 mb-lg-2 text-start" >También podrían gustarte</h2>
             
             <div className="carrusel-container position-relative">
               {/* Botón Izquierda - Solo visible en pantallas grandes */}
