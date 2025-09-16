@@ -7,3 +7,14 @@
 main{
   flex-grow: 1;
 }
+footer {
+  background: linear-gradient(180deg, #0f051e 0%, #1a0b2e 50%, #2a003f 100%);
+  color: #fff;
+  padding: 30px;
+}
+.linksfooter{
+  color: #b3b3b3;
+  text-decoration: none;
+  font-weight: 500;
+ 
+}
