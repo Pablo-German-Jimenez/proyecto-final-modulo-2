@@ -7,14 +7,16 @@ import Form from "react-bootstrap/Form";
 const MenuNavBar = () => {
   return (
     <>
-      <Navbar   expand="lg" className="bg-body-tertiary "  >
-        <Container  >
-          <Navbar.Brand href="#home" className="border border-primary">Logo marca</Navbar.Brand>
+      <Navbar expand="sm" className="bg-body-tertiary ">
+        <Container>
+          <Navbar.Brand href="#home" className="border border-primary">
+            Logo marca
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <div className="d-flex ">
-          <Navbar.Collapse id="basic-navbar-nav" className="mx-4">
+
+          <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mb-0 me-5">
-              <NavDropdown title="Peliculas" id="basic-nav-peliculas" >
+              <NavDropdown title="Peliculas" id="basic-nav-peliculas">
                 <NavDropdown.Item className="disabled text-center">
                   Categorías
                 </NavDropdown.Item>
@@ -28,7 +30,11 @@ const MenuNavBar = () => {
               </NavDropdown>
             </Nav>
             <Nav className="me-5">
-              <NavDropdown className="my-3 mx-5 align-baseline" title="Series" id="basic-nav-series">
+              <NavDropdown
+                className="my-3 align-baseline"
+                title="Series"
+                id="basic-nav-series"
+              >
                 <NavDropdown.Item className="disabled text-center ">
                   Categorías
                 </NavDropdown.Item>
@@ -40,33 +46,32 @@ const MenuNavBar = () => {
                 <Nav.Link href="#seccion-aventura">Romance</Nav.Link>
                 <Nav.Link href="#seccion-aventura">Adultos</Nav.Link>
               </NavDropdown>
-             
-            </Nav >
+              <Form className="search-form border border-danger  w-100">
+                <InputGroup>
+                  <Form.Control
+                    type="search"
+                    placeholder="Buscar pelis o series"
+                    className="  me-auto w-75"
+                    aria-label="Search"
+                  />
+                  <InputGroup.Text>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className=" my-3 bi bi-search DocSearch-Search-Icon"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                  </InputGroup.Text>
+                </InputGroup>
+              </Form>
+            </Nav>
           </Navbar.Collapse>
-          </div>
-          <div   className="d-flex justify-content-around gap-5 ">
-             <Form className="search-form border border-danger  w-100"> 
-              <InputGroup>
-                <Form.Control 
-                  type="search"
-                  placeholder="Buscar pelis o series"
-                  className="  me-auto w-75"
-                  aria-label="Search"
-                />
-                <InputGroup.Text>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className=" my-3 bi bi-search DocSearch-Search-Icon"
-                    viewBox="0 0 16 16"
-                  >
-                    <path  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                  </svg>
-                </InputGroup.Text>
-              </InputGroup>
-            </Form>
+
+          <div className="d-flex  gap-5 ">
             <button type="button" className="btn btn-outline-primary">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
