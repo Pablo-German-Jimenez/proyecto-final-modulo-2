@@ -76,7 +76,7 @@ footer {
 .quienes-somos p {
   color: #B5B5B5;
 }
-.vision-mision-valores {
+.vision-mision-valores{
   background: linear-gradient(
     135deg,
     #0d0d0d 0%,  
@@ -93,11 +93,6 @@ footer {
   border-radius: 6px;
   padding: 1.5rem;
   text-align: center;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.vision-mision-valores .col-12:hover {
-  transform: translateY(-6px);
 }
 .vision-mision-valores i {
   color: #9D4EDD;
@@ -116,6 +111,25 @@ footer {
 .vision-mision-valores p {
   color: #B5B5B5;
   font-size: 1rem;
+}
+/*card exclusivos*/
+.cardExclusivos{
+  width: 250px;
+  height: 200px;
+  border-radius: 20px;
+}
+.img-exclusivos{
+  width: 100% !important;
+  height: 300px ;
+  border-radius: 20%;
+}
+.degradeMorado{
+  background: linear-gradient(
+    135deg,
+    #0d0d0d 0%,  
+    #1a1a1a 50%,  
+    #2b0f3f 100%  
+  );
 }
 /*media query para dispositivos medianos*/
 @media(min-width: 768px) and (max-width: 991px){
