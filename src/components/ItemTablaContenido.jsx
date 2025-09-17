@@ -1,6 +1,14 @@
+import { use, useState } from "react";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
+import { useAsyncError } from "react-router";
 
 const ItemTablaContenido = () => {
+  const [Contenido, setContenido] = useState(true);
+
+  const cambiarEstadoContenido = () => {
+    setContenido(!Contenido);
+  };
+
   return (
     <tr>
       <td>123</td>
@@ -18,8 +26,15 @@ const ItemTablaContenido = () => {
       </td>
       <td>
         <div className="d-flex justify-content-center">
-          <button className="btn btn-success">
-            <i className="bi bi-patch-check-fill"></i>
+          <button
+            className={`btn ${Contenido ? "btn-danger" : "btn-success"}`}
+            onClick={cambiarEstadoContenido}
+          >
+            <i
+              className={`bi ${
+                Contenido ? "bi-x-circle-fill" : "bi-patch-check-fill"
+              } `}
+            ></i>
           </button>
         </div>
       </td>
