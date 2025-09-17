@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import { Card } from "react-bootstrap";
-import { ChevronLeft, ChevronRight } from "lucide-react"; // para iconos bonitos
+import React, { useRef, useState } from "react";
+import { Card, Badge } from "react-bootstrap";
+import { ChevronLeft, ChevronRight, Plus, Play, ShoppingBag } from "lucide-react"; // para iconos bonitos
 import "./Carrusel.css";
 
 import deadpoolCartelera from "../assets/images/deadpool.jfif"; // Mantenemos Deadpool original
@@ -15,25 +15,124 @@ import elioCartelera from "../assets/images/elio-cartelera.jpg";
 import seLoQueHicisteisCartelera from "../assets/images/se_lo_que_hicisteis_el_ultimo_verano-cartelera.jpg";
 
 const data = [
-  { id: 1, titulo: "Deadpool", img: deadpoolCartelera },
-  { id: 2, titulo: "El Conjuro 2", img: conjuroCartelera },
-  { id: 3, titulo: "Garra", img: garraCartelera },
-  { id: 4, titulo: "La Purga", img: purgaCartelera },
-  { id: 5, titulo: "Toy Story", img: toyStoryCartelera },
-  { id: 6, titulo: "A Pesar de Ti", img: aPesarDeTiCartelera },
-  { id: 7, titulo: "Avatar: Fuego y Ceniza", img: avatarCartelera },
-  { id: 8, titulo: "Bob Esponja: Una Aventura Pirata", img: bobEsponjaCartelera },
-  { id: 9, titulo: "Elio", img: elioCartelera },
-  { id: 10, titulo: "Sé lo que Hicisteis el Último Verano", img: seLoQueHicisteisCartelera },
+  { 
+    id: 1, 
+    titulo: "Deadpool", 
+    img: deadpoolCartelera,
+    year: "2016",
+    duration: "1 h 48 min",
+    ageRating: "18+",
+    description: "Un ex-operativo de las fuerzas especiales que se somete a un experimento que lo cura de su cáncer, pero que le deja cicatrices permanentes en todo el cuerpo y una personalidad inestable.",
+    genre: "Acción, Comedia"
+  },
+  { 
+    id: 2, 
+    titulo: "El Conjuro 2", 
+    img: conjuroCartelera,
+    year: "2016",
+    duration: "2 h 14 min",
+    ageRating: "16+",
+    description: "Los investigadores paranormales Ed y Lorraine Warren se enfrentan a una nueva amenaza sobrenatural en un suburbio de Londres, donde una familia es atormentada por espíritus malignos.",
+    genre: "Terror, Suspenso"
+  },
+  { 
+    id: 3, 
+    titulo: "Garra", 
+    img: garraCartelera,
+    year: "2024",
+    duration: "1 h 52 min",
+    ageRating: "13+",
+    description: "Un jugador de baloncesto con problemas de conducta es enviado a un programa de rehabilitación donde debe aprender a trabajar en equipo y superar sus demonios personales.",
+    genre: "Drama, Deportes"
+  },
+  { 
+    id: 4, 
+    titulo: "La Purga", 
+    img: purgaCartelera,
+    year: "2013",
+    duration: "1 h 25 min",
+    ageRating: "18+",
+    description: "En un futuro distópico, durante una noche al año, todos los crímenes son legales. Una familia debe sobrevivir a esta noche de caos total cuando su casa es invadida.",
+    genre: "Terror, Thriller"
+  },
+  { 
+    id: 5, 
+    titulo: "Toy Story", 
+    img: toyStoryCartelera,
+    year: "1995",
+    duration: "1 h 21 min",
+    ageRating: "ATP",
+    description: "Los juguetes de Andy cobran vida cuando él no está presente. Woody, el sheriff favorito, debe lidiar con la llegada de Buzz Lightyear, el nuevo juguete espacial.",
+    genre: "Animación, Aventura"
+  },
+  { 
+    id: 6, 
+    titulo: "A Pesar de Ti", 
+    img: aPesarDeTiCartelera,
+    year: "2024",
+    duration: "1 h 45 min",
+    ageRating: "16+",
+    description: "Una historia de amor complicada entre dos personas que deben superar obstáculos personales y familiares para estar juntos, a pesar de las circunstancias adversas.",
+    genre: "Romance, Drama"
+  },
+  { 
+    id: 7, 
+    titulo: "Avatar: Fuego y Ceniza", 
+    img: avatarCartelera,
+    year: "2025",
+    duration: "2 h 32 min",
+    ageRating: "13+",
+    description: "La saga continúa en Pandora donde Jake Sully y su familia enfrentan nuevas amenazas mientras exploran mundos desconocidos y descubren secretos ancestrales.",
+    genre: "Ciencia Ficción, Aventura"
+  },
+  { 
+    id: 8, 
+    titulo: "Bob Esponja: Una Aventura Pirata", 
+    img: bobEsponjaCartelera,
+    year: "2024",
+    duration: "1 h 32 min",
+    ageRating: "ATP",
+    description: "Bob Esponja y Patricio se embarcan en una épica aventura pirata para salvar a sus amigos y descubrir el tesoro perdido de Fondo de Bikini.",
+    genre: "Animación, Comedia"
+  },
+  { 
+    id: 9, 
+    titulo: "Elio", 
+    img: elioCartelera,
+    year: "2024",
+    duration: "1 h 37 min",
+    ageRating: "ATP",
+    description: "Un niño de 11 años es accidentalmente transportado al Centro de Comando Universal donde es confundido con el embajador de la Tierra para una organización galáctica.",
+    genre: "Animación, Aventura"
+  },
+  { 
+    id: 10, 
+    titulo: "Sé lo que Hicisteis el Último Verano", 
+    img: seLoQueHicisteisCartelera,
+    year: "1997",
+    duration: "1 h 41 min",
+    ageRating: "18+",
+    description: "Cuatro amigos que accidentalmente matan a un peatón deciden ocultar el cuerpo. Un año después, alguien que sabe la verdad comienza a acosarlos uno por uno.",
+    genre: "Terror, Thriller"
+  },
 ];
 
 const Carrusel = () => {
   const scrollRef = useRef(null);
+  const [hoveredMovie, setHoveredMovie] = useState(null);
 
   const scroll = (offset) => {
     if (scrollRef.current) {
       scrollRef.current.scrollLeft += offset;
     }
+  };
+
+  const handleMouseEnter = (movieId) => {
+    setHoveredMovie(movieId);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredMovie(null);
   };
 
   return (
@@ -75,16 +174,61 @@ const Carrusel = () => {
                       minWidth: "150px",
                       maxWidth: "200px"
                     }}
+                    onMouseEnter={() => handleMouseEnter(item.id)}
+                    onMouseLeave={handleMouseLeave}
                   >
-                    <Card.Img 
-                      variant="top" 
-                      src={item.img} 
-                      alt={item.titulo}
-                      style={{
-                        height: "200px",
-                        objectFit: "cover"
-                      }}
-                    />
+                    <div className="position-relative">
+                      <Card.Img 
+                        variant="top" 
+                        src={item.img} 
+                        alt={item.titulo}
+                        style={{
+                          height: "200px",
+                          objectFit: "cover"
+                        }}
+                      />
+                      
+                      {/* Overlay de hover */}
+                      {hoveredMovie === item.id && (
+                        <div className="carrusel-hover-overlay">
+                          <div className="carrusel-hover-content">
+                            {/* Botones de acción */}
+                            <div className="carrusel-action-buttons">
+                              <button className="carrusel-action-btn carrusel-add-btn">
+                                <Plus size={16} />
+                              </button>
+                              <button className="carrusel-action-btn carrusel-play-btn">
+                                <Play size={14} />
+                              </button>
+                            </div>
+
+                            {/* Información de suscripción */}
+                            <div className="carrusel-subscription-info">
+                              <span className="carrusel-subscription-text">Ver con un periodo de prueba gratis de Prime</span>
+                              <ShoppingBag size={12} color="#ffc107" />
+                            </div>
+
+                            {/* Detalles de la película */}
+                            <div className="carrusel-movie-details">
+                              <div className="carrusel-movie-meta">
+                                <span className="carrusel-year">{item.year}</span>
+                                <span className="carrusel-duration">{item.duration}</span>
+                                <Badge className="carrusel-age-rating" variant="dark">{item.ageRating}</Badge>
+                              </div>
+                              
+                              <div className="carrusel-movie-description">
+                                {item.description}
+                              </div>
+                              
+                              <div className="carrusel-movie-genre">
+                                {item.genre}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    
                     <Card.Body className="p-2">
                       <Card.Title 
                         className="text-white mb-0" 
