@@ -41,6 +41,9 @@ const ItemTablaContenido = () => {
       <td className="d-flex flex-column flex-md-row align-items-center justify-content-center gap-2">
         {/* botones para dispositivos medium en adelante */}
         <div className="d-none d-md-flex gap-2">
+          <button className="btn btn-primary">
+            <i class="bi bi-plus"></i>
+          </button>
           <button className="btn btn-danger">
             <i className="bi bi-trash-fill"></i>
           </button>
@@ -53,7 +56,7 @@ const ItemTablaContenido = () => {
         </div>
         {/* menu desplegable para dispositivos mobile*/}
         <div className="d-flex d-md-none">
-          <Dropdown as={ButtonGroup}>
+          <Dropdown as={ButtonGroup} drop="start">
             <Button variant="secondary">
               <i className="bi bi-gear-fill"></i>
             </Button>
@@ -63,6 +66,9 @@ const ItemTablaContenido = () => {
               id="dropdown-split-basic"
             />
             <Dropdown.Menu>
+              <Dropdown.Item as="button">
+                <i class="bi bi-plus me-2"></i>Agregar
+              </Dropdown.Item>
               <Dropdown.Item as="button">
                 <i className="bi bi-trash-fill me-2"></i>Eliminar
               </Dropdown.Item>

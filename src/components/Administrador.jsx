@@ -4,11 +4,13 @@ import ItemTablaContenido from "./ItemTablaContenido";
 
 const Administrador = () => {
   return (
-    <section className="container border border-light">
-      <h2 className="text-center">ADMINISTRAR CATALOGO</h2>
-      <div className="row border border-light">
-        <div className="container-fluid col-12 border border-light">
-          <Table responsive bordered>
+    <section className="container">
+      <div className="d-flex justify-content-center">
+        <h2 className="text-center mb-0">ADMINISTRAR CATALOGO</h2>
+      </div>
+      <div className="row">
+        <div className="container-fluid col-12">
+          <Table responsive bordered className="mt-3">
             <thead>
               <tr>
                 <th>Codigo</th>
