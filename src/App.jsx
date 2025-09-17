@@ -5,6 +5,7 @@ import TopMovies from "./components/TopMovies";
 import Planes from "./components/Planes";
 import TopSeries from "./components/TopSeries";
 
+
 function App() {
   return (
     <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
@@ -21,6 +22,8 @@ function App() {
 
       {/* Top 10 mejores series */}
       <TopSeries />
+
+
     </div>
   );
 }

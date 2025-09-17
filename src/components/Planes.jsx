@@ -1,4 +1,5 @@
-import { Container, Row, Col, Card, Badge } from "react-bootstrap";
+import { Container, Row, Col, Card, Badge, Button } from "react-bootstrap";
+import "./Planes.css";
 
 function Planes() {
   return (
@@ -61,6 +62,34 @@ function Planes() {
             </Card>
           </Col>
         </Row>
+
+        {/* Botón Únete ahora */}
+        <div className="text-center mt-5">
+          <Button 
+            className="join-now-btn px-5 py-3 fw-bold"
+            style={{
+              background: "linear-gradient(135deg, #8e2de2, #4a00e0)",
+              border: "none",
+              borderRadius: "1rem",
+              fontSize: "1.2rem",
+              color: "white",
+              boxShadow: "0 8px 25px rgba(138, 45, 226, 0.3)",
+              transition: "all 0.3s ease",
+              position: "relative",
+              overflow: "hidden"
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = "translateY(-2px)";
+              e.target.style.boxShadow = "0 12px 35px rgba(138, 45, 226, 0.4)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "translateY(0)";
+              e.target.style.boxShadow = "0 8px 25px rgba(138, 45, 226, 0.3)";
+            }}
+          >
+            Únete ahora
+          </Button>
+        </div>
       </Container>
     </section>
   );
