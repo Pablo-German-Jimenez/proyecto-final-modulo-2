@@ -3,6 +3,7 @@ import HeroMovie from "./components/HeroMovie";
 import Carrusel from "./components/Carrusel";
 import TopMovies from "./components/TopMovies";
 import Planes from "./components/Planes";
+import TopSeries from "./components/TopSeries";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
       <TopMovies />
 
       <Planes />
+
+      {/* Top 10 mejores series */}
+      <TopSeries />
     </div>
   );
 }
