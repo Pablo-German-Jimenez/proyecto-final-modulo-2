@@ -17,28 +17,30 @@ const ItemTablaContenido = () => {
         posee.
       </td>
       <td>
-        <button className="btn btn-success">
-          <i className="bi bi-patch-check-fill"></i>
-        </button>
+        <div className="d-flex justify-content-center">
+          <button className="btn btn-success">
+            <i className="bi bi-patch-check-fill"></i>
+          </button>
+        </div>
       </td>
       <td className="d-flex flex-column flex-md-row align-items-center justify-content-center gap-2">
         {/* botones para dispositivos medium en adelante */}
         <div className="d-none d-md-flex gap-2">
           <button className="btn btn-danger">
-            <i class="bi bi-trash-fill"></i>
+            <i className="bi bi-trash-fill"></i>
           </button>
           <button className="btn btn-warning">
-            <i class="bi bi-pencil-square"></i>
+            <i className="bi bi-pencil-square"></i>
           </button>
           <button className="btn btn-warning">
-            <i class="bi bi-star-fill"></i>
+            <i className="bi bi-star-fill"></i>
           </button>
         </div>
         {/* menu desplegable para dispositivos mobile*/}
         <div className="d-flex d-md-none">
           <Dropdown as={ButtonGroup}>
             <Button variant="secondary">
-              <i class="bi bi-gear-fill"></i>
+              <i className="bi bi-gear-fill"></i>
             </Button>
             <Dropdown.Toggle
               split
