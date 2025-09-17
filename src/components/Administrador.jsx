@@ -8,7 +8,7 @@ const Administrador = () => {
       <h2 className="text-center">ADMINISTRAR CATALOGO</h2>
       <div className="row border border-light">
         <div className="container-fluid col-12 border border-light">
-          <Table responsive bordered hover>
+          <Table responsive bordered>
             <thead>
               <tr>
                 <th>Codigo</th>
