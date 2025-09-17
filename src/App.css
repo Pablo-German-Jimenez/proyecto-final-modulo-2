@@ -135,6 +135,19 @@ footer {
   width: 100px;
   height: 100px;
 }
+.bgformContenido{
+  background: linear-gradient(135deg, #1a001a 0%, #3d005d 100%);
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5)
+}
+.form-dark {
+  background: linear-gradient(135deg, #2a1a3f 0%, #5c2a7f 100%);
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+}
 /*media query para dispositivos medianos*/
 @media(min-width: 768px) and (max-width: 991px){
   .imgAcerca{
