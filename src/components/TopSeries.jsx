@@ -18,6 +18,7 @@ import seLoQueHicisteisCartelera from "../assets/images/se_lo_que_hicisteis_el_u
 const topSeriesData = [
   {
     id: 1,
+    movieId: "deadpool",
     title: "Stranger Things",
     image: deadpoolCartelera, // Usando imagen placeholder
     badge: "TENDENCIAS",
@@ -30,6 +31,7 @@ const topSeriesData = [
   },
   {
     id: 2,
+    movieId: "conjuro",
     title: "The Walking Dead",
     image: conjuroCartelera, // Usando imagen placeholder
     badge: "RECIÉN AÑADIDA",
@@ -42,6 +44,7 @@ const topSeriesData = [
   },
   {
     id: 3,
+    movieId: "garras",
     title: "Breaking Bad",
     image: garraCartelera, // Usando imagen placeholder
     badge: "TENDENCIAS",
@@ -54,6 +57,7 @@ const topSeriesData = [
   },
   {
     id: 4,
+    movieId: "purga",
     title: "Game of Thrones",
     image: purgaCartelera, // Usando imagen placeholder
     badge: "RECIÉN AÑADIDA",
@@ -66,6 +70,7 @@ const topSeriesData = [
   },
   {
     id: 5,
+    movieId: "toystory",
     title: "The Office",
     image: toyStoryCartelera, // Usando imagen placeholder
     badge: "NUEVA SERIE",
@@ -138,9 +143,16 @@ const topSeriesData = [
   }
 ];
 
-const TopSeries = () => {
+const TopSeries = ({ onMovieClick }) => {
   const scrollRef = useRef(null);
   const [hoveredSeries, setHoveredSeries] = useState(null);
+
+  // Función para manejar clic en serie
+  const handleMovieClick = (movieId) => {
+    if (onMovieClick) {
+      onMovieClick(movieId);
+    }
+  };
 
   const scroll = (offset) => {
     if (scrollRef.current) {
@@ -228,7 +240,11 @@ const TopSeries = () => {
                       </div>
                       
                       {/* Tarjeta de serie */}
-                      <Card className="top-series-card h-100 shadow-lg border-0">
+                      <Card 
+                        className="top-series-card h-100 shadow-lg border-0"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleMovieClick(series.movieId)}
+                      >
                         <div className="position-relative">
                           <Card.Img 
                             variant="top" 

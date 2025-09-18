@@ -11,7 +11,7 @@ import conjuroVideo from "../assets/images/videodeelconjuro .mp4";
 import purgaVideo from "../assets/images/videodelapurga.mp4";
 import toyStoryVideo from "../assets/images/video de toy story.mp4";
 
-const HeroMovie = () => {
+const HeroMovie = ({ onMovieClick }) => {
   // Array de imágenes para el carrusel
   const movieImages = [
     deadpoolImage,
@@ -44,6 +44,16 @@ const HeroMovie = () => {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+
+  // IDs de películas para navegación
+  const movieIds = ['deadpool', 'garras', 'conjuro', 'purga', 'toystory'];
+
+  // Función para manejar clic en película
+  const handleMovieClick = () => {
+    if (onMovieClick) {
+      onMovieClick(movieIds[currentImageIndex]);
+    }
+  };
 
   // Función para obtener efectos únicos por película
   const getMovieHoverEffect = (index) => {
@@ -167,9 +177,11 @@ const HeroMovie = () => {
         height: "60vh",
         minHeight: "400px",
         position: "relative",
+        cursor: "pointer"
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleMovieClick}
     >
       {/* Imagen de fondo con transición suave */}
       <div

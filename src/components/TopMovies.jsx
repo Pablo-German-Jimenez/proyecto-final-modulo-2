@@ -18,6 +18,7 @@ import seLoQueHicisteisCartelera from "../assets/images/se_lo_que_hicisteis_el_u
 const topMoviesData = [
   {
     id: 1,
+    movieId: "deadpool",
     title: "Deadpool",
     image: deadpoolCartelera,
     badge: "TENDENCIAS",
@@ -30,6 +31,7 @@ const topMoviesData = [
   },
   {
     id: 2,
+    movieId: "conjuro",
     title: "El Conjuro 2",
     image: conjuroCartelera,
     badge: "RECIÉN AÑADIDA",
@@ -42,6 +44,7 @@ const topMoviesData = [
   },
   {
     id: 3,
+    movieId: "garras",
     title: "Garra",
     image: garraCartelera,
     badge: "TENDENCIAS",
@@ -54,6 +57,7 @@ const topMoviesData = [
   },
   {
     id: 4,
+    movieId: "purga",
     title: "La Purga",
     image: purgaCartelera,
     badge: "RECIÉN AÑADIDA",
@@ -66,6 +70,7 @@ const topMoviesData = [
   },
   {
     id: 5,
+    movieId: "toystory",
     title: "Toy Story",
     image: toyStoryCartelera,
     badge: "NUEVA PELÍCULA",
@@ -138,9 +143,16 @@ const topMoviesData = [
   }
 ];
 
-const TopMovies = () => {
+const TopMovies = ({ onMovieClick }) => {
   const scrollRef = useRef(null);
   const [hoveredMovie, setHoveredMovie] = useState(null);
+
+  // Función para manejar clic en película
+  const handleMovieClick = (movieId) => {
+    if (onMovieClick) {
+      onMovieClick(movieId);
+    }
+  };
 
   const scroll = (offset) => {
     if (scrollRef.current) {
@@ -228,7 +240,11 @@ const TopMovies = () => {
                        </div>
                        
                        {/* Tarjeta de película */}
-                       <Card className="top-movie-card h-100 shadow-lg border-0">
+                       <Card 
+                         className="top-movie-card h-100 shadow-lg border-0"
+                         style={{ cursor: "pointer" }}
+                         onClick={() => handleMovieClick(movie.movieId)}
+                       >
                          <div className="position-relative">
                            <Card.Img 
                              variant="top" 

@@ -17,6 +17,7 @@ import seLoQueHicisteisCartelera from "../assets/images/se_lo_que_hicisteis_el_u
 const data = [
   { 
     id: 1, 
+    movieId: "deadpool",
     titulo: "Deadpool", 
     img: deadpoolCartelera,
     year: "2016",
@@ -27,6 +28,7 @@ const data = [
   },
   { 
     id: 2, 
+    movieId: "conjuro",
     titulo: "El Conjuro 2", 
     img: conjuroCartelera,
     year: "2016",
@@ -37,6 +39,7 @@ const data = [
   },
   { 
     id: 3, 
+    movieId: "garras",
     titulo: "Garra", 
     img: garraCartelera,
     year: "2024",
@@ -47,6 +50,7 @@ const data = [
   },
   { 
     id: 4, 
+    movieId: "purga",
     titulo: "La Purga", 
     img: purgaCartelera,
     year: "2013",
@@ -57,6 +61,7 @@ const data = [
   },
   { 
     id: 5, 
+    movieId: "toystory",
     titulo: "Toy Story", 
     img: toyStoryCartelera,
     year: "1995",
@@ -117,9 +122,16 @@ const data = [
   },
 ];
 
-const Carrusel = () => {
+const Carrusel = ({ onMovieClick }) => {
   const scrollRef = useRef(null);
   const [hoveredMovie, setHoveredMovie] = useState(null);
+
+  // Función para manejar clic en película
+  const handleMovieClick = (movieId) => {
+    if (onMovieClick) {
+      onMovieClick(movieId);
+    }
+  };
 
   const scroll = (offset) => {
     if (scrollRef.current) {
@@ -172,10 +184,12 @@ const Carrusel = () => {
                     style={{
                       scrollSnapAlign: "start",
                       minWidth: "150px",
-                      maxWidth: "200px"
+                      maxWidth: "200px",
+                      cursor: "pointer"
                     }}
                     onMouseEnter={() => handleMouseEnter(item.id)}
                     onMouseLeave={handleMouseLeave}
+                    onClick={() => handleMovieClick(item.movieId)}
                   >
                     <div className="position-relative">
                       <Card.Img 
