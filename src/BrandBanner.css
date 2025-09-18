@@ -1,0 +1,27 @@
+.brand-banner-wrapper {
+  width: 100%;
+  overflow: hidden;
+  background-color: #111;
+  padding: 10px 0;
+}
+
+.brand-banner-track {
+  display: flex;
+  animation: scrollBanner 25s linear infinite;
+  white-space: nowrap;
+}
+
+.brand-banner-track img {
+  margin: 0 30px;
+  height: 40px;
+  object-fit: contain;
+}
+
+@keyframes scrollBanner {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
