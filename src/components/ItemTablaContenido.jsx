@@ -68,7 +68,7 @@ const ItemTablaContenido = ({ abrirModal }) => {
               />
               <Dropdown.Menu>
                 <Dropdown.Item as="button">
-                  <i class="bi bi-plus me-2"></i>Agregar
+                  <i className="bi bi-plus me-2"></i>Agregar
                 </Dropdown.Item>
                 <Dropdown.Item as="button">
                   <i className="bi bi-trash-fill me-2"></i>Eliminar
