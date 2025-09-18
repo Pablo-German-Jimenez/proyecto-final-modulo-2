@@ -7,3 +7,12 @@
 main{
   flex-grow: 1;
 }
+
+
+.search-form{
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
