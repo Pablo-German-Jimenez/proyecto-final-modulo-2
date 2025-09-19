@@ -15,8 +15,8 @@ const Footer = () => {
           <h5 className="mt-2 mt-lg-0">Acerca de</h5>
           <Link className="linksfooter">Plataformas</Link>
           <Link className="linksfooter">Planes</Link>
-          <Link className="linksfooter">Novedades</Link>
-          <Link className="linksfooter">Quienes Somos</Link>
+          <Link className="linksfooter" to={"/"}>Novedades</Link>
+          <Link className="linksfooter" to={"/acercadenosotros"}>Quienes Somos</Link>
         </div>
         <div className="container col-12 col-md-6 col-lg-3 d-flex flex-column align-items-center align-items-md-start">
           <h5 className="mt-2 mt-md-3 mt-lg-0">Ayuda</h5>

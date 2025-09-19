@@ -11,7 +11,6 @@ import Planes from "./components/Planes";
 import TopSeries from "./components/TopSeries";
 import MovieDetail from "./components/MovieDetail";
 
-
 // Importar imágenes como módulos
 import deadpoolImage from "./assets/images/deadpool.jfif";
 import garraImage from "./assets/images/Garra.jpg";
@@ -162,13 +161,13 @@ function App() {
 
   return (
     <>
-      {/* logica de las rutas */}
+
       <BrowserRouter>
         <MenuNavBar />
 
         <main style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
           <Routes>
-            <Route path="/"
+            <Route path={"/"}
               element={
                 <>
                   <HeroMovie onMovieClick={handleMovieClick} />
@@ -182,13 +181,15 @@ function App() {
             />
             <Route path="/administrador"
               element={<Administrador></Administrador>}
-            >
-
-            </Route>
+            ></Route>
+            <Route
+              path="/acercadenosotros"
+              element={<AcercadeNosotros></AcercadeNosotros>}
+            ></Route>
           </Routes>
         </main>
         <Footer></Footer>
-      </BrowserRouter >
+      </BrowserRouter>
     </>
   );
 }
