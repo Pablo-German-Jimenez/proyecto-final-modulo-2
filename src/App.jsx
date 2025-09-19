@@ -161,13 +161,13 @@ function App() {
   return (
     <>
       <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
+        <MenuNavBar />
         <HeroMovie onMovieClick={handleMovieClick} />
         <Carrusel onMovieClick={handleMovieClick} />
         <TopMovies onMovieClick={handleMovieClick} />
         <Planes />
         <TopSeries onMovieClick={handleMovieClick} />
       </div>
-      <MenuNavBar />
       <h1 className="text-success">Proyecto final módulo 2</h1>
     </>
   );
