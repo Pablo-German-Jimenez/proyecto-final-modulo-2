@@ -132,8 +132,6 @@ const relatedMovies = [
   }
 ];
 
-import { useState } from "react";
-
 function App() {
   const [currentView, setCurrentView] = useState("home");
   const [selectedMovie, setSelectedMovie] = useState(null);
