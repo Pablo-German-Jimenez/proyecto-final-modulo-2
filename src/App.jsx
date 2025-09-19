@@ -11,6 +11,7 @@ import Planes from "./components/Planes";
 import TopSeries from "./components/TopSeries";
 import MovieDetail from "./components/MovieDetail";
 
+
 // Importar imágenes como módulos
 import deadpoolImage from "./assets/images/deadpool.jfif";
 import garraImage from "./assets/images/Garra.jpg";
@@ -18,6 +19,7 @@ import conjuroBannerImage from "./assets/images/el conjuro banner.jpg";
 import purgaBannerImage from "./assets/images/la purga banner.jpg";
 import toyStoryBannerImage from "./assets/images/toy story 4 banner.jpg";
 import logoImage from "./assets/images/logosinfondo.png";
+import { BrowserRouter, Routes, Route } from "react-router";
 
 // Datos de películas para la página de detalles
 const moviesData = {
@@ -160,15 +162,33 @@ function App() {
 
   return (
     <>
-      <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
+      {/* logica de las rutas */}
+      <BrowserRouter>
         <MenuNavBar />
-        <HeroMovie onMovieClick={handleMovieClick} />
-        <Carrusel onMovieClick={handleMovieClick} />
-        <TopMovies onMovieClick={handleMovieClick} />
-        <Planes />
-        <TopSeries onMovieClick={handleMovieClick} />
-      </div>
-      <h1 className="text-success">Proyecto final módulo 2</h1>
+
+        <main style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
+          <Routes>
+            <Route path="/"
+              element={
+                <>
+                  <HeroMovie onMovieClick={handleMovieClick} />
+                  <Carrusel onMovieClick={handleMovieClick} />
+                  <TopMovies onMovieClick={handleMovieClick} />
+                  <Planes />
+                  <TopSeries onMovieClick={handleMovieClick} />
+
+                </>
+              }
+            />
+            <Route path="/administrador"
+              element={<Administrador></Administrador>}
+            >
+
+            </Route>
+          </Routes>
+        </main>
+        <Footer></Footer>
+      </BrowserRouter >
     </>
   );
 }
