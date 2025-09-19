@@ -1,3 +1,8 @@
+import Footer from "./components/Footer";
+import AcercadeNosotros from "./components/AcercadeNosotros";
+import Administrador from "./components/Administrador";
+import FormularioContenido from "./components/FormularioContenido";
+import  MenuNavBar  from "./componentes/MenuNavBar"
 import React, { useState } from "react";
 import HeroMovie from "./components/HeroMovie";
 import Carrusel from "./components/Carrusel";
@@ -153,6 +158,7 @@ function App() {
     );
   }
 
+function App() {
   return (
     <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
       {/* Hero principal */}
@@ -169,6 +175,10 @@ function App() {
       {/* Top 10 mejores series */}
       <TopSeries onMovieClick={handleMovieClick} />
     </div>
+    <>
+    <MenuNavBar />
+        <h1 className="text-success">Proyecto final modulo 2</h1>
+    </>
   );
 }
 
