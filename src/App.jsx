@@ -12,6 +12,7 @@ import garraImage from "./assets/images/Garra.jpg";
 import conjuroBannerImage from "./assets/images/el conjuro banner.jpg";
 import purgaBannerImage from "./assets/images/la purga banner.jpg";
 import toyStoryBannerImage from "./assets/images/toy story 4 banner.jpg";
+import logoImage from "./assets/images/logosinfondo.png";
 
 // Datos de películas para la página de detalles
 const moviesData = {
@@ -67,23 +68,62 @@ const moviesData = {
   }
 };
 
-// Películas relacionadas
+// Películas relacionadas (películas que tienen información disponible)
 const relatedMovies = [
   {
-    title: "LOBOS AL ACECHO",
-    image: "/src/assets/images/cartelera1.jpg"
+    id: "deadpool",
+    title: "DEADPOOL",
+    subtitle: "EL ANTIHÉROE",
+    year: "2016",
+    ageRating: "18+",
+    genre: "ACCIÓN",
+    description: "Deadpool (HBO): Wade Wilson, un mercenario con un peculiar sentido del humor, adquiere poderes de curación rápida y se convierte en Deadpool.",
+    image: deadpoolImage,
+    backgroundImage: deadpoolImage
   },
   {
-    title: "ANNABELLE 3 VIENE A CASA",
-    image: "/src/assets/images/cartelera2.jpg"
+    id: "garras",
+    title: "GARRAS",
+    subtitle: "LA HISTORIA REAL",
+    year: "2024",
+    ageRating: "13+",
+    genre: "DEPORTES",
+    description: "Garras (HBO): Una épica historia de superación personal y deporte que sigue a un joven jugador de baloncesto en su lucha por alcanzar sus sueños contra todas las probabilidades.",
+    image: garraImage,
+    backgroundImage: garraImage
   },
   {
-    title: "BEETLEJUICE BEETLEJUICE",
-    image: "/src/assets/images/cartelera3.jpg"
+    id: "conjuro",
+    title: "EL CONJURO",
+    subtitle: "2 - EL ENCUENTRO",
+    year: "2016",
+    ageRating: "18+",
+    genre: "TERROR",
+    description: "El Conjuro 2 (HBO): Los investigadores paranormales Ed y Lorraine Warren enfrentan uno de sus casos más aterradores en esta secuela que te mantendrá en vilo hasta el final.",
+    image: conjuroBannerImage,
+    backgroundImage: conjuroBannerImage
   },
   {
-    title: "BLADE CAZADOR DE VAMPIROS",
-    image: "/src/assets/images/cartelera4.jpg"
+    id: "purga",
+    title: "LA PURGA",
+    subtitle: "ANARQUÍA",
+    year: "2014",
+    ageRating: "18+",
+    genre: "THRILLER",
+    description: "La Purga: Anarquía (HBO): En esta secuela de la exitosa franquicia, la noche de La Purga se extiende por toda la ciudad mientras varios ciudadanos luchan por sobrevivir.",
+    image: purgaBannerImage,
+    backgroundImage: purgaBannerImage
+  },
+  {
+    id: "toystory",
+    title: "TOY STORY",
+    subtitle: "4 - LA HISTORIA CONTINÚA",
+    year: "2019",
+    ageRating: "ATP",
+    genre: "ANIMACIÓN",
+    description: "Toy Story 4 (HBO): Woody, Buzz y sus amigos emprenden un viaje emocional cuando Bonnie trae un nuevo juguete a casa que cambia todo.",
+    image: toyStoryBannerImage,
+    backgroundImage: toyStoryBannerImage
   }
 ];
 
@@ -107,6 +147,8 @@ function App() {
         movie={selectedMovie}
         onBack={handleBackToHome}
         relatedMovies={relatedMovies}
+        onMovieClick={handleMovieClick}
+        logoImage={logoImage}
       />
     );
   }

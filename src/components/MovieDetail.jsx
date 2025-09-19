@@ -3,11 +3,17 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { ChevronLeft, Play, Plus } from 'lucide-react';
 import './MovieDetail.css';
 
-const MovieDetail = ({ movie, onBack, relatedMovies }) => {
+const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlay = () => {
     setIsPlaying(true);
+  };
+
+  const handleRelatedMovieClick = (relatedMovie) => {
+    if (onMovieClick && relatedMovie.id) {
+      onMovieClick(relatedMovie.id);
+    }
   };
 
   return (
@@ -17,7 +23,7 @@ const MovieDetail = ({ movie, onBack, relatedMovies }) => {
         <div className="d-flex align-items-center justify-content-between w-100 px-4">
           <div className="d-flex align-items-center">
             <img 
-              src="/src/assets/images/logo.png" 
+              src={logoImage} 
               alt="Logo" 
               className="movie-detail-logo"
             />
@@ -88,7 +94,12 @@ const MovieDetail = ({ movie, onBack, relatedMovies }) => {
           <h3 className="related-title">Quizá también te guste</h3>
           <div className="related-movies-grid">
             {relatedMovies.map((relatedMovie, index) => (
-              <div key={index} className="related-movie-card">
+              <div 
+                key={index} 
+                className="related-movie-card"
+                onClick={() => handleRelatedMovieClick(relatedMovie)}
+                style={{ cursor: 'pointer' }}
+              >
                 <div 
                   className="related-movie-image"
                   style={{
@@ -101,6 +112,15 @@ const MovieDetail = ({ movie, onBack, relatedMovies }) => {
                     <h4 className="related-movie-title">
                       {relatedMovie.title}
                     </h4>
+                    {relatedMovie.subtitle && (
+                      <p className="related-movie-subtitle">
+                        {relatedMovie.subtitle}
+                      </p>
+                    )}
+                    <div className="related-movie-meta">
+                      <span className="related-movie-year">{relatedMovie.year}</span>
+                      <span className="related-movie-genre">{relatedMovie.genre}</span>
+                    </div>
                   </div>
                 </div>
               </div>
