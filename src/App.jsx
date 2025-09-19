@@ -2,7 +2,7 @@ import Footer from "./components/Footer";
 import AcercadeNosotros from "./components/AcercadeNosotros";
 import Administrador from "./components/Administrador";
 import FormularioContenido from "./components/FormularioContenido";
-import  MenuNavBar  from "./componentes/MenuNavBar"
+import MenuNavBar from "./componentes/MenuNavBar"
 import React, { useState } from "react";
 import HeroMovie from "./components/HeroMovie";
 import Carrusel from "./components/Carrusel";
@@ -132,23 +132,25 @@ const relatedMovies = [
   }
 ];
 
+import { useState } from "react";
+
 function App() {
-  const [currentView, setCurrentView] = useState('home');
+  const [currentView, setCurrentView] = useState("home");
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   const handleMovieClick = (movieId) => {
     setSelectedMovie(moviesData[movieId]);
-    setCurrentView('movieDetail');
+    setCurrentView("movieDetail");
   };
 
   const handleBackToHome = () => {
-    setCurrentView('home');
+    setCurrentView("home");
     setSelectedMovie(null);
   };
 
-  if (currentView === 'movieDetail' && selectedMovie) {
+  if (currentView === "movieDetail" && selectedMovie) {
     return (
-      <MovieDetail 
+      <MovieDetail
         movie={selectedMovie}
         onBack={handleBackToHome}
         relatedMovies={relatedMovies}
@@ -158,26 +160,17 @@ function App() {
     );
   }
 
-function App() {
   return (
-    <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
-      {/* Hero principal */}
-      <HeroMovie onMovieClick={handleMovieClick} />
-
-      {/* Carrusel de películas */}
-      <Carrusel onMovieClick={handleMovieClick} />
-
-      {/* Top 10 mejores películas */}
-      <TopMovies onMovieClick={handleMovieClick} />
-
-      <Planes />
-
-      {/* Top 10 mejores series */}
-      <TopSeries onMovieClick={handleMovieClick} />
-    </div>
     <>
-    <MenuNavBar />
-        <h1 className="text-success">Proyecto final modulo 2</h1>
+      <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
+        <HeroMovie onMovieClick={handleMovieClick} />
+        <Carrusel onMovieClick={handleMovieClick} />
+        <TopMovies onMovieClick={handleMovieClick} />
+        <Planes />
+        <TopSeries onMovieClick={handleMovieClick} />
+      </div>
+      <MenuNavBar />
+      <h1 className="text-success">Proyecto final módulo 2</h1>
     </>
   );
 }
