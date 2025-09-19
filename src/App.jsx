@@ -3,7 +3,7 @@ import AcercadeNosotros from "./components/AcercadeNosotros";
 import Administrador from "./components/Administrador";
 import FormularioContenido from "./components/FormularioContenido";
 import MenuNavBar from "./componentes/MenuNavBar"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeroMovie from "./components/HeroMovie";
 import Carrusel from "./components/Carrusel";
 import TopMovies from "./components/TopMovies";
@@ -159,6 +159,21 @@ function App() {
     );
   }
 
+  {/*logica para guardar datos en el local storage*/ }
+  const catalogoLS = JSON.parse(localStorage.getItem("catalogoKey")) || [];
+
+  {/*Estado para almacenar el contenido*/ }
+  const [catalogo, setCatalogo] = useState(catalogoLS);
+
+  useEffect(() => {
+    localStorage.setItem("catalogoKey", JSON.stringify(catalogo))
+  }, [catalogo]);
+
+  const agregarContenido = (nuevoContenido) => {
+    setCatalogo([...catalogo, nuevoContenido])
+    return true;
+  }
+
   return (
     <>
 
@@ -180,7 +195,7 @@ function App() {
               }
             />
             <Route path="/administrador"
-              element={<Administrador></Administrador>}
+              element={<Administrador catalogo={catalogo}></Administrador>}
             ></Route>
             <Route
               path="/acercadenosotros"

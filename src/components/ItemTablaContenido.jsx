@@ -2,7 +2,7 @@ import { use, useState } from "react";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import FormularioContenido from "./FormularioContenido";
 
-const ItemTablaContenido = ({ abrirModal }) => {
+const ItemTablaContenido = ({ abrirModal, catalogo }) => {
   const [Contenido, setContenido] = useState(true);
 
   const cambiarEstadoContenido = () => {
@@ -19,6 +19,8 @@ const ItemTablaContenido = ({ abrirModal }) => {
           <img src="" alt="portada pelicula" />
         </td>
         <td>Fantasia</td>
+        <td>2001</td>
+        <td className="text-center">+12</td>
         <td className="text-truncate" style={{ maxWidth: 200 }}>
           Durante su primer año en la escuela de magia y hechiceria de Hogwarts,
           Harry Potter descrubre que un malevolo y poderoso mago llamado
@@ -32,9 +34,8 @@ const ItemTablaContenido = ({ abrirModal }) => {
               onClick={cambiarEstadoContenido}
             >
               <i
-                className={`bi ${
-                  Contenido ? "bi-x-circle-fill" : "bi-patch-check-fill"
-                } `}
+                className={`bi ${Contenido ? "bi-x-circle-fill" : "bi-patch-check-fill"
+                  } `}
               ></i>
             </button>
           </div>

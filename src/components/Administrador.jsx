@@ -3,7 +3,7 @@ import { Button, Form, Table } from "react-bootstrap";
 import ItemTablaContenido from "./ItemTablaContenido";
 import FormularioContenido from "./FormularioContenido";
 
-const Administrador = () => {
+const Administrador = ({ catalogo }) => {
   const [showModal, setShowModal] = useState(false);
 
   const abrirModal = () => setShowModal(true);
@@ -25,15 +25,22 @@ const Administrador = () => {
                   <th>Tipo</th>
                   <th>Portada</th>
                   <th>Categoria</th>
+                  <th>Año</th>
+                  <th>Clasificacion</th>
                   <th>Descripcion</th>
                   <th>Publicado</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
               <tbody>
-                <ItemTablaContenido
-                  abrirModal={abrirModal}
-                ></ItemTablaContenido>
+                {catalogo.map((itemProducto) => (
+                  <ItemTablaContenido
+                    itemProducto={itemProducto}
+                    key={itemProducto.id}
+                    catalogo={catalogo}
+                    abrirModal={abrirModal}
+                  ></ItemTablaContenido>
+                ))}
               </tbody>
             </Table>
           </div>
