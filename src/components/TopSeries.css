@@ -1,0 +1,346 @@
+/* Contenedor principal del carrusel de series */
+.top-series-container {
+  position: relative;
+  padding: 0 60px;
+}
+
+@media (max-width: 992px) {
+  .top-series-container {
+    padding: 0 20px;
+  }
+}
+
+/* Scroll horizontal */
+.top-series-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.top-series-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Item individual de serie */
+.top-series-item {
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Número de ranking */
+.ranking-number {
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.3);
+  z-index: 10;
+  line-height: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .ranking-number {
+    font-size: 3rem;
+    left: -10px;
+  }
+}
+
+/* Tarjeta de serie */
+.top-series-card {
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.top-series-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Imagen de la serie */
+.top-series-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.top-series-card:hover .top-series-image {
+  transform: scale(1.1);
+}
+
+/* Icono de tendencias */
+.trending-icon {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icono de compra */
+.shopping-icon {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.top-series-card:hover .shopping-icon {
+  opacity: 1;
+}
+
+/* Overlay de hover */
+.series-hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+.top-series-card:hover .series-hover-overlay {
+  opacity: 1;
+}
+
+.hover-content {
+  width: 100%;
+  color: white;
+}
+
+/* Botones de acción */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.action-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+}
+
+.add-btn:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.play-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+}
+
+.play-btn:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+/* Información de suscripción */
+.subscription-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.subscription-text {
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+/* Detalles de la serie */
+.series-details {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 16px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.series-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.year, .duration {
+  color: #ccc;
+  font-weight: 500;
+}
+
+.age-rating {
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.series-description {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  color: #e0e0e0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.series-genre {
+  font-size: 0.8rem;
+  color: #ffc107;
+  font-weight: 500;
+}
+
+/* Botones de navegación */
+.top-series-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.3s ease;
+}
+
+.top-series-arrow:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.top-series-arrow.left {
+  left: 0;
+}
+
+.top-series-arrow.right {
+  right: 0;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .top-series-container {
+    padding: 0 10px;
+  }
+  
+  .top-series-item {
+    min-width: 200px !important;
+    max-width: 240px !important;
+  }
+  
+  .top-series-image {
+    height: 150px;
+  }
+  
+  .ranking-number {
+    font-size: 2.5rem;
+    left: -8px;
+  }
+  
+  .top-series-arrow {
+    display: none !important;
+  }
+
+  /* Hover overlay responsivo */
+  .series-hover-overlay {
+    padding: 15px;
+  }
+
+  .action-buttons {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .action-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+  .series-details {
+    padding: 12px;
+  }
+
+  .series-meta {
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .series-description {
+    font-size: 0.8rem;
+    -webkit-line-clamp: 2;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.top-series-item {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.top-series-item:nth-child(1) { animation-delay: 0.1s; }
+.top-series-item:nth-child(2) { animation-delay: 0.2s; }
+.top-series-item:nth-child(3) { animation-delay: 0.3s; }
+.top-series-item:nth-child(4) { animation-delay: 0.4s; }
+.top-series-item:nth-child(5) { animation-delay: 0.5s; }
+.top-series-item:nth-child(6) { animation-delay: 0.6s; }
+.top-series-item:nth-child(7) { animation-delay: 0.7s; }
+.top-series-item:nth-child(8) { animation-delay: 0.8s; }
+.top-series-item:nth-child(9) { animation-delay: 0.9s; }
+.top-series-item:nth-child(10) { animation-delay: 1.0s; }
