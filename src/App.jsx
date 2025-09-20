@@ -18,7 +18,7 @@ import conjuroBannerImage from "./assets/images/el conjuro banner.jpg";
 import purgaBannerImage from "./assets/images/la purga banner.jpg";
 import toyStoryBannerImage from "./assets/images/toy story 4 banner.jpg";
 import logoImage from "./assets/images/logosinfondo.png";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, data } from "react-router";
 
 // Datos de películas para la página de detalles
 const moviesData = {
@@ -180,6 +180,22 @@ function App() {
     return true;
   }
 
+  const modificarContenido = (idContenido, dataCatalogo) => {
+    const contenidoActualizado = catalogo.map((itemCatalogo) => {
+      if (itemCatalogo.id === idContenido) {
+        //actualizar catalogo
+        return {
+          ...itemCatalogo,
+          ...dataCatalogo
+        }
+      }
+      return itemCatalogo;
+    })
+    //actualizar el state
+    setCatalogo(contenidoActualizado);
+    return true;
+  }
+
   return (
     <>
 
@@ -201,10 +217,15 @@ function App() {
               }
             />
             <Route path="/administrador"
-              element={<Administrador catalogo={catalogo} agregarContenido={agregarContenido}
+              element={<Administrador catalogo={catalogo}
                 eliminarContenido={eliminarContenido}
               ></Administrador>}
             ></Route>
+            <Route path="/administrador/crear"
+              element={<FormularioContenido agregarContenido={agregarContenido}></FormularioContenido>}
+            >
+
+            </Route>
             <Route
               path="/acercadenosotros"
               element={<AcercadeNosotros></AcercadeNosotros>}

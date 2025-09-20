@@ -1,8 +1,10 @@
 import { use, useState } from "react";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import FormularioContenido from "./FormularioContenido";
+import { useParams } from "react-router";
 
-const ItemTablaContenido = ({ abrirModal, catalogo, eliminarContenido, fila }) => {
+
+const ItemTablaContenido = ({ abrirModal, catalogo, eliminarContenido, fila, modificarContenido }) => {
   const [Contenido, setContenido] = useState(true);
 
   const cambiarEstadoContenido = () => {

@@ -2,22 +2,25 @@ import { useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import ItemTablaContenido from "./ItemTablaContenido";
 import FormularioContenido from "./FormularioContenido";
+import { useNavigate } from "react-router";
+import { Link } from "react-router";
 
-const Administrador = ({ catalogo, agregarContenido, eliminarContenido }) => {
+const Administrador = ({ catalogo, agregarContenido, eliminarContenido, modificarContenido }) => {
   const [showModal, setShowModal] = useState(false);
 
   const abrirModal = () => setShowModal(true);
   const cerrarModal = () => setShowModal(false);
 
+  const navigate = useNavigate();
   return (
     <>
       <section className="container">
         <div className="d-flex align-items-center">
           <h2 className="flex-grow-1 text-center mb-0">ADMINISTRAR CATALOGO</h2>
-          <button className="btn btn-primary mt-2 me-2 d-none d-md-block" onClick={abrirModal}>
+          <Link className="btn btn-primary mt-2 me-2 d-none d-md-block" to={"/administrador/crear"}>
             Nuevo
             <i class="bi bi-plus"></i>
-          </button>
+          </Link>
         </div>
         <div className="row">
           <div className="container-fluid col-12">
