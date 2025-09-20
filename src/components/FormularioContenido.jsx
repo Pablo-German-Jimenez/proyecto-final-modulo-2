@@ -129,6 +129,7 @@ const FormularioContenido = ({ onClose, agregarContenido }) => {
                     <option value="terror">Terror</option>
                     <option value="comedia">Comedia</option>
                     <option value="romance">Romance</option>
+                    <option value="infantil">Infantil</option>
                   </Form.Select>
                   <Form.Text className="text-danger">{errors.categoria?.message}</Form.Text>
                 </Form.Group>
@@ -160,7 +161,7 @@ const FormularioContenido = ({ onClose, agregarContenido }) => {
                     <option value="">Seleccione una clasificacion</option>
                     <option value="+6">+6</option>
                     <option value="+12">+12</option>
-                    <option value="18">+18</option>
+                    <option value="+18">+18</option>
                   </Form.Select>
                 </Form.Group>
                 <Form.Text className="text-danger">{errors.clasificacion?.message}</Form.Text>
