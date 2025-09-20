@@ -149,6 +149,11 @@ footer {
   padding: 20px;
   color: white;
 }
+.imgtableAdmin{
+  width: 120px;
+  height: 150px;
+  border-radius: 10px;
+}
 /*media query para dispositivos medianos*/
 @media(min-width: 768px) and (max-width: 991px){
   .imgAcerca{

@@ -21,7 +21,7 @@ const ItemTablaContenido = ({ abrirModal, catalogo }) => {
         <td>{catalogo.titulo}</td>
         <td>{catalogo.tipo}</td>
         <td>
-          <img src={catalogo.portada} alt="portada pelicula" />
+          <img src={catalogo.portada} className="imgtableAdmin" alt="portada pelicula" />
         </td>
         <td>{catalogo.categoria}</td>
         <td>{catalogo.anio}</td>
