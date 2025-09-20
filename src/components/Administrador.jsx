@@ -4,7 +4,7 @@ import ItemTablaContenido from "./ItemTablaContenido";
 import FormularioContenido from "./FormularioContenido";
 
 const Administrador = ({ catalogo, agregarContenido }) => {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const abrirModal = () => setShowModal(true);
   const cerrarModal = () => setShowModal(false);
@@ -12,8 +12,12 @@ const Administrador = ({ catalogo, agregarContenido }) => {
   return (
     <>
       <section className="container">
-        <div className="d-flex justify-content-center">
-          <h2 className="text-center mb-0">ADMINISTRAR CATALOGO</h2>
+        <div className="d-flex align-items-center">
+          <h2 className="flex-grow-1 text-center mb-0">ADMINISTRAR CATALOGO</h2>
+          <button className="btn btn-primary mt-2 me-2 d-none d-md-block" onClick={abrirModal}>
+            Nuevo
+            <i class="bi bi-plus"></i>
+          </button>
         </div>
         <div className="row">
           <div className="container-fluid col-12">

@@ -9,11 +9,6 @@ const ItemTablaContenido = ({ abrirModal, catalogo }) => {
     setContenido(!Contenido);
   };
 
-  const responseData = () => {
-    console.log(catalogo);
-  }
-  responseData();
-
   return (
     <>
       <tr>
@@ -45,9 +40,6 @@ const ItemTablaContenido = ({ abrirModal, catalogo }) => {
         <td className="d-flex flex-column flex-md-row align-items-center justify-content-center gap-2">
           {/* botones para dispositivos medium en adelante */}
           <div className="d-none d-md-flex gap-2">
-            <button className="btn btn-primary" onClick={abrirModal}>
-              <i class="bi bi-plus"></i>
-            </button>
             <button className="btn btn-danger">
               <i className="bi bi-trash-fill"></i>
             </button>
