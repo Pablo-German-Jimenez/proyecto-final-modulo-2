@@ -3,7 +3,7 @@ import { Button, Form, Table } from "react-bootstrap";
 import ItemTablaContenido from "./ItemTablaContenido";
 import FormularioContenido from "./FormularioContenido";
 
-const Administrador = ({ catalogo, agregarContenido }) => {
+const Administrador = ({ catalogo, agregarContenido, eliminarContenido }) => {
   const [showModal, setShowModal] = useState(false);
 
   const abrirModal = () => setShowModal(true);
@@ -43,6 +43,7 @@ const Administrador = ({ catalogo, agregarContenido }) => {
                     catalogo={itemContenido}
                     abrirModal={abrirModal}
                     agregarContenido={agregarContenido}
+                    eliminarContenido={eliminarContenido}
                     fila={indice + 1}
                   ></ItemTablaContenido>
                 ))}

@@ -2,7 +2,7 @@ import { use, useState } from "react";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import FormularioContenido from "./FormularioContenido";
 
-const ItemTablaContenido = ({ abrirModal, catalogo, fila }) => {
+const ItemTablaContenido = ({ abrirModal, catalogo, eliminarContenido, fila }) => {
   const [Contenido, setContenido] = useState(true);
 
   const cambiarEstadoContenido = () => {
@@ -40,7 +40,7 @@ const ItemTablaContenido = ({ abrirModal, catalogo, fila }) => {
         <td className="align-middle">
           {/* botones para dispositivos medium en adelante */}
           <div className="d-none d-md-flex gap-2">
-            <button className="btn btn-danger">
+            <button className="btn btn-danger" onClick={() => eliminarContenido(catalogo.id)}>
               <i className="bi bi-trash-fill"></i>
             </button>
             <button className="btn btn-warning">

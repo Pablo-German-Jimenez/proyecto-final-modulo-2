@@ -174,6 +174,12 @@ function App() {
     return true;
   }
 
+  const eliminarContenido = (idContenido) => {
+    const filtrarCatalogo = catalogo.filter((itemContenido) => itemContenido.id !== idContenido);
+    setCatalogo(filtrarCatalogo);
+    return true;
+  }
+
   return (
     <>
 
@@ -195,7 +201,9 @@ function App() {
               }
             />
             <Route path="/administrador"
-              element={<Administrador catalogo={catalogo} agregarContenido={agregarContenido}></Administrador>}
+              element={<Administrador catalogo={catalogo} agregarContenido={agregarContenido}
+                eliminarContenido={eliminarContenido}
+              ></Administrador>}
             ></Route>
             <Route
               path="/acercadenosotros"

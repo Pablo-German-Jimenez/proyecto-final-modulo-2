@@ -6,6 +6,8 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const FormularioContenido = ({ onClose, agregarContenido }) => {
   const {
@@ -18,13 +20,27 @@ const FormularioContenido = ({ onClose, agregarContenido }) => {
 
   const tipo = watch("tipo")
 
+  //variable para obtener el año actual que luego se pasa al campo "año" para hacer la validacion 
   const anio_Actual = new Date().getFullYear();
+  const navigate = useNavigate();
 
   const postValidaciones = (data) => {
-    console.log(data);
+    //generamos id aleatorio para el contenido que se agregue
     data.id = crypto.randomUUID();
-    agregarContenido(data);
-    reset();
+    //si los datos se cargaron correctamente mostramos un mensaje al usuario
+    if (agregarContenido(data)) {
+      Swal.fire({
+        title: "Carga Exitosa",
+        text: `La ${data.tipo} ${data.titulo} se agrego correctamente`,
+        icon: "success",
+      });
+      //se lo redirige a la pagina de administrador
+      navigate("/administrador");
+      onClose(); //Se cierra la ventana modal cambiando el estado del modal
+      reset();
+
+    }
+
   }
 
   return (
