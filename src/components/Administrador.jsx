@@ -37,12 +37,13 @@ const Administrador = ({ catalogo, agregarContenido }) => {
                 </tr>
               </thead>
               <tbody>
-                {catalogo.map((itemContenido) => (
+                {catalogo.map((itemContenido, indice) => (
                   <ItemTablaContenido
                     key={itemContenido.id}
                     catalogo={itemContenido}
                     abrirModal={abrirModal}
                     agregarContenido={agregarContenido}
+                    fila={indice + 1}
                   ></ItemTablaContenido>
                 ))}
               </tbody>

@@ -2,7 +2,7 @@ import { use, useState } from "react";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import FormularioContenido from "./FormularioContenido";
 
-const ItemTablaContenido = ({ abrirModal, catalogo }) => {
+const ItemTablaContenido = ({ abrirModal, catalogo, fila }) => {
   const [Contenido, setContenido] = useState(true);
 
   const cambiarEstadoContenido = () => {
@@ -12,19 +12,19 @@ const ItemTablaContenido = ({ abrirModal, catalogo }) => {
   return (
     <>
       <tr>
-        <td>{catalogo.id}</td>
-        <td>{catalogo.titulo}</td>
-        <td>{catalogo.tipo}</td>
+        <td className="align-middle">{fila}</td>
+        <td className="align-middle">{catalogo.titulo}</td>
+        <td className="align-middle">{catalogo.tipo}</td>
         <td>
           <img src={catalogo.portada} className="imgtableAdmin" alt="portada pelicula" />
         </td>
-        <td>{catalogo.categoria}</td>
-        <td>{catalogo.anio}</td>
-        <td className="text-center">{catalogo.clasificacion}</td>
-        <td className="text-truncate" style={{ maxWidth: 200 }}>
+        <td className="align-middle">{catalogo.categoria}</td>
+        <td className="align-middle">{catalogo.anio}</td>
+        <td className="text-center align-middle">{catalogo.clasificacion}</td>
+        <td className="text-truncate align-middle" style={{ maxWidth: 200 }}>
           {catalogo.descripcion}
         </td>
-        <td>
+        <td className="align-middle">
           <div className="d-flex justify-content-center">
             <button
               className={`btn ${Contenido ? "btn-danger" : "btn-success"}`}
@@ -37,7 +37,7 @@ const ItemTablaContenido = ({ abrirModal, catalogo }) => {
             </button>
           </div>
         </td>
-        <td className="d-flex flex-column flex-md-row align-items-center justify-content-center gap-2">
+        <td className="align-middle">
           {/* botones para dispositivos medium en adelante */}
           <div className="d-none d-md-flex gap-2">
             <button className="btn btn-danger">
