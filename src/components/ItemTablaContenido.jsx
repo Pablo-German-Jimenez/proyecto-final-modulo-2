@@ -9,23 +9,25 @@ const ItemTablaContenido = ({ abrirModal, catalogo }) => {
     setContenido(!Contenido);
   };
 
+  const responseData = () => {
+    console.log(catalogo);
+  }
+  responseData();
+
   return (
     <>
       <tr>
-        <td>123</td>
-        <td>Harry Potter</td>
-        <td>Pelicula</td>
+        <td>{catalogo.id}</td>
+        <td>{catalogo.titulo}</td>
+        <td>{catalogo.tipo}</td>
         <td>
-          <img src="" alt="portada pelicula" />
+          <img src={catalogo.portada} alt="portada pelicula" />
         </td>
-        <td>Fantasia</td>
-        <td>2001</td>
-        <td className="text-center">+12</td>
+        <td>{catalogo.categoria}</td>
+        <td>{catalogo.anio}</td>
+        <td className="text-center">{catalogo.clasificacion}</td>
         <td className="text-truncate" style={{ maxWidth: 200 }}>
-          Durante su primer año en la escuela de magia y hechiceria de Hogwarts,
-          Harry Potter descrubre que un malevolo y poderoso mago llamado
-          Voldemort esta en busca de una piedra filosofal que alarga la vida a
-          quien la posee.
+          {catalogo.descripcion}
         </td>
         <td>
           <div className="d-flex justify-content-center">

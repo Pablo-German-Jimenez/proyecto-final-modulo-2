@@ -195,7 +195,7 @@ function App() {
               }
             />
             <Route path="/administrador"
-              element={<Administrador catalogo={catalogo}></Administrador>}
+              element={<Administrador catalogo={catalogo} agregarContenido={agregarContenido}></Administrador>}
             ></Route>
             <Route
               path="/acercadenosotros"

@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useForm } from "react-hook-form";
 
-const FormularioContenido = ({ onClose }) => {
+const FormularioContenido = ({ onClose, agregarContenido }) => {
   const {
     register,
     handleSubmit,
@@ -22,6 +22,9 @@ const FormularioContenido = ({ onClose }) => {
 
   const postValidaciones = (data) => {
     console.log(data);
+    data.id = crypto.randomUUID();
+    agregarContenido(data);
+    reset();
   }
 
   return (
@@ -156,9 +159,8 @@ const FormularioContenido = ({ onClose }) => {
                   >
                     <option value="">Seleccione una clasificacion</option>
                     <option value="+6">+6</option>
-                    <option value="+6">+12</option>
-                    <option value="+6">+18
-                    </option>
+                    <option value="+12">+12</option>
+                    <option value="18">+18</option>
                   </Form.Select>
                 </Form.Group>
                 <Form.Text className="text-danger">{errors.clasificacion?.message}</Form.Text>
