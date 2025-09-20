@@ -4,7 +4,7 @@ import ItemTablaContenido from "./ItemTablaContenido";
 import FormularioContenido from "./FormularioContenido";
 
 const Administrador = ({ catalogo }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
   const abrirModal = () => setShowModal(true);
   const cerrarModal = () => setShowModal(false);
