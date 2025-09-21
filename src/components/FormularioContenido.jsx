@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Administrador from "./Administrador";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -7,13 +7,14 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
-const FormularioContenido = ({ onClose, agregarContenido }) => {
+const FormularioContenido = ({ onClose, agregarContenido, modificarContenido, buscarContenido, titulo, textoBoton }) => {
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
     reset,
     formState: { errors }
   } = useForm();
@@ -24,28 +25,60 @@ const FormularioContenido = ({ onClose, agregarContenido }) => {
   const anio_Actual = new Date().getFullYear();
   const navigate = useNavigate();
 
-  const postValidaciones = (data) => {
-    //generamos id aleatorio para el contenido que se agregue
-    data.id = crypto.randomUUID();
-    //si los datos se cargaron correctamente mostramos un mensaje al usuario
-    if (agregarContenido(data)) {
-      Swal.fire({
-        title: "Carga Exitosa",
-        text: `La ${data.tipo} ${data.titulo} se agrego correctamente`,
-        icon: "success",
-      });
-      //se lo redirige a la pagina de administrador
-      navigate("/administrador");
-      onClose(); //Se cierra la ventana modal cambiando el estado del modal
-      reset();
+  const { id } = useParams();
 
+  useEffect(() => {
+    if (titulo === "EDITAR CONTENIDO") {
+      const productoBuscado = buscarContenido(id);
+      setValue("titulo", productoBuscado.titulo);
+      setValue("tipo", productoBuscado.tipo);
+      setValue("portada", productoBuscado.portada);
+      setValue("categoria", productoBuscado.categoria);
+      setValue("anio", productoBuscado.anio);
+      setValue("clasificacion", productoBuscado.clasificacion);
+      setValue("descripcion", productoBuscado.descripcion);
+
+      //campos condicionales
+      if (productoBuscado.tipo === "pelicula") {
+        setValue("duracion", productoBuscado.duracion);
+      } else if (productoBuscado.tipo === "serie") {
+        setValue("temporada", productoBuscado.temporada);
+      }
+    }
+  }, [titulo, id, setValue]);
+
+  const postValidaciones = (data) => {
+    if (titulo === "AGREGAR NUEVO CONTENIDO") {
+      //generamos id aleatorio para el contenido que se agregue
+      data.id = crypto.randomUUID();
+      //si los datos se cargaron correctamente mostramos un mensaje al usuario
+      if (agregarContenido(data)) {
+        Swal.fire({
+          title: "Carga Exitosa",
+          text: `La ${data.tipo} ${data.titulo} se agrego correctamente`,
+          icon: "success",
+        });
+        //se lo redirige a la pagina de administrador
+        navigate("/administrador");
+        reset();
+      }
+    } else if (titulo === "EDITAR CONTENIDO") {
+      if (modificarContenido(id, data)) {
+        Swal.fire({
+          title: "Contenido Actualizado!",
+          text: `Los datos de ${data.titulo} se actualizaron correctamente`,
+          icon: "success",
+        }).then(() => {
+          navigate("/administrador");
+        });
+      }
     }
 
   }
   return (
     <>
       <section className="container py-4 mt-2">
-        <h2 className="text-center">AGREGAR NUEVO CONTENIDO</h2>
+        <h2 className="text-center">{titulo}</h2>
         <Form className="form-dark" onSubmit={handleSubmit(postValidaciones)}>
           <Row>
             <Col xs={12}>
@@ -196,7 +229,7 @@ const FormularioContenido = ({ onClose, agregarContenido }) => {
                 type="submit"
                 className="w-100"
               >
-                Agregar
+                {textoBoton}
               </Button>
             </Col>
           </Row>

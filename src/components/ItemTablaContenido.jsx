@@ -2,7 +2,7 @@ import { use, useState } from "react";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import FormularioContenido from "./FormularioContenido";
 import { useParams } from "react-router";
-
+import { Link } from "react-router";
 
 const ItemTablaContenido = ({ abrirModal, catalogo, eliminarContenido, fila, modificarContenido }) => {
   const [Contenido, setContenido] = useState(true);
@@ -45,9 +45,9 @@ const ItemTablaContenido = ({ abrirModal, catalogo, eliminarContenido, fila, mod
             <button className="btn btn-danger" onClick={() => eliminarContenido(catalogo.id)}>
               <i className="bi bi-trash-fill"></i>
             </button>
-            <button className="btn btn-warning">
+            <Link className="btn btn-warning" to={`/administrador/editar/${catalogo.id}`}>
               <i className="bi bi-pencil-square"></i>
-            </button>
+            </Link>
             <button className="btn btn-warning">
               <i className="bi bi-star-fill"></i>
             </button>

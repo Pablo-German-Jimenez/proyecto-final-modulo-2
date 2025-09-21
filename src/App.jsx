@@ -159,10 +159,10 @@ function App() {
     );
   }
 
-  {/*logica para guardar datos en el local storage*/ }
+  //logica para guardar datos en el local storage
   const catalogoLS = JSON.parse(localStorage.getItem("catalogoKey")) || [];
 
-  {/*Estado para almacenar el contenido*/ }
+  //Estado para almacenar el contenido
   const [catalogo, setCatalogo] = useState(catalogoLS);
 
   useEffect(() => {
@@ -178,6 +178,11 @@ function App() {
     const filtrarCatalogo = catalogo.filter((itemContenido) => itemContenido.id !== idContenido);
     setCatalogo(filtrarCatalogo);
     return true;
+  }
+
+  const buscarContenido = (idContenido) => {
+    const contenidoBuscado = catalogo.find((itemCatalogo) => itemCatalogo.id === idContenido);
+    return contenidoBuscado;
   }
 
   const modificarContenido = (idContenido, dataCatalogo) => {
@@ -222,10 +227,15 @@ function App() {
               ></Administrador>}
             ></Route>
             <Route path="/administrador/crear"
-              element={<FormularioContenido agregarContenido={agregarContenido}></FormularioContenido>}
+              element={<FormularioContenido agregarContenido={agregarContenido} titulo="AGREGAR NUEVO CONTENIDO" textoBoton="Agregar" />}
             >
-
             </Route>
+            <Route
+              path="/administrador/editar/:id"
+              element={<FormularioContenido modificarContenido={modificarContenido}
+                buscarContenido={buscarContenido}
+                titulo="EDITAR CONTENIDO" textoBoton="Actualizar" />}
+            ></Route>
             <Route
               path="/acercadenosotros"
               element={<AcercadeNosotros></AcercadeNosotros>}
