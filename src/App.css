@@ -169,4 +169,75 @@ footer {
 }
 
 
+/* FORMULARIO DE REGISTRO */
 
+.form-container {
+  background: rgba(0, 0, 0, 0.85);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  width: 100%;
+  max-width: 400px;
+  color: #fff;
+}
+
+
+button, .btn-primary {
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover, .btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(37, 117, 252, 0.8);
+}
+
+
+.text-link {
+  color: #00aaff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+
+.modal-content {
+  background: rgba(15, 15, 15, 0.95);
+  border-radius: 12px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+.modal-header, .modal-footer {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.modal-title {
+  font-weight: bold;
+  color: #fff;
+}
+
+
+.modal-content .form-control {
+  background-color: #0f0f0f;
+  border: 1px solid #2f2f2f;
+  color: #fff;
+}
+.modal-content .form-control::placeholder {
+  color: #bdbdbd;
+}
+
+
+.modal-content .btn-primary {
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  border: none;
+}
+.modal-content .btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(37, 117, 252, 0.8);
+}
