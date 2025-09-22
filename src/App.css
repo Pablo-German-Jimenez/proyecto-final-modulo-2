@@ -113,17 +113,6 @@ footer {
   color: #B5B5B5;
   font-size: 1rem;
 }
-/*card exclusivos*/
-.cardExclusivos{
-  width: 250px;
-  height: 200px;
-  border-radius: 20px;
-}
-.img-exclusivos{
-  width: 100% !important;
-  height: 300px ;
-  border-radius: 20%;
-}
 .degradeMorado{
   background: linear-gradient(
     135deg,

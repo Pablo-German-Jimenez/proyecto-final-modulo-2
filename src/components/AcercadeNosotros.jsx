@@ -1,6 +1,6 @@
 import CardExclusivos from "./CardExclusivos";
 
-const AcercadeNosotros = () => {
+const AcercadeNosotros = ({ catalogo }) => {
   return (
     <section className="container-fluid border border-light">
       <div className="row">
@@ -39,25 +39,18 @@ const AcercadeNosotros = () => {
           </div>
         </div>
         {/* apartado nuestros exclusivos */}
-        <div className="col-12 col-md-12 degradeMorado">
+        <div className="col-12 col-md-12 border border-light degradeMorado">
           <h3 className="text-center">NUESTROS EXCLUSIVOS</h3>
           <div className="row">
-            <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-              <CardExclusivos></CardExclusivos>
-            </div>
-            <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-              <CardExclusivos></CardExclusivos>
-            </div>
-            <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-              <CardExclusivos></CardExclusivos>
-            </div>
-            <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-              <CardExclusivos></CardExclusivos>
-            </div>
+            {catalogo.map((item) => (
+              <div key={item.id} className="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
+                <CardExclusivos item={item} />
+              </div>
+            ))}
           </div>
         </div>
         {/* apartado lo que nos diferencia */}
-        <div className="col-12 vision-mision-valores">
+        <div className="col-12 border border-light vision-mision-valores">
           <h3 className="text-center mb-4">LO QUE NOS DIFERENCIA</h3>
           <div className="row d-flex justify-content-around g-1 g-md-0">
             <div className="col-12 col-md-3 mt-3 d-flex flex-column align-items-center">

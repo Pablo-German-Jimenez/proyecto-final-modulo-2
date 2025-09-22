@@ -268,7 +268,7 @@ function App() {
             ></Route>
             <Route
               path="/acercadenosotros"
-              element={<AcercadeNosotros></AcercadeNosotros>}
+              element={<AcercadeNosotros catalogo={catalogo}></AcercadeNosotros>}
             ></Route>
           </Routes>
         </main>
