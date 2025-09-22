@@ -113,6 +113,17 @@ footer {
   color: #B5B5B5;
   font-size: 1rem;
 }
+.img-exclusivos{
+  width: 200px ;
+  height: 250px;
+  border-radius: 10px;
+}
+.titulo-exclusivo {
+  width: 180px;
+  white-space: nowrap;        /* Evita que el texto haga salto de línea */
+  overflow: hidden;           /* Oculta el exceso de texto */
+  text-overflow: ellipsis;    /* Agrega "..." al final */
+}
 .degradeMorado{
   background: linear-gradient(
     135deg,
