@@ -15,10 +15,10 @@ import elioCartelera from "../assets/images/elio-cartelera.jpg";
 import seLoQueHicisteisCartelera from "../assets/images/se_lo_que_hicisteis_el_ultimo_verano-cartelera.jpg";
 
 const data = [
-  { 
-    id: 1, 
+  {
+    id: 1,
     movieId: "deadpool",
-    titulo: "Deadpool", 
+    titulo: "Deadpool",
     img: deadpoolCartelera,
     year: "2016",
     duration: "1 h 48 min",
@@ -26,10 +26,10 @@ const data = [
     description: "Un ex-operativo de las fuerzas especiales que se somete a un experimento que lo cura de su cáncer, pero que le deja cicatrices permanentes en todo el cuerpo y una personalidad inestable.",
     genre: "Acción, Comedia"
   },
-  { 
-    id: 2, 
+  {
+    id: 2,
     movieId: "conjuro",
-    titulo: "El Conjuro 2", 
+    titulo: "El Conjuro 2",
     img: conjuroCartelera,
     year: "2016",
     duration: "2 h 14 min",
@@ -37,10 +37,10 @@ const data = [
     description: "Los investigadores paranormales Ed y Lorraine Warren se enfrentan a una nueva amenaza sobrenatural en un suburbio de Londres, donde una familia es atormentada por espíritus malignos.",
     genre: "Terror, Suspenso"
   },
-  { 
-    id: 3, 
+  {
+    id: 3,
     movieId: "garras",
-    titulo: "Garra", 
+    titulo: "Garra",
     img: garraCartelera,
     year: "2024",
     duration: "1 h 52 min",
@@ -48,10 +48,10 @@ const data = [
     description: "Un jugador de baloncesto con problemas de conducta es enviado a un programa de rehabilitación donde debe aprender a trabajar en equipo y superar sus demonios personales.",
     genre: "Drama, Deportes"
   },
-  { 
-    id: 4, 
+  {
+    id: 4,
     movieId: "purga",
-    titulo: "La Purga", 
+    titulo: "La Purga",
     img: purgaCartelera,
     year: "2013",
     duration: "1 h 25 min",
@@ -59,10 +59,10 @@ const data = [
     description: "En un futuro distópico, durante una noche al año, todos los crímenes son legales. Una familia debe sobrevivir a esta noche de caos total cuando su casa es invadida.",
     genre: "Terror, Thriller"
   },
-  { 
-    id: 5, 
+  {
+    id: 5,
     movieId: "toystory",
-    titulo: "Toy Story", 
+    titulo: "Toy Story",
     img: toyStoryCartelera,
     year: "1995",
     duration: "1 h 21 min",
@@ -70,9 +70,9 @@ const data = [
     description: "Los juguetes de Andy cobran vida cuando él no está presente. Woody, el sheriff favorito, debe lidiar con la llegada de Buzz Lightyear, el nuevo juguete espacial.",
     genre: "Animación, Aventura"
   },
-  { 
-    id: 6, 
-    titulo: "A Pesar de Ti", 
+  {
+    id: 6,
+    titulo: "A Pesar de Ti",
     img: aPesarDeTiCartelera,
     year: "2024",
     duration: "1 h 45 min",
@@ -80,9 +80,9 @@ const data = [
     description: "Una historia de amor complicada entre dos personas que deben superar obstáculos personales y familiares para estar juntos, a pesar de las circunstancias adversas.",
     genre: "Romance, Drama"
   },
-  { 
-    id: 7, 
-    titulo: "Avatar: Fuego y Ceniza", 
+  {
+    id: 7,
+    titulo: "Avatar: Fuego y Ceniza",
     img: avatarCartelera,
     year: "2025",
     duration: "2 h 32 min",
@@ -90,9 +90,9 @@ const data = [
     description: "La saga continúa en Pandora donde Jake Sully y su familia enfrentan nuevas amenazas mientras exploran mundos desconocidos y descubren secretos ancestrales.",
     genre: "Ciencia Ficción, Aventura"
   },
-  { 
-    id: 8, 
-    titulo: "Bob Esponja: Una Aventura Pirata", 
+  {
+    id: 8,
+    titulo: "Bob Esponja: Una Aventura Pirata",
     img: bobEsponjaCartelera,
     year: "2024",
     duration: "1 h 32 min",
@@ -100,9 +100,9 @@ const data = [
     description: "Bob Esponja y Patricio se embarcan en una épica aventura pirata para salvar a sus amigos y descubrir el tesoro perdido de Fondo de Bikini.",
     genre: "Animación, Comedia"
   },
-  { 
-    id: 9, 
-    titulo: "Elio", 
+  {
+    id: 9,
+    titulo: "Elio",
     img: elioCartelera,
     year: "2024",
     duration: "1 h 37 min",
@@ -110,9 +110,9 @@ const data = [
     description: "Un niño de 11 años es accidentalmente transportado al Centro de Comando Universal donde es confundido con el embajador de la Tierra para una organización galáctica.",
     genre: "Animación, Aventura"
   },
-  { 
-    id: 10, 
-    titulo: "Sé lo que Hicisteis el Último Verano", 
+  {
+    id: 10,
+    titulo: "Sé lo que Hicisteis el Último Verano",
     img: seLoQueHicisteisCartelera,
     year: "1997",
     duration: "1 h 41 min",
@@ -153,14 +153,14 @@ const Carrusel = ({ onMovieClick }) => {
         <div className="row">
           <div className="col-12">
             <h2 className="text-white mb-3 mb-lg-2 text-start" >También podrían gustarte</h2>
-            
+
             <div className="carrusel-container position-relative">
               {/* Botón Izquierda - Solo visible en pantallas grandes */}
-              <button 
-                className="arrow left d-none d-lg-block" 
+              <button
+                className="arrow left d-none d-lg-block"
                 onClick={() => scroll(-400)}
-                style={{ 
-                  width: "40px", 
+                style={{
+                  width: "40px",
                   height: "40px",
                   fontSize: "1.2rem"
                 }}
@@ -169,8 +169,8 @@ const Carrusel = ({ onMovieClick }) => {
               </button>
 
               {/* Scroll de Cards */}
-              <div 
-                className="carrusel-scroll" 
+              <div
+                className="carrusel-scroll"
                 ref={scrollRef}
                 style={{
                   scrollSnapType: "x mandatory",
@@ -178,8 +178,8 @@ const Carrusel = ({ onMovieClick }) => {
                 }}
               >
                 {data.map((item) => (
-                  <Card 
-                    key={item.id} 
+                  <Card
+                    key={item.id}
                     className="carrusel-card me-2"
                     style={{
                       scrollSnapAlign: "start",
@@ -192,16 +192,16 @@ const Carrusel = ({ onMovieClick }) => {
                     onClick={() => handleMovieClick(item.movieId)}
                   >
                     <div className="position-relative">
-                      <Card.Img 
-                        variant="top" 
-                        src={item.img} 
+                      <Card.Img
+                        variant="top"
+                        src={item.img}
                         alt={item.titulo}
                         style={{
                           height: "200px",
                           objectFit: "cover"
                         }}
                       />
-                      
+
                       {/* Overlay de hover */}
                       {hoveredMovie === item.id && (
                         <div className="carrusel-hover-overlay">
@@ -229,11 +229,11 @@ const Carrusel = ({ onMovieClick }) => {
                                 <span className="carrusel-duration">{item.duration}</span>
                                 <Badge className="carrusel-age-rating" variant="dark">{item.ageRating}</Badge>
                               </div>
-                              
+
                               <div className="carrusel-movie-description">
                                 {item.description}
                               </div>
-                              
+
                               <div className="carrusel-movie-genre">
                                 {item.genre}
                               </div>
@@ -242,11 +242,11 @@ const Carrusel = ({ onMovieClick }) => {
                         </div>
                       )}
                     </div>
-                    
+
                     <Card.Body className="p-2">
-                      <Card.Title 
-                        className="text-white mb-0" 
-                        style={{ 
+                      <Card.Title
+                        className="text-white mb-0"
+                        style={{
                           fontSize: "0.8rem",
                           lineHeight: "1.2",
                           overflow: "hidden",
@@ -262,11 +262,11 @@ const Carrusel = ({ onMovieClick }) => {
               </div>
 
               {/* Botón Derecha - Solo visible en pantallas grandes */}
-              <button 
-                className="arrow right d-none d-lg-block" 
+              <button
+                className="arrow right d-none d-lg-block"
                 onClick={() => scroll(400)}
-                style={{ 
-                  width: "40px", 
+                style={{
+                  width: "40px",
                   height: "40px",
                   fontSize: "1.2rem"
                 }}

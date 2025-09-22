@@ -200,6 +200,33 @@ function App() {
     setCatalogo(contenidoActualizado);
     return true;
   }
+  const [filaDestacada, setFilaDestacada] = useState(catalogoLS.find((item) => item.destacado)?.id || null);
+
+  //Logica para destacar el contenido
+  const destacarFila = (id) => {
+    const nuevoCatalogo = catalogo.map((item) => {
+      if (item.id === id) {
+        if (item.destacado) {
+          // Si ya estaba destacado lo elimino
+          const copia = { ...item };
+          delete copia.destacado;
+          setFilaDestacada(null);
+          return copia;
+        } else {
+          // Si no estaba destacado lo agrego
+          setFilaDestacada(id);
+          return { ...item, destacado: true };
+        }
+      } else {
+        // Aseguro que todos los demás no tengan "destacado"
+        const copia = { ...item };
+        delete copia.destacado;
+        return copia;
+      }
+    })
+    setCatalogo(nuevoCatalogo);
+    console.log("el id del contenido seleccionado es: ", id)
+  }
 
   return (
     <>
@@ -214,7 +241,7 @@ function App() {
                 <>
                   <HeroMovie onMovieClick={handleMovieClick} />
                   <Carrusel onMovieClick={handleMovieClick} />
-                  <TopMovies onMovieClick={handleMovieClick} />
+                  <TopMovies onMovieClick={handleMovieClick} catalogo={catalogo} />
                   <Planes />
                   <TopSeries onMovieClick={handleMovieClick} />
 
@@ -224,6 +251,9 @@ function App() {
             <Route path="/administrador"
               element={<Administrador catalogo={catalogo}
                 eliminarContenido={eliminarContenido}
+                modificarContenido={modificarContenido}
+                destacarFila={destacarFila}
+                filaDestacada={filaDestacada}
               ></Administrador>}
             ></Route>
             <Route path="/administrador/crear"

@@ -4,7 +4,7 @@ import FormularioContenido from "./FormularioContenido";
 import { data, useParams } from "react-router";
 import { Link } from "react-router";
 
-const ItemTablaContenido = ({ abrirModal, item, eliminarContenido, fila, modificarContenido, destacarFila, filaDestacada }) => {
+const ItemTablaContenido = ({ abrirModal, item, eliminarContenido, fila, modificarContenido, filaDestacada, destacarFila }) => {
   const [Contenido, setContenido] = useState(true);
 
   const cambiarEstadoContenido = () => {

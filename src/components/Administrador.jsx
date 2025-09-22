@@ -5,23 +5,11 @@ import FormularioContenido from "./FormularioContenido";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
 
-const Administrador = ({ catalogo, agregarContenido, eliminarContenido, modificarContenido }) => {
+const Administrador = ({ catalogo, agregarContenido, eliminarContenido, modificarContenido, filaDestacada, destacarFila }) => {
   const [showModal, setShowModal] = useState(false);
 
   const abrirModal = () => setShowModal(true);
   const cerrarModal = () => setShowModal(false);
-
-  const [filaDestacada, setFilaDestacada] = useState(null);
-
-  const destacarFila = (id) => {
-    setFilaDestacada(id);
-    console.log("fila destacada actual: ", id);
-  }
-
-  // useEffect(() => {
-  //   console.log("fila destacada actual: ", filaDestacada);
-  // }, [filaDestacada]);
-
 
   return (
     <>
@@ -58,8 +46,8 @@ const Administrador = ({ catalogo, agregarContenido, eliminarContenido, modifica
                     abrirModal={abrirModal}
                     agregarContenido={agregarContenido}
                     eliminarContenido={eliminarContenido}
-                    destacarFila={destacarFila}
                     filaDestacada={filaDestacada}
+                    destacarFila={destacarFila}
                     fila={indice + 1}
                   ></ItemTablaContenido>
                 ))}
