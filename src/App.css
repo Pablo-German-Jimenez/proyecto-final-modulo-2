@@ -147,6 +147,9 @@ footer {
   height: 150px;
   border-radius: 10px;
 }
+.highlight td {
+  background-color: black;
+}
 /*media query para dispositivos medianos*/
 @media(min-width: 768px) and (max-width: 991px){
   .imgAcerca{

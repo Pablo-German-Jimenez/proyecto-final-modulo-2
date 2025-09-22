@@ -1,10 +1,10 @@
 import { use, useState } from "react";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import FormularioContenido from "./FormularioContenido";
-import { useParams } from "react-router";
+import { data, useParams } from "react-router";
 import { Link } from "react-router";
 
-const ItemTablaContenido = ({ abrirModal, catalogo, eliminarContenido, fila, modificarContenido }) => {
+const ItemTablaContenido = ({ abrirModal, item, eliminarContenido, fila, modificarContenido, destacarFila, filaDestacada }) => {
   const [Contenido, setContenido] = useState(true);
 
   const cambiarEstadoContenido = () => {
@@ -13,18 +13,18 @@ const ItemTablaContenido = ({ abrirModal, catalogo, eliminarContenido, fila, mod
 
   return (
     <>
-      <tr>
+      <tr className={filaDestacada === item.id ? "highlight" : ""}>
         <td className="align-middle">{fila}</td>
-        <td className="align-middle">{catalogo.titulo}</td>
-        <td className="align-middle">{catalogo.tipo}</td>
+        <td className="align-middle">{item.titulo}</td>
+        <td className="align-middle">{item.tipo}</td>
         <td>
-          <img src={catalogo.portada} className="imgtableAdmin" alt="portada pelicula" />
+          <img src={item.portada} className="imgtableAdmin" alt="portada pelicula" />
         </td>
-        <td className="align-middle">{catalogo.categoria}</td>
-        <td className="align-middle">{catalogo.anio}</td>
-        <td className="text-center align-middle">{catalogo.clasificacion}</td>
+        <td className="align-middle">{item.categoria}</td>
+        <td className="align-middle">{item.anio}</td>
+        <td className="text-center align-middle">{item.clasificacion}</td>
         <td className="text-truncate align-middle" style={{ maxWidth: 200 }}>
-          {catalogo.descripcion}
+          {item.descripcion}
         </td>
         <td className="align-middle">
           <div className="d-flex justify-content-center">
@@ -42,13 +42,13 @@ const ItemTablaContenido = ({ abrirModal, catalogo, eliminarContenido, fila, mod
         <td className="align-middle">
           {/* botones para dispositivos medium en adelante */}
           <div className="d-none d-md-flex gap-2">
-            <button className="btn btn-danger" onClick={() => eliminarContenido(catalogo.id)}>
+            <button className="btn btn-danger" onClick={() => eliminarContenido(item.id)}>
               <i className="bi bi-trash-fill"></i>
             </button>
-            <Link className="btn btn-warning" to={`/administrador/editar/${catalogo.id}`}>
+            <Link className="btn btn-warning" to={`/administrador/editar/${item.id}`}>
               <i className="bi bi-pencil-square"></i>
             </Link>
-            <button className="btn btn-warning">
+            <button className="btn btn-warning" onClick={() => destacarFila(item.id)}>
               <i className="bi bi-star-fill"></i>
             </button>
           </div>
@@ -83,6 +83,6 @@ const ItemTablaContenido = ({ abrirModal, catalogo, eliminarContenido, fila, mod
       </tr>
     </>
   );
-};
+}
 
 export default ItemTablaContenido;

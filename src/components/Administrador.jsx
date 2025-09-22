@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import ItemTablaContenido from "./ItemTablaContenido";
 import FormularioContenido from "./FormularioContenido";
@@ -11,7 +11,18 @@ const Administrador = ({ catalogo, agregarContenido, eliminarContenido, modifica
   const abrirModal = () => setShowModal(true);
   const cerrarModal = () => setShowModal(false);
 
-  const navigate = useNavigate();
+  const [filaDestacada, setFilaDestacada] = useState(null);
+
+  const destacarFila = (id) => {
+    setFilaDestacada(id);
+    console.log("fila destacada actual: ", id);
+  }
+
+  // useEffect(() => {
+  //   console.log("fila destacada actual: ", filaDestacada);
+  // }, [filaDestacada]);
+
+
   return (
     <>
       <section className="container">
@@ -43,10 +54,12 @@ const Administrador = ({ catalogo, agregarContenido, eliminarContenido, modifica
                 {catalogo.map((itemContenido, indice) => (
                   <ItemTablaContenido
                     key={itemContenido.id}
-                    catalogo={itemContenido}
+                    item={itemContenido}
                     abrirModal={abrirModal}
                     agregarContenido={agregarContenido}
                     eliminarContenido={eliminarContenido}
+                    destacarFila={destacarFila}
+                    filaDestacada={filaDestacada}
                     fila={indice + 1}
                   ></ItemTablaContenido>
                 ))}
@@ -54,8 +67,9 @@ const Administrador = ({ catalogo, agregarContenido, eliminarContenido, modifica
             </Table>
           </div>
         </div>
-      </section>
-      {showModal && <FormularioContenido onClose={cerrarModal} agregarContenido={agregarContenido} />}
+      </section >
+      {showModal && <FormularioContenido onClose={cerrarModal} agregarContenido={agregarContenido} />
+      }
     </>
   );
 };
