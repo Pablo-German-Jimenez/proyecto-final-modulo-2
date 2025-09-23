@@ -9,7 +9,11 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router";
 
+
+const FormularioContenido = ({ agregarContenido, modificarContenido, buscarContenido, titulo, textoBoton }) => {
+
 const FormularioContenido = ({ onClose, agregarContenido, modificarContenido, buscarContenido, titulo, textoBoton }) => {
+
   const {
     register,
     handleSubmit,
@@ -51,6 +55,10 @@ const FormularioContenido = ({ onClose, agregarContenido, modificarContenido, bu
     if (titulo === "AGREGAR NUEVO CONTENIDO") {
       //generamos id aleatorio para el contenido que se agregue
       data.id = crypto.randomUUID();
+
+      data.estado = false;
+
+
       //si los datos se cargaron correctamente mostramos un mensaje al usuario
       if (agregarContenido(data)) {
         Swal.fire({

@@ -124,6 +124,14 @@ footer {
   overflow: hidden;           /* Oculta el exceso de texto */
   text-overflow: ellipsis;    /* Agrega "..." al final */
 }
+.imgTablaAdmin{
+  width: 150px;
+  height: 180px;
+  border-radius: 20px;
+}
+.highlight td {
+  background-color: black !important;
+}
 .degradeMorado{
   background: linear-gradient(
     135deg,

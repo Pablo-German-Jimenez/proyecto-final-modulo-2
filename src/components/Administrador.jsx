@@ -2,10 +2,16 @@ import { useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import ItemTablaContenido from "./ItemTablaContenido";
 import FormularioContenido from "./FormularioContenido";
+
+import { Link } from "react-router";
+
+const Administrador = ({ catalogo, agregarContenido, eliminarContenido, destacarFila, filaDestacada }) => {
+
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
 
 const Administrador = ({ catalogo, agregarContenido, eliminarContenido, modificarContenido, filaDestacada, destacarFila }) => {
+
   const [showModal, setShowModal] = useState(false);
 
   const abrirModal = () => setShowModal(true);

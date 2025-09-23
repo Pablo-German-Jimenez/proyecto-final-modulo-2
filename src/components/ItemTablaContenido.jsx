@@ -1,10 +1,16 @@
 import { use, useState } from "react";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import FormularioContenido from "./FormularioContenido";
+
+import { Link } from "react-router";
+
+const ItemTablaContenido = ({ item, fila, agregarContenido, eliminarContenido, filaDestacada, destacarFila }) => {
+
 import { data, useParams } from "react-router";
 import { Link } from "react-router";
 
 const ItemTablaContenido = ({ abrirModal, item, eliminarContenido, fila, modificarContenido, filaDestacada, destacarFila }) => {
+
   const [Contenido, setContenido] = useState(true);
 
   const cambiarEstadoContenido = () => {
@@ -18,7 +24,11 @@ const ItemTablaContenido = ({ abrirModal, item, eliminarContenido, fila, modific
         <td className="align-middle">{item.titulo}</td>
         <td className="align-middle">{item.tipo}</td>
         <td>
+
+          <img src={item.portada} className="imgTablaAdmin" alt="portada pelicula" />
+
           <img src={item.portada} className="imgtableAdmin" alt="portada pelicula" />
+
         </td>
         <td className="align-middle">{item.categoria}</td>
         <td className="align-middle">{item.anio}</td>
@@ -64,16 +74,20 @@ const ItemTablaContenido = ({ abrirModal, item, eliminarContenido, fila, modific
                 id="dropdown-split-basic"
               />
               <Dropdown.Menu>
-                <Dropdown.Item as="button">
-                  <i className="bi bi-plus me-2"></i>Agregar
-                </Dropdown.Item>
-                <Dropdown.Item as="button">
+                <Link to={"/administrador/crear"}>
+                  <Dropdown.Item as="button">
+                    <i className="bi bi-plus me-2"></i>Agregar
+                  </Dropdown.Item>
+                </Link>
+                <Dropdown.Item as="button" onClick={() => eliminarContenido(item.id)}>
                   <i className="bi bi-trash-fill me-2"></i>Eliminar
                 </Dropdown.Item>
-                <Dropdown.Item as="button">
-                  <i className="bi bi-pencil-square me-2"></i>Editar
-                </Dropdown.Item>
-                <Dropdown.Item as="button">
+                <Link to={`/administrador/editar/${item.id}`}>
+                  <Dropdown.Item as="button">
+                    <i className="bi bi-pencil-square me-2"></i>Editar
+                  </Dropdown.Item>
+                </Link>
+                <Dropdown.Item as="button" onClick={() => destacarFila(item.id)}>
                   <i className="bi bi-star-fill me-2"></i>Destacar
                 </Dropdown.Item>
               </Dropdown.Menu>
