@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button, Badge } from "react-bootstrap";
 import deadpoolImage from "../assets/images/deadpool.jfif";
 import garraImage from "../assets/images/Garra.jpg";
@@ -7,7 +7,7 @@ import purgaImage from "../assets/images/La purga.jpeg";
 import toyStoryImage from "../assets/images/toy story.jpg";
 import deadpoolVideo from "../assets/images/videodedeadpool.mp4";
 import garrasVideo from "../assets/images/videodegarras.mp4";
-import conjuroVideo from "../assets/images/videodeelconjuro .mp4";
+import conjuroVideo from "../assets/images/videodeelconjuro.mp4";
 import purgaVideo from "../assets/images/videodelapurga.mp4";
 import toyStoryVideo from "../assets/images/video de toy story.mp4";
 

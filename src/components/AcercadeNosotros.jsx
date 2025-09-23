@@ -2,7 +2,7 @@ import CardExclusivos from "./CardExclusivos";
 
 const AcercadeNosotros = () => {
   return (
-    <section className="container-fluid border border-light">
+    <section className="container-fluid">
       <div className="row">
         {/*Apartado acerca de nosotros*/}
         <div className="col-12 col-md-12 col-lg-12 p-0 imgAcerca">
