@@ -124,6 +124,14 @@ footer {
   height: 300px ;
   border-radius: 20%;
 }
+.imgTablaAdmin{
+  width: 150px;
+  height: 180px;
+  border-radius: 20px;
+}
+.highlight td {
+  background-color: black !important;
+}
 .degradeMorado{
   background: linear-gradient(
     135deg,

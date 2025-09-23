@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useParams, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams, useNavigate } from "react-router-dom";
 
 // Componentes principales
 import Footer from "./components/Footer";
@@ -14,6 +14,7 @@ import TopMovies from "./components/TopMovies";
 import Planes from "./components/Planes";
 import TopSeries from "./components/TopSeries";
 import MovieDetail from "./components/MovieDetail";
+import { useState, useEffect } from "react";
 
 // Importar imágenes
 import deadpoolImage from "./assets/images/deadpool.jfif";
@@ -81,74 +82,6 @@ const moviesData = {
     backgroundImage: toyStoryBannerImage,
   },
 };
-//logica para guardar datos en el local storage
-const catalogoLS = JSON.parse(localStorage.getItem("catalogoKey")) || [];
-
-//Estado para almacenar el contenido
-const [catalogo, setCatalogo] = useState(catalogoLS);
-
-useEffect(() => {
-  localStorage.setItem("catalogoKey", JSON.stringify(catalogo))
-}, [catalogo]);
-
-const agregarContenido = (nuevoContenido) => {
-  setCatalogo([...catalogo, nuevoContenido])
-  return true;
-}
-
-const eliminarContenido = (idContenido) => {
-  const filtrarCatalogo = catalogo.filter((itemContenido) => itemContenido.id !== idContenido);
-  setCatalogo(filtrarCatalogo);
-  return true;
-}
-
-const buscarContenido = (idContenido) => {
-  const contenidoBuscado = catalogo.find((itemCatalogo) => itemCatalogo.id === idContenido);
-  return contenidoBuscado;
-}
-
-const modificarContenido = (idContenido, dataCatalogo) => {
-  const contenidoActualizado = catalogo.map((itemCatalogo) => {
-    if (itemCatalogo.id === idContenido) {
-      //actualizar catalogo
-      return {
-        ...itemCatalogo,
-        ...dataCatalogo
-      }
-    }
-    return itemCatalogo;
-  })
-  //actualizar el state
-  setCatalogo(contenidoActualizado);
-  return true;
-}
-const [filaDestacada, setFilaDestacada] = useState(catalogoLS.find((item) => item.destacado)?.id || null);
-
-//Logica para destacar el contenido
-const destacarFila = (id) => {
-  const nuevoCatalogo = catalogo.map((item) => {
-    if (item.id === id) {
-      if (item.destacado) {
-        // Si ya estaba destacado lo elimino
-        const copia = { ...item };
-        delete copia.destacado;
-        setFilaDestacada(null);
-        return copia;
-      } else {
-        // Si no estaba destacado lo agrego
-        setFilaDestacada(id);
-        return { ...item, destacado: true };
-      }
-    } else {
-      // Aseguro que todos los demás no tengan "destacado"
-      const copia = { ...item };
-      delete copia.destacado;
-      return copia;
-    }
-  })
-  setCatalogo(nuevoCatalogo);
-  console.log("el id del contenido seleccionado es: ", id)
-}
 // Componente para la página principal con navegación
 function HomePage() {
   const navigate = useNavigate();
@@ -197,32 +130,144 @@ function MovieDetailWrapper() {
     />
   );
 }
-
 function App() {
+  //logica para guardar datos en el local storage
+  const catalogoLS = JSON.parse(localStorage.getItem("catalogoKey")) || [];
+
+  //Estado para almacenar el contenido
+  const [catalogo, setCatalogo] = useState(catalogoLS);
+
+  useEffect(() => {
+    localStorage.setItem("catalogoKey", JSON.stringify(catalogo))
+  }, [catalogo]);
+
+  const agregarContenido = (nuevoContenido) => {
+    setCatalogo([...catalogo, nuevoContenido])
+    return true;
+  }
+
+  const eliminarContenido = (idContenido) => {
+    const filtrarCatalogo = catalogo.filter((itemContenido) => itemContenido.id !== idContenido);
+    setCatalogo(filtrarCatalogo);
+    return true;
+  }
+
+  const buscarContenido = (idContenido) => {
+    const contenidoBuscado = catalogo.find((itemCatalogo) => itemCatalogo.id === idContenido);
+    return contenidoBuscado;
+  }
+
+  const modificarContenido = (idContenido, dataCatalogo) => {
+    const contenidoActualizado = catalogo.map((itemCatalogo) => {
+      if (itemCatalogo.id === idContenido) {
+        //actualizar catalogo
+        return {
+          ...itemCatalogo,
+          ...dataCatalogo
+        }
+      }
+      return itemCatalogo;
+    })
+    //actualizar el state
+    setCatalogo(contenidoActualizado);
+    return true;
+  }
+  const [filaDestacada, setFilaDestacada] = useState(catalogoLS.find((item) => item.destacado)?.id || null);
+
+  //Logica para destacar el contenido
+  const destacarFila = (id) => {
+    const nuevoCatalogo = catalogo.map((item) => {
+      if (item.id === id) {
+        if (item.destacado) {
+          // Si ya estaba destacado lo elimino
+          const copia = { ...item };
+          delete copia.destacado;
+          setFilaDestacada(null);
+          return copia;
+        } else {
+          // Si no estaba destacado lo agrego
+          setFilaDestacada(id);
+          return { ...item, destacado: true };
+        }
+      } else {
+        // Aseguro que todos los demás no tengan "destacado"
+        const copia = { ...item };
+        delete copia.destacado;
+        return copia;
+      }
+    })
+    setCatalogo(nuevoCatalogo);
+    console.log("el id del contenido seleccionado es: ", id)
+  }
   return (
-    <Router>
+    <BrowserRouter>
       <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
         <MenuNavBar />
 
-        <Routes>
-          {/* Página principal */}
-          <Route path="/" element={<HomePage />} />
+        <main>
+          <Routes>
+            {/* Página principal */}
+            <Route path="/" element={<HomePage />} />
 
-          {/* Detalle de película */}
-          <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
+            {/* Detalle de película */}
+            <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
 
-          {/* Páginas adicionales */}
-          <Route path="/registro" element={<RegisterPage />} />
-          <Route path="/acerca" element={<AcercadeNosotros />} />
-          <Route path="/admin" element={<Administrador />} />
-          <Route path="/formulario" element={<FormularioContenido />} />
-          <Route path="/login" element={<h2>Página de login (próximamente)</h2>} />
-        </Routes>
+            {/* Registro */}
+            <Route path="/registro" element={<RegisterPage />} />
+
+            {/* Acerca de nosotros */}
+            <Route path="/acerca" element={<AcercadeNosotros />} />
+
+            {/* Formulario contenido */}
+            <Route path="/formulario" element={<FormularioContenido />} />
+
+            {/* Login */}
+            <Route
+              path="/login"
+              element={<h2>Página de login (próximamente)</h2>}
+            />
+
+            {/* Rutas de administrador más específicas */}
+            <Route
+              path="/administrador"
+              element={
+                <Administrador
+                  catalogo={catalogo}
+                  agregarContenido={agregarContenido}
+                  eliminarContenido={eliminarContenido}
+                  modificarContenido={modificarContenido}
+                  destacarFila={destacarFila}
+                  filaDestacada={filaDestacada}
+                />
+              }
+            />
+            <Route
+              path="/administrador/crear"
+              element={
+                <FormularioContenido
+                  agregarContenido={agregarContenido}
+                  titulo="AGREGAR NUEVO CONTENIDO"
+                  textoBoton="Agregar"
+                />
+              }
+            />
+            <Route
+              path="/administrador/editar/:id"
+              element={
+                <FormularioContenido
+                  modificarContenido={modificarContenido}
+                  buscarContenido={buscarContenido}
+                  titulo="EDITAR CONTENIDO"
+                  textoBoton="Actualizar"
+                />
+              }
+            />
+          </Routes>
+        </main>
 
         <Footer />
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
-
 export default App;

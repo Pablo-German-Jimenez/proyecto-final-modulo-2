@@ -43,16 +43,23 @@ const AcercadeNosotros = () => {
           <h3 className="text-center">NUESTROS EXCLUSIVOS</h3>
           <div className="row">
             <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-              <CardExclusivos></CardExclusivos>
+              <CardExclusivos titulo="Soy Leyenda" img="https://clarovideocdn5.clarovideo.net/PELICULAS/IAMLEGEND/EXPORTACION_WEB/SS/IAMLEGENDWVERTICAL.jpg?size=200x300" />
             </div>
             <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-              <CardExclusivos></CardExclusivos>
+              <CardExclusivos titulo="Terminator 2" img="https://www.originalfilmart.com/cdn/shop/products/terminator_2_1991_advance_original_film_art_5000x.jpg?v=1594872723" />
             </div>
             <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-              <CardExclusivos></CardExclusivos>
+              <CardExclusivos titulo="Better Call Saul" img="https://es.web.img3.acsta.net/pictures/15/12/17/16/57/343857.jpg" />
             </div>
             <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-              <CardExclusivos></CardExclusivos>
+              <CardExclusivos titulo="Band of Brothers" img="https://enagenda.com.ar/uploads/ckeditor/2023/09/20230914182555_f5gwyhcxkaanhti.jpg" />
+            </div>
+            {/* contenido solo visible en dispositivos medianos */}
+            <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center d-none d-md-flex d-lg-none">
+              <CardExclusivos titulo="Saw" img="https://es.web.img3.acsta.net/medias/nmedia/18/89/75/36/20065254.jpg" />
+            </div>
+            <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center align-items-center d-none d-md-flex d-lg-none">
+              <CardExclusivos titulo="Cars" img="https://es.web.img2.acsta.net/pictures/14/05/28/11/24/435900.jpg" />
             </div>
           </div>
         </div>

@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import ItemTablaContenido from "./ItemTablaContenido";
 import FormularioContenido from "./FormularioContenido";
+import { Link } from "react-router";
 
-const Administrador = () => {
+const Administrador = ({ catalogo, agregarContenido, eliminarContenido, destacarFila, filaDestacada }) => {
   const [showModal, setShowModal] = useState(false);
 
   const abrirModal = () => setShowModal(true);
@@ -12,8 +13,12 @@ const Administrador = () => {
   return (
     <>
       <section className="container">
-        <div className="d-flex justify-content-center">
-          <h2 className="text-center mb-0">ADMINISTRAR CATALOGO</h2>
+        <div className="d-flex align-items-center">
+          <h2 className="flex-grow-1 text-center mb-0">ADMINISTRAR CATALOGO</h2>
+          <Link className="btn btn-primary mt-2 me-2 d-none d-md-block" to={"/administrador/crear"}>
+            Nuevo
+            <i class="bi bi-plus"></i>
+          </Link>
         </div>
         <div className="row">
           <div className="container-fluid col-12">
@@ -25,15 +30,26 @@ const Administrador = () => {
                   <th>Tipo</th>
                   <th>Portada</th>
                   <th>Categoria</th>
+                  <th>Año</th>
+                  <th>Clasificacion</th>
                   <th>Descripcion</th>
                   <th>Publicado</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
               <tbody>
-                <ItemTablaContenido
-                  abrirModal={abrirModal}
-                ></ItemTablaContenido>
+                {catalogo.map((itemContenido, indice) => (
+                  <ItemTablaContenido
+                    key={itemContenido.id}
+                    item={itemContenido}
+                    abrirModal={abrirModal}
+                    agregarContenido={agregarContenido}
+                    eliminarContenido={eliminarContenido}
+                    filaDestacada={filaDestacada}
+                    destacarFila={destacarFila}
+                    fila={indice + 1}
+                  ></ItemTablaContenido>
+                ))}
               </tbody>
             </Table>
           </div>
