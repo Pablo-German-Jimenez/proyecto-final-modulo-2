@@ -35,6 +35,7 @@ import conjuroBannerImage from "./assets/images/el conjuro banner.jpg";
 import purgaBannerImage from "./assets/images/la purga banner.jpg";
 import toyStoryBannerImage from "./assets/images/toy story 4 banner.jpg";
 import logoImage from "./assets/images/logosinfondo.png";
+import PaginaNoEncontrada from "./components/PaginaNoEncontrada";
 
 // Datos de películas
 const moviesData = {
@@ -250,6 +251,7 @@ function App() {
                 }
               />
             </Route>
+            <Route path="*" element={<PaginaNoEncontrada />}></Route>
           </Routes>
 
           <Footer />

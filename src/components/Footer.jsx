@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="row">
         <div className="container col-12 col-md-6 col-lg-3 d-flex flex-column align-items-center align-items-md-start">
           <h5 className="mt-lg-0">Rolling Movie</h5>
-          <Link className="linksfooter">Peliculas</Link>
+          <Link to={"/paginaquenoexiste"} className="linksfooter">Peliculas</Link>
           <Link className="linksfooter">Series</Link>
           <Link className="linksfooter">Documentales</Link>
           <Link className="linksfooter">Estrenos</Link>
