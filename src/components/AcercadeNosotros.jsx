@@ -84,38 +84,46 @@ const AcercadeNosotros = () => {
         {/* apartado nuestro equipo */}
         <div className="col-12 degradeMorado">
           <h3 className="text-center fs-3">NUESTRO EQUIPO</h3>
-          <div className="row">
+          <div className="row d-flex justify-content-around">
             <div className="col-12 col-md-3 mt-2 d-flex flex-column align-items-center">
               <img
-                src="https://cdn-icons-png.flaticon.com/512/10542/10542459.png"
+                src="src\assets\images\integrante4grupo3 (1).jpg"
                 alt="integrante del equipo"
-                className="avatarIntegrantes"
+                className="imgIntegrantes"
               />
-              <p>Integrante 1</p>
+              <p>Robles Luis</p>
             </div>
             <div className="col-12 col-md-3 mt-2 d-flex flex-column align-items-center">
               <img
-                src="https://cdn-icons-png.flaticon.com/512/10542/10542459.png"
+                src="src\assets\images\integrante4grupo3 (1).jpeg"
                 alt="integrante del equipo"
-                className="avatarIntegrantes"
+                className="imgIntegrantes"
               />
-              <p>Integrante 2</p>
+              <p>Velázquez Eduardo</p>
             </div>
             <div className="col-12 col-md-3 mt-2 d-flex flex-column align-items-center">
               <img
-                src="https://cdn-icons-png.flaticon.com/512/10542/10542459.png"
+                src="src\assets\images\integrante4grupo3 (1).webp"
                 alt="integrante del equipo"
-                className="avatarIntegrantes"
+                className="imgIntegrantes"
               />
-              <p>Intregante 3</p>
+              <p>Naim Paz</p>
             </div>
             <div className="col-12 col-md-3 mt-2 d-flex flex-column align-items-center">
               <img
-                src="https://cdn-icons-png.flaticon.com/512/10542/10542459.png"
+                src="src\assets\images\intregante4grupo3.jpeg"
                 alt="integrante del equipo"
-                className="avatarIntegrantes"
+                className="imgIntegrantes"
               />
-              <p>Integrante 4</p>
+              <p>Jimenez Germán</p>
+            </div>
+            <div className="col-12 col-md-3 mt-2 d-flex flex-column align-items-center">
+              <img
+                src="src\assets\images\integrante4grupo3 (3).jpeg"
+                alt="integrante del equipo"
+                className="imgIntegrantes"
+              />
+              <p>Abellesen Nacho</p>
             </div>
           </div>
         </div>
