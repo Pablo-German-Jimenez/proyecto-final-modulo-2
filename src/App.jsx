@@ -1,3 +1,4 @@
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,11 +8,12 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-// 🔹 Componentes principales
+// Componentes principales
 import Footer from "./components/Footer";
 import AcercadeNosotros from "./components/AcercadeNosotros";
 import Administrador from "./components/Administrador";
 import FormularioContenido from "./components/FormularioContenido";
+import RegisterPage from "./pages/RegisterPage";
 import MenuNavBar from "./components/MenuNavBar";
 import HeroMovie from "./components/HeroMovie";
 import Carrusel from "./components/Carrusel";
@@ -19,9 +21,8 @@ import TopMovies from "./components/TopMovies";
 import Planes from "./components/Planes";
 import TopSeries from "./components/TopSeries";
 import MovieDetail from "./components/MovieDetail";
-import RegisterPage from "./pages/RegisterPage";
 
-// 🔹 Imágenes
+// Importar imágenes
 import deadpoolImage from "./assets/images/deadpool.jfif";
 import garraImage from "./assets/images/Garra.jpg";
 import conjuroBannerImage from "./assets/images/el conjuro banner.jpg";
@@ -29,7 +30,7 @@ import purgaBannerImage from "./assets/images/la purga banner.jpg";
 import toyStoryBannerImage from "./assets/images/toy story 4 banner.jpg";
 import logoImage from "./assets/images/logosinfondo.png";
 
-// 🔹 Datos de películas
+// Datos de películas
 const moviesData = {
   deadpool: {
     id: "deadpool",
@@ -88,7 +89,7 @@ const moviesData = {
   },
 };
 
-// 🔹 Página principal
+// Página principal con funcionalidad completa de catálogo
 function HomePage() {
   const navigate = useNavigate();
 
@@ -206,7 +207,7 @@ function HomePage() {
   );
 }
 
-// 🔹 Página detalle de películas
+// Componente para detalle de película
 function MovieDetailWrapper() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -228,7 +229,7 @@ function MovieDetailWrapper() {
   );
 }
 
-// 🔹 App principal
+// Componente principal de la aplicación
 function App() {
   return (
     <Router>
@@ -236,16 +237,18 @@ function App() {
         <MenuNavBar />
 
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          {/* Página principal */}
+          <Route path="/*" element={<HomePage />} />
+
+          {/* Detalle de película */}
           <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
+
+          {/* Páginas adicionales */}
           <Route path="/registro" element={<RegisterPage />} />
           <Route path="/acerca" element={<AcercadeNosotros />} />
           <Route path="/admin" element={<Administrador />} />
           <Route path="/formulario" element={<FormularioContenido />} />
-          <Route
-            path="/login"
-            element={<h2>Página de login (próximamente)</h2>}
-          />
+          <Route path="/login" element={<h2>Página de login (próximamente)</h2>} />
         </Routes>
 
         <Footer />

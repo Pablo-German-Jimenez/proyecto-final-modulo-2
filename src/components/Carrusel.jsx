@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
 import { Card, Badge } from "react-bootstrap";
-import { ChevronLeft, ChevronRight, Plus, Play, ShoppingBag } from "lucide-react"; // para iconos bonitos
+import { ChevronLeft, ChevronRight, Plus, Play, ShoppingBag } from "lucide-react";
 import "./Carrusel.css";
 
-import deadpoolCartelera from "../assets/images/deadpool.jfif"; // Mantenemos Deadpool original
-import conjuroCartelera from "../assets/images/El conjuro 2.jpg"; // Mantenemos El Conjuro original
-import garraCartelera from "../assets/images/Garra.jpg"; // Mantenemos Garra original
-import purgaCartelera from "../assets/images/La purga.jpeg"; // Mantenemos La Purga original
-import toyStoryCartelera from "../assets/images/toy story.jpg"; // Mantenemos Toy Story original
+import deadpoolCartelera from "../assets/images/deadpool.jfif";
+import conjuroCartelera from "../assets/images/El conjuro 2.jpg";
+import garraCartelera from "../assets/images/Garra.jpg";
+import purgaCartelera from "../assets/images/La purga.jpeg";
+import toyStoryCartelera from "../assets/images/toy story.jpg";
 import aPesarDeTiCartelera from "../assets/images/a_pesar_de_ti-cartelera.jpg";
 import avatarCartelera from "../assets/images/avatar_fuego_y_ceniza-cartelera.jpg";
 import bobEsponjaCartelera from "../assets/images/bob_esponja_una_aventura_pirata-cartelera.jpg";
@@ -70,9 +70,10 @@ const data = [
     description: "Los juguetes de Andy cobran vida cuando él no está presente. Woody, el sheriff favorito, debe lidiar con la llegada de Buzz Lightyear, el nuevo juguete espacial.",
     genre: "Animación, Aventura"
   },
-  {
-    id: 6,
-    titulo: "A Pesar de Ti",
+  { 
+    id: 6, 
+    movieId: "apesardeti",
+    titulo: "A Pesar de Ti", 
     img: aPesarDeTiCartelera,
     year: "2024",
     duration: "1 h 45 min",
@@ -80,9 +81,10 @@ const data = [
     description: "Una historia de amor complicada entre dos personas que deben superar obstáculos personales y familiares para estar juntos, a pesar de las circunstancias adversas.",
     genre: "Romance, Drama"
   },
-  {
-    id: 7,
-    titulo: "Avatar: Fuego y Ceniza",
+  { 
+    id: 7, 
+    movieId: "avatar",
+    titulo: "Avatar: Fuego y Ceniza", 
     img: avatarCartelera,
     year: "2025",
     duration: "2 h 32 min",
@@ -90,9 +92,10 @@ const data = [
     description: "La saga continúa en Pandora donde Jake Sully y su familia enfrentan nuevas amenazas mientras exploran mundos desconocidos y descubren secretos ancestrales.",
     genre: "Ciencia Ficción, Aventura"
   },
-  {
-    id: 8,
-    titulo: "Bob Esponja: Una Aventura Pirata",
+  { 
+    id: 8, 
+    movieId: "bobesponja",
+    titulo: "Bob Esponja: Una Aventura Pirata", 
     img: bobEsponjaCartelera,
     year: "2024",
     duration: "1 h 32 min",
@@ -100,9 +103,10 @@ const data = [
     description: "Bob Esponja y Patricio se embarcan en una épica aventura pirata para salvar a sus amigos y descubrir el tesoro perdido de Fondo de Bikini.",
     genre: "Animación, Comedia"
   },
-  {
-    id: 9,
-    titulo: "Elio",
+  { 
+    id: 9, 
+    movieId: "elio",
+    titulo: "Elio", 
     img: elioCartelera,
     year: "2024",
     duration: "1 h 37 min",
@@ -110,9 +114,10 @@ const data = [
     description: "Un niño de 11 años es accidentalmente transportado al Centro de Comando Universal donde es confundido con el embajador de la Tierra para una organización galáctica.",
     genre: "Animación, Aventura"
   },
-  {
-    id: 10,
-    titulo: "Sé lo que Hicisteis el Último Verano",
+  { 
+    id: 10, 
+    movieId: "seloquehicisteis",
+    titulo: "Sé lo que Hicisteis el Último Verano", 
     img: seLoQueHicisteisCartelera,
     year: "1997",
     duration: "1 h 41 min",
@@ -128,8 +133,12 @@ const Carrusel = ({ onMovieClick }) => {
 
   // Función para manejar clic en película
   const handleMovieClick = (movieId) => {
+    console.log('Carrusel - Clic en película:', movieId);
+    console.log('Carrusel - onMovieClick función:', onMovieClick);
     if (onMovieClick) {
       onMovieClick(movieId);
+    } else {
+      console.error('Carrusel - onMovieClick no está definida');
     }
   };
 
@@ -152,7 +161,7 @@ const Carrusel = ({ onMovieClick }) => {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h2 className="text-white mb-3 mb-lg-2 text-start" >También podrían gustarte</h2>
+            <h2 className="text-white mb-3 mb-lg-2 text-start">También podrían gustarte</h2>
 
             <div className="carrusel-container position-relative">
               {/* Botón Izquierda - Solo visible en pantallas grandes */}
@@ -204,14 +213,32 @@ const Carrusel = ({ onMovieClick }) => {
 
                       {/* Overlay de hover */}
                       {hoveredMovie === item.id && (
-                        <div className="carrusel-hover-overlay">
+                        <div 
+                          className="carrusel-hover-overlay"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleMovieClick(item.movieId);
+                          }}
+                        >
                           <div className="carrusel-hover-content">
                             {/* Botones de acción */}
                             <div className="carrusel-action-buttons">
-                              <button className="carrusel-action-btn carrusel-add-btn">
+                              <button 
+                                className="carrusel-action-btn carrusel-add-btn"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  console.log('Botón agregar clickeado');
+                                }}
+                              >
                                 <Plus size={16} />
                               </button>
-                              <button className="carrusel-action-btn carrusel-play-btn">
+                              <button 
+                                className="carrusel-action-btn carrusel-play-btn"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleMovieClick(item.movieId);
+                                }}
+                              >
                                 <Play size={14} />
                               </button>
                             </div>
