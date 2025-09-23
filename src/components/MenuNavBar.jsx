@@ -31,6 +31,31 @@ const MenuNavBar = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [query, setQuery] = useState("");
+  const searchIndex = [
+    { id: "deadpool", title: "deadpool" },
+    { id: "garras", title: "garra" },
+    { id: "conjuro", title: "el conjuro 2" },
+    { id: "purga", title: "la purga" },
+    { id: "toystory", title: "toy story" },
+  ];
+
+  const normalize = (s) => s
+    .toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}+/gu, "")
+    .trim();
+
+  const submitSearch = () => {
+    const q = normalize(query);
+    if (!q) return;
+    const hit = searchIndex.find(m => normalize(m.title).includes(q) || q.includes(normalize(m.title)) || m.id === q);
+    if (hit) {
+      navigate(`/pelicula/${hit.id}`);
+      setQuery("");
+    }
+  };
   const { login, logout, isAuthenticated, user } = useAuth();
 
   const handleOpenModal = () => setShowModal(true);
@@ -114,14 +139,16 @@ const MenuNavBar = () => {
             </Nav>
 
             {/* 🔹 Barra de búsqueda */}
-            <Form className="search-form ">
+            <Form className="search-form " onSubmit={(e)=>{e.preventDefault(); submitSearch();}}>
               <InputGroup>
                 <Form.Control
                   type="search"
                   placeholder="Buscar pelis o series"
                   aria-label="Search"
+                  value={query}
+                  onChange={(e)=>setQuery(e.target.value)}
                 />
-                <InputGroup.Text>
+                <InputGroup.Text role="button" onClick={submitSearch}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
