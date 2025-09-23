@@ -1,16 +1,6 @@
 import React from "react";
 
-import { BrowserRouter, Routes, Route, useParams, useNavigate } from "react-router-dom";
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useParams,
-  useNavigate,
-} from "react-router-dom";
-import { useEffect, useState } from "react";
-
+import { BrowserRouter, Routes, Route, useParams, useNavigate } from "react-router";
 
 // Componentes principales
 import Footer from "./components/Footer";
@@ -315,74 +305,19 @@ function App() {
     <BrowserRouter>
       <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
         <MenuNavBar />
-
-
         <main>
           <Routes>
-            {/* Página principal */}
             <Route path="/" element={<HomePage />} />
-
-            {/* Detalle de película */}
             <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
-
-        <Routes>
-          {/* Página principal */}
-          <Route path="/*" element={<HomePage />} />
-
-
-            {/* Registro */}
             <Route path="/registro" element={<RegisterPage />} />
-
-            {/* Acerca de nosotros */}
             <Route path="/acerca" element={<AcercadeNosotros />} />
-
-            {/* Formulario contenido */}
             <Route path="/formulario" element={<FormularioContenido />} />
-
-            {/* Login */}
-            <Route
-              path="/login"
-              element={<h2>Página de login (próximamente)</h2>}
-            />
-
-            {/* Rutas de administrador más específicas */}
-            <Route
-              path="/administrador"
-              element={
-                <Administrador
-                  catalogo={catalogo}
-                  agregarContenido={agregarContenido}
-                  eliminarContenido={eliminarContenido}
-                  modificarContenido={modificarContenido}
-                  destacarFila={destacarFila}
-                  filaDestacada={filaDestacada}
-                />
-              }
-            />
-            <Route
-              path="/administrador/crear"
-              element={
-                <FormularioContenido
-                  agregarContenido={agregarContenido}
-                  titulo="AGREGAR NUEVO CONTENIDO"
-                  textoBoton="Agregar"
-                />
-              }
-            />
-            <Route
-              path="/administrador/editar/:id"
-              element={
-                <FormularioContenido
-                  modificarContenido={modificarContenido}
-                  buscarContenido={buscarContenido}
-                  titulo="EDITAR CONTENIDO"
-                  textoBoton="Actualizar"
-                />
-              }
-            />
+            <Route path="/login" element={<h2>Página de login (próximamente)</h2>} />
+            <Route path="/administrador" element={<Administrador catalogo={catalogo} agregarContenido={agregarContenido} eliminarContenido={eliminarContenido} modificarContenido={modificarContenido} destacarFila={destacarFila} filaDestacada={filaDestacada} />} />
+            <Route path="/administrador/crear" element={<FormularioContenido agregarContenido={agregarContenido} titulo="AGREGAR NUEVO CONTENIDO" textoBoton="Agregar" />} />
+            <Route path="/administrador/editar/:id" element={<FormularioContenido modificarContenido={modificarContenido} buscarContenido={buscarContenido} titulo="EDITAR CONTENIDO" textoBoton="Actualizar" />} />
           </Routes>
         </main>
-
         <Footer />
       </div>
     </BrowserRouter>

@@ -3,13 +3,7 @@ import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import FormularioContenido from "./FormularioContenido";
 
 import { Link } from "react-router";
-
-const ItemTablaContenido = ({ item, fila, agregarContenido, eliminarContenido, filaDestacada, destacarFila }) => {
-
-import { data, useParams } from "react-router";
-import { Link } from "react-router";
-
-const ItemTablaContenido = ({ abrirModal, item, eliminarContenido, fila, modificarContenido, filaDestacada, destacarFila }) => {
+const ItemTablaContenido = ({ item, eliminarContenido, fila, filaDestacada, destacarFila }) => {
 
   const [Contenido, setContenido] = useState(true);
 
@@ -26,9 +20,6 @@ const ItemTablaContenido = ({ abrirModal, item, eliminarContenido, fila, modific
         <td>
 
           <img src={item.portada} className="imgTablaAdmin" alt="portada pelicula" />
-
-          <img src={item.portada} className="imgtableAdmin" alt="portada pelicula" />
-
         </td>
         <td className="align-middle">{item.categoria}</td>
         <td className="align-middle">{item.anio}</td>

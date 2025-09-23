@@ -9,9 +9,6 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router";
 
-
-const FormularioContenido = ({ agregarContenido, modificarContenido, buscarContenido, titulo, textoBoton }) => {
-
 const FormularioContenido = ({ onClose, agregarContenido, modificarContenido, buscarContenido, titulo, textoBoton }) => {
 
   const {
