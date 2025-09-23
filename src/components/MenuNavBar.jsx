@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../BrandBanner.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 // 🔹 Importar el logo
 import logoImage from "../assets/images/logosinfondo.png";
@@ -26,10 +27,35 @@ const MenuNavBar = () => {
   ];
 
   const [showModal, setShowModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login, logout, isAuthenticated, user } = useAuth();
 
   const handleOpenModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setEmail("");
+    setPassword("");
+    setError("");
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const result = login(email, password);
+    
+    if (result.success) {
+      handleCloseModal();
+      setError("");
+    } else {
+      setError(result.error);
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <>
@@ -111,27 +137,58 @@ const MenuNavBar = () => {
             </Form>
           </Navbar.Collapse>
 
-          {/* 🔹 Botón login */}
-          <button
-            type="button"
-            className="btn btn-outline-primary my-3"
-            onClick={handleOpenModal}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="26"
-              height="26"
-              fill="currentColor"
-              className="bi bi-person-circle mx-1"
-              viewBox="0 0 16 16"
+          {/* 🔹 Botón login/logout */}
+          {isAuthenticated() ? (
+            <div className="d-flex align-items-center gap-3">
+              <span className="text-white">¡Hola, {user.name}!</span>
+              <button
+                type="button"
+                className="btn btn-outline-danger my-3"
+                onClick={handleLogout}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="26"
+                  height="26"
+                  fill="currentColor"
+                  className="bi bi-box-arrow-right"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
+                  />
+                  <path
+                    fillRule="evenodd"
+                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                  />
+                </svg>
+                Cerrar Sesión
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="btn btn-outline-primary my-3"
+              onClick={handleOpenModal}
             >
-              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-              <path
-                fillRule="evenodd"
-                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
-              />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                fill="currentColor"
+                className="bi bi-person-circle mx-1"
+                viewBox="0 0 16 16"
+              >
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                <path
+                  fillRule="evenodd"
+                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+                />
+              </svg>
+              Iniciar Sesión
+            </button>
+          )}
 
           {/* 🔹 Modal de Login */}
           <Modal show={showModal} onHide={handleCloseModal}>
@@ -139,19 +196,33 @@ const MenuNavBar = () => {
               <Modal.Title>Iniciar Sesión!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form>
+              {error && (
+                <div className="alert alert-danger" role="alert">
+                  {error}
+                </div>
+              )}
+              <Form onSubmit={handleLogin}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Cuenta</Form.Label>
-                  <Form.Control type="email" placeholder="Ingresá tu Email!" />
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control 
+                    type="email" 
+                    placeholder="Ingresá tu Email!" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control type="password" placeholder="Ingresá tu clave!" />
+                  <Form.Control 
+                    type="password" 
+                    placeholder="Ingresá tu clave!" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                  <Form.Check type="checkbox" label="Recordarme!" />
-                </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className="w-100">
                   Ingresar
                 </Button>
                 <Button

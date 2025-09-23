@@ -7,6 +7,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 // Componentes principales
 import Footer from "./components/Footer";
@@ -92,6 +93,7 @@ const moviesData = {
 // Página principal con funcionalidad completa de catálogo
 function HomePage() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const handleMovieClick = (movieId) => {
     navigate(`/pelicula/${movieId}`);
@@ -163,7 +165,7 @@ function HomePage() {
               <HeroMovie onMovieClick={handleMovieClick} />
               <Carrusel onMovieClick={handleMovieClick} />
               <TopMovies onMovieClick={handleMovieClick} catalogo={catalogo} />
-              <Planes />
+              {!isAuthenticated() && <Planes />}
               <TopSeries onMovieClick={handleMovieClick} />
             </>
           }
@@ -232,28 +234,30 @@ function MovieDetailWrapper() {
 // Componente principal de la aplicación
 function App() {
   return (
-    <Router>
-      <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
-        <MenuNavBar />
+    <AuthProvider>
+      <Router>
+        <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
+          <MenuNavBar />
 
-        <Routes>
-          {/* Página principal */}
-          <Route path="/*" element={<HomePage />} />
+          <Routes>
+            {/* Página principal */}
+            <Route path="/*" element={<HomePage />} />
 
-          {/* Detalle de película */}
-          <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
+            {/* Detalle de película */}
+            <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
 
-          {/* Páginas adicionales */}
-          <Route path="/registro" element={<RegisterPage />} />
-          <Route path="/acerca" element={<AcercadeNosotros />} />
-          <Route path="/admin" element={<Administrador />} />
-          <Route path="/formulario" element={<FormularioContenido />} />
-          <Route path="/login" element={<h2>Página de login (próximamente)</h2>} />
-        </Routes>
+            {/* Páginas adicionales */}
+            <Route path="/registro" element={<RegisterPage />} />
+            <Route path="/acerca" element={<AcercadeNosotros />} />
+            <Route path="/admin" element={<Administrador />} />
+            <Route path="/formulario" element={<FormularioContenido />} />
+            <Route path="/login" element={<h2>Página de login (próximamente)</h2>} />
+          </Routes>
 
-        <Footer />
-      </div>
-    </Router>
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
