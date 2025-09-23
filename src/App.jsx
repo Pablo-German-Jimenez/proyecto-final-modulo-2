@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { SavedMoviesProvider } from "./contexts/SavedMoviesContext";
 
 // Componentes principales
 import Footer from "./components/Footer";
@@ -21,6 +22,7 @@ import Carrusel from "./components/Carrusel";
 import TopMovies from "./components/TopMovies";
 import Planes from "./components/Planes";
 import TopSeries from "./components/TopSeries";
+import SavedMovies from "./components/SavedMovies";
 import MovieDetail from "./components/MovieDetail";
 
 // Importar imágenes
@@ -165,7 +167,11 @@ function HomePage() {
               <HeroMovie onMovieClick={handleMovieClick} />
               <Carrusel onMovieClick={handleMovieClick} />
               <TopMovies onMovieClick={handleMovieClick} catalogo={catalogo} />
-              {!isAuthenticated() && <Planes />}
+              {isAuthenticated() ? (
+                <SavedMovies onMovieClick={handleMovieClick} />
+              ) : (
+                <Planes />
+              )}
               <TopSeries onMovieClick={handleMovieClick} />
             </>
           }
@@ -235,28 +241,30 @@ function MovieDetailWrapper() {
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
-          <MenuNavBar />
+      <SavedMoviesProvider>
+        <Router>
+          <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
+            <MenuNavBar />
 
-          <Routes>
-            {/* Página principal */}
-            <Route path="/*" element={<HomePage />} />
+            <Routes>
+              {/* Página principal */}
+              <Route path="/*" element={<HomePage />} />
 
-            {/* Detalle de película */}
-            <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
+              {/* Detalle de película */}
+              <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
 
-            {/* Páginas adicionales */}
-            <Route path="/registro" element={<RegisterPage />} />
-            <Route path="/acerca" element={<AcercadeNosotros />} />
-            <Route path="/admin" element={<Administrador />} />
-            <Route path="/formulario" element={<FormularioContenido />} />
-            <Route path="/login" element={<h2>Página de login (próximamente)</h2>} />
-          </Routes>
+              {/* Páginas adicionales */}
+              <Route path="/registro" element={<RegisterPage />} />
+              <Route path="/acerca" element={<AcercadeNosotros />} />
+              <Route path="/admin" element={<Administrador />} />
+              <Route path="/formulario" element={<FormularioContenido />} />
+              <Route path="/login" element={<h2>Página de login (próximamente)</h2>} />
+            </Routes>
 
-          <Footer />
-        </div>
-      </Router>
+            <Footer />
+          </div>
+        </Router>
+      </SavedMoviesProvider>
     </AuthProvider>
   );
 }

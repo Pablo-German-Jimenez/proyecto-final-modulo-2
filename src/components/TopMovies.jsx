@@ -2,6 +2,7 @@ import  { useRef, useState } from "react";
 import { Card, Badge } from "react-bootstrap";
 import { ChevronLeft, ChevronRight, TrendingUp, ShoppingBag, Plus, Play } from "lucide-react";
 import "./TopMovies.css";
+import "./TopSeries.css"; // Reutilizamos estilos idénticos del hover de series
 
 // Importar imágenes de películas (usando las carteleras disponibles)
 import deadpoolCartelera from "../assets/images/deadpool.jfif";
@@ -241,7 +242,7 @@ const TopMovies = ({ onMovieClick }) => {
 
                       {/* Tarjeta de película */}
                       <Card
-                        className="top-movie-card h-100 shadow-lg border-0"
+                        className="top-movie-card top-series-card h-100 shadow-lg border-0"
                         style={{ cursor: "pointer" }}
                         onClick={() => handleMovieClick(movie.movieId)}
                       >
@@ -250,7 +251,7 @@ const TopMovies = ({ onMovieClick }) => {
                             variant="top"
                             src={movie.image}
                             alt={movie.title}
-                            className="top-movie-image"
+                            className="top-movie-image top-series-image"
                           />
 
                           {/* Badge */}
@@ -268,7 +269,7 @@ const TopMovies = ({ onMovieClick }) => {
 
                           {/* Overlay de hover */}
                           {hoveredMovie === movie.id && (
-                            <div className="movie-hover-overlay">
+                            <div className="series-hover-overlay">
                               <div className="hover-content">
                                 {/* Botones de acción */}
                                 <div className="action-buttons">
@@ -287,18 +288,18 @@ const TopMovies = ({ onMovieClick }) => {
                                 </div>
 
                                 {/* Detalles de la película */}
-                                <div className="movie-details">
-                                  <div className="movie-meta">
+                                <div className="series-details">
+                                  <div className="series-meta">
                                     <span className="year">{movie.year}</span>
                                     <span className="duration">{movie.duration}</span>
                                     <Badge className="age-rating" variant="dark">{movie.ageRating}</Badge>
                                   </div>
 
-                                  <div className="movie-description">
+                                  <div className="series-description">
                                     {movie.description}
                                   </div>
 
-                                  <div className="movie-genre">
+                                  <div className="series-genre">
                                     {movie.genre}
                                   </div>
                                 </div>

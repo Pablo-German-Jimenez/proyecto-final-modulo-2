@@ -257,7 +257,7 @@ const HeroMovie = ({ onMovieClick }) => {
       >
         <div className="row">
           <div className="col-12 col-lg-6">
-            {/* Logo Netflix */}
+            {/* Logo Pixel Flow */}
             <div className="mb-4">
               <div style={{
                 display: "inline-flex",
@@ -270,7 +270,7 @@ const HeroMovie = ({ onMovieClick }) => {
                 letterSpacing: "0.5px"
               }}>
                 <span style={{ color: "#e50914", marginRight: "8px" }}>●</span>
-                <span style={{ color: "white" }}>NETFLIX</span>
+                <span style={{ color: "white" }}>PIXEL FLOW</span>
                 {isHovered && getMovieVideo(currentImageIndex) && (
                   <span style={{ 
                     color: "#ffc107", 
