@@ -81,7 +81,74 @@ const moviesData = {
     backgroundImage: toyStoryBannerImage,
   },
 };
+//logica para guardar datos en el local storage
+const catalogoLS = JSON.parse(localStorage.getItem("catalogoKey")) || [];
 
+//Estado para almacenar el contenido
+const [catalogo, setCatalogo] = useState(catalogoLS);
+
+useEffect(() => {
+  localStorage.setItem("catalogoKey", JSON.stringify(catalogo))
+}, [catalogo]);
+
+const agregarContenido = (nuevoContenido) => {
+  setCatalogo([...catalogo, nuevoContenido])
+  return true;
+}
+
+const eliminarContenido = (idContenido) => {
+  const filtrarCatalogo = catalogo.filter((itemContenido) => itemContenido.id !== idContenido);
+  setCatalogo(filtrarCatalogo);
+  return true;
+}
+
+const buscarContenido = (idContenido) => {
+  const contenidoBuscado = catalogo.find((itemCatalogo) => itemCatalogo.id === idContenido);
+  return contenidoBuscado;
+}
+
+const modificarContenido = (idContenido, dataCatalogo) => {
+  const contenidoActualizado = catalogo.map((itemCatalogo) => {
+    if (itemCatalogo.id === idContenido) {
+      //actualizar catalogo
+      return {
+        ...itemCatalogo,
+        ...dataCatalogo
+      }
+    }
+    return itemCatalogo;
+  })
+  //actualizar el state
+  setCatalogo(contenidoActualizado);
+  return true;
+}
+const [filaDestacada, setFilaDestacada] = useState(catalogoLS.find((item) => item.destacado)?.id || null);
+
+//Logica para destacar el contenido
+const destacarFila = (id) => {
+  const nuevoCatalogo = catalogo.map((item) => {
+    if (item.id === id) {
+      if (item.destacado) {
+        // Si ya estaba destacado lo elimino
+        const copia = { ...item };
+        delete copia.destacado;
+        setFilaDestacada(null);
+        return copia;
+      } else {
+        // Si no estaba destacado lo agrego
+        setFilaDestacada(id);
+        return { ...item, destacado: true };
+      }
+    } else {
+      // Aseguro que todos los demás no tengan "destacado"
+      const copia = { ...item };
+      delete copia.destacado;
+      return copia;
+    }
+  })
+  setCatalogo(nuevoCatalogo);
+  console.log("el id del contenido seleccionado es: ", id)
+}
 // Componente para la página principal con navegación
 function HomePage() {
   const navigate = useNavigate();
