@@ -103,7 +103,7 @@ const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) 
                 <div 
                   className="related-movie-image"
                   style={{
-                    backgroundImage: `url(${relatedMovie.image})`,
+                    backgroundImage: `url(${relatedMovie.backgroundImage})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}
