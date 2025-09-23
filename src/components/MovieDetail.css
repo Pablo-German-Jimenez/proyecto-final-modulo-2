@@ -144,6 +144,26 @@
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 }
 
+/* Estilo igual para botones de acciones cuando está logueado */
+.action-primary-like-subscribe {
+  background: white;
+  color: black;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.action-primary-like-subscribe:hover {
+  background: #f3f4f6;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+}
+
 .subscribe-btn:hover {
   background: #f3f4f6;
   transform: translateY(-2px);

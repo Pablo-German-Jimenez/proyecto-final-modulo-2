@@ -1,0 +1,182 @@
+/* Contenedor principal del carrusel */
+.saved-movies-container {
+  position: relative;
+  padding: 0 60px;
+}
+
+@media (max-width: 992px) {
+  .saved-movies-container {
+    padding: 0 20px;
+  }
+}
+
+/* Scroll horizontal */
+.saved-movies-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.saved-movies-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Item individual de película */
+.saved-movie-item {
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Tarjeta de película */
+.saved-movie-card {
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.saved-movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* Contenedor de imagen */
+.saved-movie-card .position-relative {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+/* Imagen de la película */
+.saved-movie-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.saved-movie-card:hover .saved-movie-image {
+  transform: scale(1.1);
+}
+
+/* Icono de guardados */
+.saved-icon {
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 50%;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Botón de eliminar */
+.remove-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255, 107, 107, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+  z-index: 5;
+}
+
+.saved-movie-card:hover .remove-btn {
+  opacity: 1;
+}
+
+.remove-btn:hover {
+  background: rgba(255, 107, 107, 1);
+  transform: scale(1.1);
+}
+
+/* Botones de navegación */
+.saved-movies-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.3s ease;
+}
+
+.saved-movies-arrow:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.saved-movies-arrow.left {
+  left: 0;
+}
+
+.saved-movies-arrow.right {
+  right: 0;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .saved-movies-container {
+    padding: 0 10px;
+  }
+  
+  .saved-movie-item {
+    min-width: 200px !important;
+    max-width: 240px !important;
+  }
+  
+  .saved-movie-image {
+    height: 150px;
+  }
+  
+  .saved-movies-arrow {
+    display: none !important;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.saved-movie-item {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.saved-movie-item:nth-child(1) { animation-delay: 0.1s; }
+.saved-movie-item:nth-child(2) { animation-delay: 0.2s; }
+.saved-movie-item:nth-child(3) { animation-delay: 0.3s; }
+.saved-movie-item:nth-child(4) { animation-delay: 0.4s; }
+.saved-movie-item:nth-child(5) { animation-delay: 0.5s; }
+.saved-movie-item:nth-child(6) { animation-delay: 0.6s; }
+.saved-movie-item:nth-child(7) { animation-delay: 0.7s; }
+.saved-movie-item:nth-child(8) { animation-delay: 0.8s; }
+.saved-movie-item:nth-child(9) { animation-delay: 0.9s; }
+.saved-movie-item:nth-child(10) { animation-delay: 1.0s; }

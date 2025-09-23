@@ -57,11 +57,20 @@
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
+  position: relative;
 }
 
 .top-movie-card:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* Contenedor de imagen */
+.top-movie-card .position-relative {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
 }
 
 /* Imagen de la película */

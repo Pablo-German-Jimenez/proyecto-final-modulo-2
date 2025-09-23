@@ -1,7 +1,10 @@
 import  { useRef, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import { Card, Badge } from "react-bootstrap";
-import { ChevronLeft, ChevronRight, TrendingUp, ShoppingBag, Plus, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, TrendingUp, ShoppingBag, Plus, Play, ThumbsUp } from "lucide-react";
 import "./TopMovies.css";
+import "./TopSeries.css"; // Reutilizamos estilos idénticos del hover de series
+import { useSavedMovies } from "../contexts/SavedMoviesContext";
 
 // Importar imágenes de películas (usando las carteleras disponibles)
 import deadpoolCartelera from "../assets/images/deadpool.jfif";
@@ -143,9 +146,28 @@ const topMoviesData = [
   }
 ];
 
-const TopMovies = ({ onMovieClick }) => {
+const TopMovies = ({ onMovieClick, selectedGenre = "Todos" }) => {
   const scrollRef = useRef(null);
   const [hoveredMovie, setHoveredMovie] = useState(null);
+  const { isAuthenticated } = useAuth();
+  const { addSavedMovie, isMovieSaved } = useSavedMovies();
+
+  const handleSave = (movie) => {
+    if (!isAuthenticated()) return;
+    if (!addSavedMovie) return;
+    const movieToSave = {
+      id: movie.id,
+      movieId: movie.movieId,
+      title: movie.title,
+      image: movie.image,
+      year: movie.year,
+      duration: movie.duration,
+      ageRating: movie.ageRating,
+      description: movie.description,
+      genre: movie.genre
+    };
+    addSavedMovie(movieToSave);
+  };
 
   // Función para manejar clic en película
   const handleMovieClick = (movieId) => {
@@ -222,7 +244,9 @@ const TopMovies = ({ onMovieClick }) => {
                     scrollBehavior: "smooth"
                   }}
                 >
-                  {topMoviesData.map((movie, index) => (
+                  {topMoviesData
+                    .filter((m)=> selectedGenre === "Todos" ? true : (m.genre && m.genre.toLowerCase().includes(selectedGenre.toLowerCase())))
+                    .map((movie, index) => (
                     <div
                       key={movie.id}
                       className="top-movie-item me-3"
@@ -241,7 +265,7 @@ const TopMovies = ({ onMovieClick }) => {
 
                       {/* Tarjeta de película */}
                       <Card
-                        className="top-movie-card h-100 shadow-lg border-0"
+                        className="top-movie-card top-series-card h-100 shadow-lg border-0"
                         style={{ cursor: "pointer" }}
                         onClick={() => handleMovieClick(movie.movieId)}
                       >
@@ -250,7 +274,7 @@ const TopMovies = ({ onMovieClick }) => {
                             variant="top"
                             src={movie.image}
                             alt={movie.title}
-                            className="top-movie-image"
+                            className="top-movie-image top-series-image"
                           />
 
                           {/* Badge */}
@@ -268,7 +292,7 @@ const TopMovies = ({ onMovieClick }) => {
 
                           {/* Overlay de hover */}
                           {hoveredMovie === movie.id && (
-                            <div className="movie-hover-overlay">
+                            <div className="series-hover-overlay">
                               <div className="hover-content">
                                 {/* Botones de acción */}
                                 <div className="action-buttons">
@@ -280,25 +304,53 @@ const TopMovies = ({ onMovieClick }) => {
                                   </button>
                                 </div>
 
-                                {/* Información de suscripción */}
-                                <div className="subscription-info">
-                                  <span className="subscription-text">Ver con un periodo de prueba gratis de Prime</span>
-                                  <ShoppingBag size={16} color="#ffc107" />
-                                </div>
+                                {/* Información de suscripción (solo si no está logueado) */}
+                                {!isAuthenticated() && (
+                                  <div className="subscription-info">
+                                    <span className="subscription-text">Ver con un periodo de prueba gratis de Prime</span>
+                                    <ShoppingBag size={16} color="#ffc107" />
+                                  </div>
+                                )}
+
+                                {/* Acciones cuando está logueado */}
+                                {isAuthenticated() && (
+                                  <div className="d-flex gap-2 mb-3 flex-wrap">
+                                    <button
+                                      className="btn btn-light btn-sm fw-bold"
+                                      onClick={(e)=>{e.stopPropagation(); onMovieClick && onMovieClick(movie.movieId);}}
+                                    >
+                                      ▶ Reproducir
+                                    </button>
+                                    <button
+                                      className="btn btn-outline-light btn-sm fw-bold"
+                                      onClick={(e)=>{e.stopPropagation(); handleSave(movie);}}
+                                      title={isMovieSaved && isMovieSaved(movie.id) ? "Ya guardada" : "Agregar a mi lista"}
+                                    >
+                                      + Mi lista
+                                    </button>
+                                    <button
+                                      className="btn btn-outline-light btn-sm fw-bold"
+                                      onClick={(e)=>e.stopPropagation()}
+                                      title="Me gusta"
+                                    >
+                                      <ThumbsUp size={16} className="me-1"/> Me gusta
+                                    </button>
+                                  </div>
+                                )}
 
                                 {/* Detalles de la película */}
-                                <div className="movie-details">
-                                  <div className="movie-meta">
+                                <div className="series-details">
+                                  <div className="series-meta">
                                     <span className="year">{movie.year}</span>
                                     <span className="duration">{movie.duration}</span>
                                     <Badge className="age-rating" variant="dark">{movie.ageRating}</Badge>
                                   </div>
 
-                                  <div className="movie-description">
+                                  <div className="series-description">
                                     {movie.description}
                                   </div>
 
-                                  <div className="movie-genre">
+                                  <div className="series-genre">
                                     {movie.genre}
                                   </div>
                                 </div>

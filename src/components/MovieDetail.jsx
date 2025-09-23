@@ -1,10 +1,19 @@
 import { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { ChevronLeft, Play, Plus } from 'lucide-react';
+import { ChevronLeft, Play, Plus, ThumbsUp } from 'lucide-react';
+import { useAuth } from "../contexts/AuthContext";
+import { useSavedMovies } from "../contexts/SavedMoviesContext";
+import deadpoolVideo from "../assets/images/videodedeadpool.mp4";
+import garrasVideo from "../assets/images/videodegarras.mp4";
+import conjuroVideo from "../assets/images/videodeelconjuro.mp4";
+import purgaVideo from "../assets/images/videodelapurga.mp4";
+import toyStoryVideo from "../assets/images/video de toy story.mp4";
 import './MovieDetail.css';
 
 const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const { addSavedMovie } = useSavedMovies();
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -15,6 +24,32 @@ const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) 
       onMovieClick(relatedMovie.id);
     }
   };
+
+  const handleSave = () => {
+    if (!isAuthenticated()) return;
+    const movieToSave = {
+      id: movie.id,
+      movieId: movie.id,
+      title: movie.title,
+      image: movie.backgroundImage,
+      year: movie.year,
+      duration: movie.duration,
+      ageRating: movie.ageRating,
+      description: movie.description,
+      genre: movie.genre
+    };
+    addSavedMovie(movieToSave);
+  };
+
+  const videoById = {
+    deadpool: deadpoolVideo,
+    garras: garrasVideo,
+    conjuro: conjuroVideo,
+    purga: purgaVideo,
+    toystory: toyStoryVideo,
+  };
+
+  const currentVideoSrc = videoById[movie.id];
 
   // Filtrar las películas relacionadas para excluir la película actual
   const filteredRelatedMovies = relatedMovies.filter(relatedMovie => relatedMovie.id !== movie.id);
@@ -76,13 +111,27 @@ const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) 
                     {movie.description}
                   </p>
 
-                  <div className="action-buttons">
-                    <Button 
-                      className="subscribe-btn"
-                      onClick={handlePlay}
-                    >
-                      SUSCRÍBETE AHORA
-                    </Button>
+                  <div className="action-buttons d-flex gap-2 flex-wrap">
+                    {isAuthenticated() ? (
+                      <>
+                        <Button className="action-primary-like-subscribe" onClick={handlePlay}>
+                          ▶ Reproducir
+                        </Button>
+                        <Button className="action-primary-like-subscribe" onClick={handleSave}>
+                          + Mi lista
+                        </Button>
+                        <Button className="action-primary-like-subscribe">
+                          <ThumbsUp size={16} className="me-1"/> Me gusta
+                        </Button>
+                      </>
+                    ) : (
+                      <Button 
+                        className="subscribe-btn"
+                        onClick={handlePlay}
+                      >
+                        SUSCRÍBETE AHORA
+                      </Button>
+                    )}
                   </div>
                 </div>
               </Col>
@@ -90,6 +139,26 @@ const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) 
           </Container>
         </div>
       </div>
+
+      {/* Reproductor a pantalla completa */}
+      {isPlaying && currentVideoSrc && (
+        <div
+          className="position-fixed top-0 start-0 w-100 h-100"
+          style={{ zIndex: 2000, background: "rgba(0,0,0,0.95)" }}
+        >
+          <div className="d-flex justify-content-end p-3">
+            <Button variant="light" onClick={() => setIsPlaying(false)}>✕ Cerrar</Button>
+          </div>
+          <div className="d-flex align-items-center justify-content-center w-100 h-100 p-3">
+            <video
+              src={currentVideoSrc}
+              controls
+              autoPlay
+              style={{ width: "100%", height: "100%", maxWidth: 1200, maxHeight: 680, borderRadius: 8, boxShadow: "0 10px 40px rgba(0,0,0,0.6)" }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Sección de películas relacionadas */}
       <div className="related-movies-section">

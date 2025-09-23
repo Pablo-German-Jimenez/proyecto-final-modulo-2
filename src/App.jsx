@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
-  BrowserRouter,
+  BrowserRouter as Router,
   Routes,
   Route,
   useParams,
   useNavigate,
 } from "react-router-dom";
+
+// Contextos (de tu rama)
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { SavedMoviesProvider } from "./contexts/SavedMoviesContext";
 
 // Componentes principales
 import Footer from "./components/Footer";
@@ -19,7 +23,9 @@ import Carrusel from "./components/Carrusel";
 import TopMovies from "./components/TopMovies";
 import Planes from "./components/Planes";
 import TopSeries from "./components/TopSeries";
+import SavedMovies from "./components/SavedMovies";
 import MovieDetail from "./components/MovieDetail";
+import GenreFilter from "./components/GenreFilter";
 
 // Importar imágenes
 import deadpoolImage from "./assets/images/deadpool.jfif";
@@ -31,24 +37,77 @@ import logoImage from "./assets/images/logosinfondo.png";
 
 // Datos de películas
 const moviesData = {
-  deadpool: { id: "deadpool", title: "DEADPOOL", subtitle: "LA PELÍCULA", year: "2016", ageRating: "18+", genre: "ACCIÓN", description: "Deadpool (HBO)...", backgroundImage: deadpoolImage },
-  garras: { id: "garras", title: "GARRAS", subtitle: "EL JUEGO FINAL", year: "2024", ageRating: "13+", genre: "DEPORTES", description: "Una épica historia...", backgroundImage: garraImage },
-  conjuro: { id: "conjuro", title: "EL CONJURO", subtitle: "2 - EL ENCUENTRO", year: "2016", ageRating: "18+", genre: "TERROR", description: "Los investigadores...", backgroundImage: conjuroBannerImage },
-  purga: { id: "purga", title: "LA PURGA", subtitle: "ANARQUÍA", year: "2014", ageRating: "18+", genre: "THRILLER", description: "En esta secuela...", backgroundImage: purgaBannerImage },
-  toystory: { id: "toystory", title: "TOY STORY", subtitle: "4 - LA HISTORIA CONTINÚA", year: "2019", ageRating: "TP", genre: "ANIMACIÓN", description: "Woody, Buzz y los juguetes...", backgroundImage: toyStoryBannerImage },
+  deadpool: {
+    id: "deadpool",
+    title: "DEADPOOL",
+    subtitle: "LA PELÍCULA",
+    year: "2016",
+    ageRating: "18+",
+    genre: "ACCIÓN",
+    description: "Deadpool (HBO)...",
+    backgroundImage: deadpoolImage,
+  },
+  garras: {
+    id: "garras",
+    title: "GARRAS",
+    subtitle: "EL JUEGO FINAL",
+    year: "2024",
+    ageRating: "13+",
+    genre: "DEPORTES",
+    description: "Una épica historia...",
+    backgroundImage: garraImage,
+  },
+  conjuro: {
+    id: "conjuro",
+    title: "EL CONJURO",
+    subtitle: "2 - EL ENCUENTRO",
+    year: "2016",
+    ageRating: "18+",
+    genre: "TERROR",
+    description: "Los investigadores...",
+    backgroundImage: conjuroBannerImage,
+  },
+  purga: {
+    id: "purga",
+    title: "LA PURGA",
+    subtitle: "ANARQUÍA",
+    year: "2014",
+    ageRating: "18+",
+    genre: "THRILLER",
+    description: "En esta secuela...",
+    backgroundImage: purgaBannerImage,
+  },
+  toystory: {
+    id: "toystory",
+    title: "TOY STORY",
+    subtitle: "4 - LA HISTORIA CONTINÚA",
+    year: "2019",
+    ageRating: "TP",
+    genre: "ANIMACIÓN",
+    description: "Woody, Buzz y los juguetes...",
+    backgroundImage: toyStoryBannerImage,
+  },
 };
 
 // Página principal
 function HomePage() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const [genre, setGenre] = useState("Todos");
+
   const handleMovieClick = (movieId) => navigate(`/pelicula/${movieId}`);
 
   return (
     <main style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
       <HeroMovie onMovieClick={handleMovieClick} />
+      <GenreFilter selectedGenre={genre} onChange={setGenre} />
       <Carrusel onMovieClick={handleMovieClick} />
-      <TopMovies onMovieClick={handleMovieClick} />
-      <Planes />
+      <TopMovies onMovieClick={handleMovieClick} selectedGenre={genre} />
+      {isAuthenticated() ? (
+        <SavedMovies onMovieClick={handleMovieClick} />
+      ) : (
+        <Planes />
+      )}
       <TopSeries onMovieClick={handleMovieClick} />
     </main>
   );
@@ -76,18 +135,39 @@ function MovieDetailWrapper() {
 
 // App principal
 function App() {
+  // Lógica de catálogo
   const catalogoLS = JSON.parse(localStorage.getItem("catalogoKey")) || [];
   const [catalogo, setCatalogo] = useState(catalogoLS);
-  const [filaDestacada, setFilaDestacada] = useState(catalogoLS.find((item) => item.destacado)?.id || null);
+  const [filaDestacada, setFilaDestacada] = useState(
+    catalogoLS.find((item) => item.destacado)?.id || null
+  );
 
   useEffect(() => {
     localStorage.setItem("catalogoKey", JSON.stringify(catalogo));
   }, [catalogo]);
 
-  const agregarContenido = (nuevoContenido) => { setCatalogo([...catalogo, nuevoContenido]); return true; };
-  const eliminarContenido = (idContenido) => { setCatalogo(catalogo.filter((item) => item.id !== idContenido)); return true; };
-  const buscarContenido = (idContenido) => catalogo.find((item) => item.id === idContenido);
-  const modificarContenido = (idContenido, dataCatalogo) => { setCatalogo(catalogo.map((item) => item.id === idContenido ? { ...item, ...dataCatalogo } : item)); return true; };
+  const agregarContenido = (nuevoContenido) => {
+    setCatalogo([...catalogo, nuevoContenido]);
+    return true;
+  };
+
+  const eliminarContenido = (idContenido) => {
+    setCatalogo(catalogo.filter((item) => item.id !== idContenido));
+    return true;
+  };
+
+  const buscarContenido = (idContenido) =>
+    catalogo.find((item) => item.id === idContenido);
+
+  const modificarContenido = (idContenido, dataCatalogo) => {
+    setCatalogo(
+      catalogo.map((item) =>
+        item.id === idContenido ? { ...item, ...dataCatalogo } : item
+      )
+    );
+    return true;
+  };
+
   const destacarFila = (id) => {
     const nuevoCatalogo = catalogo.map((item) => {
       if (item.id === id) {
@@ -108,26 +188,69 @@ function App() {
     });
     setCatalogo(nuevoCatalogo);
   };
+
   return (
-    <BrowserRouter>
-      <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
-        <MenuNavBar />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
-            <Route path="/registro" element={<RegisterPage />} />
-            <Route path="/acerca" element={<AcercadeNosotros />} />
-            <Route path="/formulario" element={<FormularioContenido />} />
-            <Route path="/login" element={<h2>Página de login (próximamente)</h2>} />
-            <Route path="/administrador" element={<Administrador catalogo={catalogo} agregarContenido={agregarContenido} eliminarContenido={eliminarContenido} modificarContenido={modificarContenido} destacarFila={destacarFila} filaDestacada={filaDestacada} />} />
-            <Route path="/administrador/crear" element={<FormularioContenido agregarContenido={agregarContenido} titulo="AGREGAR NUEVO CONTENIDO" textoBoton="Agregar" />} />
-            <Route path="/administrador/editar/:id" element={<FormularioContenido modificarContenido={modificarContenido} buscarContenido={buscarContenido} titulo="EDITAR CONTENIDO" textoBoton="Actualizar" />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <AuthProvider>
+      <SavedMoviesProvider>
+        <Router>
+          <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
+            <MenuNavBar />
+
+            <Routes>
+              {/* Página principal */}
+              <Route path="/" element={<HomePage />} />
+
+              {/* Detalle de película */}
+              <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
+
+              {/* Páginas adicionales */}
+              <Route path="/registro" element={<RegisterPage />} />
+              <Route path="/acerca" element={<AcercadeNosotros />} />
+              <Route
+                path="/administrador"
+                element={
+                  <Administrador
+                    catalogo={catalogo}
+                    eliminarContenido={eliminarContenido}
+                    modificarContenido={modificarContenido}
+                    destacarFila={destacarFila}
+                    filaDestacada={filaDestacada}
+                  />
+                }
+              />
+              <Route
+                path="/administrador/crear"
+                element={
+                  <FormularioContenido
+                    agregarContenido={agregarContenido}
+                    titulo="AGREGAR NUEVO CONTENIDO"
+                    textoBoton="Agregar"
+                  />
+                }
+              />
+              <Route
+                path="/administrador/editar/:id"
+                element={
+                  <FormularioContenido
+                    modificarContenido={modificarContenido}
+                    buscarContenido={buscarContenido}
+                    titulo="EDITAR CONTENIDO"
+                    textoBoton="Actualizar"
+                  />
+                }
+              />
+              <Route path="/formulario" element={<FormularioContenido />} />
+              <Route
+                path="/login"
+                element={<h2>Página de login (próximamente)</h2>}
+              />
+            </Routes>
+
+            <Footer />
+          </div>
+        </Router>
+      </SavedMoviesProvider>
+    </AuthProvider>
   );
 }
 

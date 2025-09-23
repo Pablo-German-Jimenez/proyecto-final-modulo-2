@@ -12,11 +12,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../BrandBanner.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 // 🔹 Importar el logo
 import logoImage from "../assets/images/logosinfondo.png";
-import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
 
 const MenuNavBar = () => {
   const brandImages = [
@@ -26,19 +27,53 @@ const MenuNavBar = () => {
     "/logoParamount.png",
     "/logoDiscoveryChannel.png",
   ];
+
   const [currentUser, setCurrentUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
+  // 🔹 Search index
+  const searchIndex = [
+    { id: "deadpool", title: "deadpool" },
+    { id: "garras", title: "garra" },
+    { id: "conjuro", title: "el conjuro 2" },
+    { id: "purga", title: "la purga" },
+    { id: "toystory", title: "toy story" },
+  ];
+
+  const normalize = (s) =>
+    s.toString()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/\p{Diacritic}+/gu, "")
+      .trim();
+
+  const submitSearch = () => {
+    const q = normalize(query);
+    if (!q) return;
+    const hit = searchIndex.find(
+      (m) =>
+        normalize(m.title).includes(q) ||
+        q.includes(normalize(m.title)) ||
+        m.id === q
+    );
+    if (hit) {
+      navigate(`/pelicula/${hit.id}`);
+      setQuery("");
+    }
+  };
+
+  const { isAuthenticated, user } = useAuth();
+
+  // Modal handlers
   const handleOpenModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
+    reset();
+  };
 
-  useEffect(() => {
-    // Revisar si hay usuario logueado
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    if (user) setCurrentUser(user);
-  }, []);
-
+  // Logout handler
   const handleLogout = () => {
     localStorage.removeItem("currentUser");
     setCurrentUser(null);
@@ -53,6 +88,13 @@ const MenuNavBar = () => {
 
     navigate("/");
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (user) setCurrentUser(user);
+  }, []);
+
+  // Form hook
   const {
     register,
     handleSubmit,
@@ -60,13 +102,12 @@ const MenuNavBar = () => {
     reset,
   } = useForm();
 
+  // Validación de login
   const postValidaciones = (data) => {
     const { email, password } = data;
 
-    // Traer usuarios guardados en localStorage
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Validar usuario
     const userFound = users.find(
       (u) => u.email === email && u.password === password
     );
@@ -74,13 +115,15 @@ const MenuNavBar = () => {
     if (userFound) {
       localStorage.setItem("currentUser", JSON.stringify(userFound));
       setCurrentUser(userFound);
+
       Swal.fire({
         title: "Inicio de Sesión exitoso",
         icon: "success",
-        draggable: true
+        draggable: true,
       });
+
       handleCloseModal();
-      navigate("/"); // Redirige al home
+      navigate("/");
       reset();
     } else {
       Swal.fire({
@@ -90,7 +133,7 @@ const MenuNavBar = () => {
         confirmButtonText: "Intentar de nuevo",
       });
     }
-  }
+  };
 
   return (
     <>
@@ -122,6 +165,7 @@ const MenuNavBar = () => {
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            {/* Dropdown Películas */}
             <Nav className="mb-0 me-5">
               <NavDropdown title="Películas" id="basic-nav-peliculas">
                 <NavDropdown.Item className="disabled text-center">
@@ -135,6 +179,7 @@ const MenuNavBar = () => {
               </NavDropdown>
             </Nav>
 
+            {/* Dropdown Series */}
             <Nav className="me-5">
               <NavDropdown title="Series" id="basic-nav-series">
                 <NavDropdown.Item className="disabled text-center">
@@ -149,14 +194,22 @@ const MenuNavBar = () => {
             </Nav>
 
             {/* 🔹 Barra de búsqueda */}
-            <Form className="search-form ">
+            <Form
+              className="search-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                submitSearch();
+              }}
+            >
               <InputGroup>
                 <Form.Control
                   type="search"
                   placeholder="Buscar pelis o series"
                   aria-label="Search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
-                <InputGroup.Text>
+                <InputGroup.Text role="button" onClick={submitSearch}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -172,19 +225,36 @@ const MenuNavBar = () => {
             </Form>
           </Navbar.Collapse>
 
-          {/* 🔹 Botón login */}
+          {/* 🔹 Botón login/logout */}
           {currentUser ? (
-            // ✅ Si el usuario está logueado
-            <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center gap-3">
+              <span className="text-white">¡Hola, {currentUser.name}!</span>
               <button
-                className="btn btn-outline-danger"
+                type="button"
+                className="btn btn-outline-danger my-3"
                 onClick={handleLogout}
               >
-                Cerrar sesión
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="26"
+                  height="26"
+                  fill="currentColor"
+                  className="bi bi-box-arrow-right"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
+                  />
+                  <path
+                    fillRule="evenodd"
+                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                  />
+                </svg>
+                Cerrar Sesión
               </button>
             </div>
           ) : (
-            // ❌ Si NO está logueado -> mostrar tu botón actual
             <button
               type="button"
               className="btn btn-outline-primary my-3"
@@ -204,54 +274,62 @@ const MenuNavBar = () => {
                   d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
                 />
               </svg>
+              Iniciar Sesión
             </button>
           )}
 
           {/* 🔹 Modal de Login */}
           <Modal show={showModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>
-              <Modal.Title>Iniciar Sesión!</Modal.Title>
+              <Modal.Title>Iniciar Sesión</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form onSubmit={handleSubmit(postValidaciones)}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Cuenta</Form.Label>
-                  <Form.Control type="email" placeholder="Ingresá tu Email!"
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Ingresá tu Email!"
                     {...register("email", {
-                      required: "el email es un campo obligatorio",
+                      required: "El email es obligatorio",
                       minLength: {
                         value: 10,
-                        message: "el campo email debe contener minimo 10 caracteres"
+                        message: "Debe contener al menos 10 caracteres",
                       },
                       maxLength: {
                         value: 60,
-                        message: "el campo email debe contener maximo 60 caracteres"
-                      }
+                        message: "Máximo 60 caracteres",
+                      },
                     })}
                   />
+                  <Form.Text className="text-danger">
+                    {errors.email?.message}
+                  </Form.Text>
                 </Form.Group>
-                <Form.Text className="text-danger">{errors.email?.message}</Form.Text>
+
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Label>Contraseña</Form.Label>
-                  <Form.Control type="password" placeholder="Ingresá tu clave!"
+                  <Form.Control
+                    type="password"
+                    placeholder="Ingresá tu clave!"
                     {...register("password", {
-                      required: "el campo contraseña es obligatorio",
+                      required: "La contraseña es obligatoria",
                       minLength: {
                         value: 5,
-                        message: "el campo contraseña debe contener minimo 5 caracteres"
+                        message: "Mínimo 5 caracteres",
                       },
                       maxLength: {
                         value: 50,
-                        message: "el campo contraseña debe contener maximom 50 caracteres"
-                      }
+                        message: "Máximo 50 caracteres",
+                      },
                     })}
                   />
-                  <Form.Text className="text-danger">{errors.password?.message}</Form.Text>
+                  <Form.Text className="text-danger">
+                    {errors.password?.message}
+                  </Form.Text>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                  <Form.Check type="checkbox" label="Recordarme!" />
-                </Form.Group>
-                <Button variant="primary" type="submit">
+
+                <Button variant="primary" type="submit" className="w-100">
                   Ingresar
                 </Button>
                 <Button
@@ -262,7 +340,7 @@ const MenuNavBar = () => {
                     navigate("/registro");
                   }}
                 >
-                  Si no tienes cuenta, regístrate aquí
+                  ¿No tienes cuenta? Regístrate aquí
                 </Button>
               </Form>
             </Modal.Body>

@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Card, Badge } from "react-bootstrap";
 import { ChevronLeft, ChevronRight, Plus, Play, ShoppingBag } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
+import { useSavedMovies } from "../contexts/SavedMoviesContext";
 import "./Carrusel.css";
 
 import deadpoolCartelera from "../assets/images/deadpool.jfif";
@@ -130,6 +132,8 @@ const data = [
 const Carrusel = ({ onMovieClick }) => {
   const scrollRef = useRef(null);
   const [hoveredMovie, setHoveredMovie] = useState(null);
+  const { isAuthenticated } = useAuth();
+  const { addSavedMovie, isMovieSaved } = useSavedMovies();
 
   // Función para manejar clic en película
   const handleMovieClick = (movieId) => {
@@ -154,6 +158,35 @@ const Carrusel = ({ onMovieClick }) => {
 
   const handleMouseLeave = () => {
     setHoveredMovie(null);
+  };
+
+  // Función para manejar el guardado de películas
+  const handleSaveMovie = (e, movie) => {
+    e.stopPropagation();
+    
+    if (!isAuthenticated()) {
+      alert('Debes iniciar sesión para guardar películas');
+      return;
+    }
+
+    const movieToSave = {
+      id: movie.id,
+      movieId: movie.movieId,
+      title: movie.titulo,
+      image: movie.img,
+      year: movie.year,
+      duration: movie.duration,
+      ageRating: movie.ageRating,
+      description: movie.description,
+      genre: movie.genre
+    };
+
+    const result = addSavedMovie(movieToSave);
+    if (result.success) {
+      console.log('Película guardada:', movie.titulo);
+    } else {
+      console.log('Error al guardar:', result.message);
+    }
   };
 
   return (
@@ -225,10 +258,12 @@ const Carrusel = ({ onMovieClick }) => {
                             <div className="carrusel-action-buttons">
                               <button 
                                 className="carrusel-action-btn carrusel-add-btn"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  console.log('Botón agregar clickeado');
+                                onClick={(e) => handleSaveMovie(e, item)}
+                                style={{
+                                  backgroundColor: isMovieSaved(item.id) ? '#ff6b6b' : 'rgba(255, 255, 255, 0.9)',
+                                  color: isMovieSaved(item.id) ? '#fff' : '#000'
                                 }}
+                                title={isMovieSaved(item.id) ? 'Ya está guardada' : 'Guardar película'}
                               >
                                 <Plus size={16} />
                               </button>
@@ -243,11 +278,13 @@ const Carrusel = ({ onMovieClick }) => {
                               </button>
                             </div>
 
-                            {/* Información de suscripción */}
-                            <div className="carrusel-subscription-info">
-                              <span className="carrusel-subscription-text">Ver con un periodo de prueba gratis de Prime</span>
-                              <ShoppingBag size={12} color="#ffc107" />
-                            </div>
+                            {/* Información de suscripción (solo si no está logueado) */}
+                            {!isAuthenticated() && (
+                              <div className="carrusel-subscription-info">
+                                <span className="carrusel-subscription-text">Ver con un periodo de prueba gratis de Prime</span>
+                                <ShoppingBag size={12} color="#ffc107" />
+                              </div>
+                            )}
 
                             {/* Detalles de la película */}
                             <div className="carrusel-movie-details">
