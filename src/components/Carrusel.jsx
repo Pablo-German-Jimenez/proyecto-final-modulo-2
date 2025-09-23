@@ -72,6 +72,7 @@ const data = [
   },
   { 
     id: 6, 
+    movieId: "apesardeti",
     titulo: "A Pesar de Ti", 
     img: aPesarDeTiCartelera,
     year: "2024",
@@ -82,6 +83,7 @@ const data = [
   },
   { 
     id: 7, 
+    movieId: "avatar",
     titulo: "Avatar: Fuego y Ceniza", 
     img: avatarCartelera,
     year: "2025",
@@ -92,6 +94,7 @@ const data = [
   },
   { 
     id: 8, 
+    movieId: "bobesponja",
     titulo: "Bob Esponja: Una Aventura Pirata", 
     img: bobEsponjaCartelera,
     year: "2024",
@@ -102,6 +105,7 @@ const data = [
   },
   { 
     id: 9, 
+    movieId: "elio",
     titulo: "Elio", 
     img: elioCartelera,
     year: "2024",
@@ -112,6 +116,7 @@ const data = [
   },
   { 
     id: 10, 
+    movieId: "seloquehicisteis",
     titulo: "Sé lo que Hicisteis el Último Verano", 
     img: seLoQueHicisteisCartelera,
     year: "1997",
@@ -128,8 +133,12 @@ const Carrusel = ({ onMovieClick }) => {
 
   // Función para manejar clic en película
   const handleMovieClick = (movieId) => {
+    console.log('Carrusel - Clic en película:', movieId);
+    console.log('Carrusel - onMovieClick función:', onMovieClick);
     if (onMovieClick) {
       onMovieClick(movieId);
+    } else {
+      console.error('Carrusel - onMovieClick no está definida');
     }
   };
 
@@ -204,14 +213,32 @@ const Carrusel = ({ onMovieClick }) => {
                       
                       {/* Overlay de hover */}
                       {hoveredMovie === item.id && (
-                        <div className="carrusel-hover-overlay">
+                        <div 
+                          className="carrusel-hover-overlay"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleMovieClick(item.movieId);
+                          }}
+                        >
                           <div className="carrusel-hover-content">
                             {/* Botones de acción */}
                             <div className="carrusel-action-buttons">
-                              <button className="carrusel-action-btn carrusel-add-btn">
+                              <button 
+                                className="carrusel-action-btn carrusel-add-btn"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  console.log('Botón agregar clickeado');
+                                }}
+                              >
                                 <Plus size={16} />
                               </button>
-                              <button className="carrusel-action-btn carrusel-play-btn">
+                              <button 
+                                className="carrusel-action-btn carrusel-play-btn"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleMovieClick(item.movieId);
+                                }}
+                              >
                                 <Play size={14} />
                               </button>
                             </div>

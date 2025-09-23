@@ -83,6 +83,7 @@ const topSeriesData = [
   },
   {
     id: 6,
+    movieId: "friends",
     title: "Friends",
     image: aPesarDeTiCartelera, // Usando imagen placeholder
     badge: "TENDENCIAS",
@@ -95,6 +96,7 @@ const topSeriesData = [
   },
   {
     id: 7,
+    movieId: "mandalorian",
     title: "The Mandalorian",
     image: avatarCartelera, // Usando imagen placeholder
     badge: "RECIÉN AÑADIDA",
@@ -107,6 +109,7 @@ const topSeriesData = [
   },
   {
     id: 8,
+    movieId: "crown",
     title: "The Crown",
     image: bobEsponjaCartelera, // Usando imagen placeholder
     badge: "NUEVA SERIE",
@@ -119,6 +122,7 @@ const topSeriesData = [
   },
   {
     id: 9,
+    movieId: "houseofcards",
     title: "House of Cards",
     image: elioCartelera, // Usando imagen placeholder
     badge: "TENDENCIAS",
@@ -131,6 +135,7 @@ const topSeriesData = [
   },
   {
     id: 10,
+    movieId: "narcos",
     title: "Narcos",
     image: seLoQueHicisteisCartelera, // Usando imagen placeholder
     badge: "RECIÉN AÑADIDA",
@@ -149,8 +154,12 @@ const TopSeries = ({ onMovieClick }) => {
 
   // Función para manejar clic en serie
   const handleMovieClick = (movieId) => {
+    console.log('TopSeries - Clic en serie:', movieId);
+    console.log('TopSeries - onMovieClick función:', onMovieClick);
     if (onMovieClick) {
       onMovieClick(movieId);
+    } else {
+      console.error('TopSeries - onMovieClick no está definida');
     }
   };
 
