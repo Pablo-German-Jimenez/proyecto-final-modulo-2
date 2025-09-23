@@ -6,13 +6,15 @@ import {
   NavDropdown,
   Form,
   Button,
-  Modal
+  Modal,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../BrandBanner.css";
-
-
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// 🔹 Importar el logo
+import logoImage from "../assets/images/logosinfondo.png";
 
 const MenuNavBar = () => {
   const brandImages = [
@@ -24,17 +26,19 @@ const MenuNavBar = () => {
   ];
 
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
   return (
     <>
+      {/* 🔹 Carrusel de marcas */}
       <div className="brand-banner-wrapper">
         <div className="brand-banner-track">
           {brandImages.map((src, index) => (
             <img
-              className="danger"
+              className="brand-logo"
               key={index}
               src={src}
               alt={`Brand ${index}`}
@@ -46,7 +50,15 @@ const MenuNavBar = () => {
       {/* 🎬 Navbar principal */}
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="#home">Logo marca</Navbar.Brand>
+          {/* 🔹 Logo que redirige al home */}
+          <Navbar.Brand href="/">
+            <img
+              src={logoImage}
+              alt="Logo"
+              style={{ height: "40px", width: "auto" }}
+            />
+          </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mb-0 me-5">
@@ -55,12 +67,10 @@ const MenuNavBar = () => {
                   Categorías
                 </NavDropdown.Item>
                 <Nav.Link href="#seccion-aventura">Aventura</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Acción</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Ciencia Ficción</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Humor</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Terror</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Romance</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Adultos</Nav.Link>
+                <Nav.Link href="#seccion-accion">Acción</Nav.Link>
+                <Nav.Link href="#seccion-scifi">Ciencia Ficción</Nav.Link>
+                <Nav.Link href="#seccion-humor">Humor</Nav.Link>
+                <Nav.Link href="#seccion-terror">Terror</Nav.Link>
               </NavDropdown>
             </Nav>
 
@@ -70,14 +80,14 @@ const MenuNavBar = () => {
                   Categorías
                 </NavDropdown.Item>
                 <Nav.Link href="#seccion-aventura">Aventura</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Acción</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Ciencia Ficción</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Humor</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Terror</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Romance</Nav.Link>
-                <Nav.Link href="#seccion-aventura">Adultos</Nav.Link>
+                <Nav.Link href="#seccion-accion">Acción</Nav.Link>
+                <Nav.Link href="#seccion-scifi">Ciencia Ficción</Nav.Link>
+                <Nav.Link href="#seccion-humor">Humor</Nav.Link>
+                <Nav.Link href="#seccion-terror">Terror</Nav.Link>
               </NavDropdown>
             </Nav>
+
+            {/* 🔹 Barra de búsqueda */}
             <Form className="search-form ">
               <InputGroup>
                 <Form.Control
@@ -100,6 +110,8 @@ const MenuNavBar = () => {
               </InputGroup>
             </Form>
           </Navbar.Collapse>
+
+          {/* 🔹 Botón login */}
           <button
             type="button"
             className="btn btn-outline-primary my-3"
@@ -120,18 +132,17 @@ const MenuNavBar = () => {
               />
             </svg>
           </button>
+
+          {/* 🔹 Modal de Login */}
           <Modal show={showModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>
               <Modal.Title>Iniciar Sesión!</Modal.Title>
             </Modal.Header>
-
             <Modal.Body>
               <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Cuenta</Form.Label>
                   <Form.Control type="email" placeholder="Ingresá tu Email!" />
-                  <Form.Text className="text-muted">
-                   </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Label>Contraseña</Form.Label>
@@ -141,10 +152,17 @@ const MenuNavBar = () => {
                   <Form.Check type="checkbox" label="Recordarme!" />
                 </Form.Group>
                 <Button variant="primary" type="submit">
-                  Submit
+                  Ingresar
                 </Button>
-                <Button className="mt-3" variant="success" type="submit">
-                  Si no tienes cuenta, regístrate y recibe promociones !
+                <Button
+                  className="mt-3 w-100"
+                  variant="success"
+                  onClick={() => {
+                    handleCloseModal();
+                    navigate("/registro");
+                  }}
+                >
+                  Si no tienes cuenta, regístrate aquí
                 </Button>
               </Form>
             </Modal.Body>

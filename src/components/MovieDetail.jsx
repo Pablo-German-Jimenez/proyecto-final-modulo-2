@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { ChevronLeft, Play, Plus } from 'lucide-react';
 import './MovieDetail.css';
@@ -15,6 +15,9 @@ const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) 
       onMovieClick(relatedMovie.id);
     }
   };
+
+  // Filtrar las películas relacionadas para excluir la película actual
+  const filteredRelatedMovies = relatedMovies.filter(relatedMovie => relatedMovie.id !== movie.id);
 
   return (
     <div className="movie-detail-container">
@@ -93,9 +96,9 @@ const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) 
         <Container>
           <h3 className="related-title">Quizá también te guste</h3>
           <div className="related-movies-grid">
-            {relatedMovies.map((relatedMovie, index) => (
+            {filteredRelatedMovies.map((relatedMovie, index) => (
               <div 
-                key={index} 
+                key={relatedMovie.id || index} 
                 className="related-movie-card"
                 onClick={() => handleRelatedMovieClick(relatedMovie)}
                 style={{ cursor: 'pointer' }}

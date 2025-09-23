@@ -1,5 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useParams, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+  useNavigate,
+} from "react-router-dom";
+import { useEffect, useState } from "react";
 
 // Componentes principales
 import Footer from "./components/Footer";
@@ -7,7 +14,7 @@ import AcercadeNosotros from "./components/AcercadeNosotros";
 import Administrador from "./components/Administrador";
 import FormularioContenido from "./components/FormularioContenido";
 import RegisterPage from "./pages/RegisterPage";
-import MenuNavBar from "./componentes/MenuNavBar";
+import MenuNavBar from "./components/MenuNavBar";
 import HeroMovie from "./components/HeroMovie";
 import Carrusel from "./components/Carrusel";
 import TopMovies from "./components/TopMovies";
@@ -82,7 +89,7 @@ const moviesData = {
   },
 };
 
-// Componente para la página principal con navegación
+// Página principal con funcionalidad completa de catálogo
 function HomePage() {
   const navigate = useNavigate();
 
@@ -90,18 +97,117 @@ function HomePage() {
     navigate(`/pelicula/${movieId}`);
   };
 
+  // Estado y lógica de catálogo en LocalStorage
+  const catalogoLS = JSON.parse(localStorage.getItem("catalogoKey")) || [];
+  const [catalogo, setCatalogo] = useState(catalogoLS);
+
+  useEffect(() => {
+    localStorage.setItem("catalogoKey", JSON.stringify(catalogo));
+  }, [catalogo]);
+
+  const agregarContenido = (nuevoContenido) => {
+    setCatalogo([...catalogo, nuevoContenido]);
+    return true;
+  };
+
+  const eliminarContenido = (idContenido) => {
+    setCatalogo(catalogo.filter((item) => item.id !== idContenido));
+    return true;
+  };
+
+  const buscarContenido = (idContenido) => {
+    return catalogo.find((item) => item.id === idContenido);
+  };
+
+  const modificarContenido = (idContenido, dataCatalogo) => {
+    setCatalogo(
+      catalogo.map((item) =>
+        item.id === idContenido ? { ...item, ...dataCatalogo } : item
+      )
+    );
+    return true;
+  };
+
+  const [filaDestacada, setFilaDestacada] = useState(
+    catalogoLS.find((item) => item.destacado)?.id || null
+  );
+
+  const destacarFila = (id) => {
+    const nuevoCatalogo = catalogo.map((item) => {
+      if (item.id === id) {
+        if (item.destacado) {
+          const copia = { ...item };
+          delete copia.destacado;
+          setFilaDestacada(null);
+          return copia;
+        } else {
+          setFilaDestacada(id);
+          return { ...item, destacado: true };
+        }
+      } else {
+        const copia = { ...item };
+        delete copia.destacado;
+        return copia;
+      }
+    });
+    setCatalogo(nuevoCatalogo);
+  };
+
   return (
-    <>
-      <HeroMovie />
-      <Carrusel onMovieClick={handleMovieClick} />
-      <TopMovies onMovieClick={handleMovieClick} />
-      <Planes />
-      <TopSeries />
-    </>
+    <main style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <HeroMovie onMovieClick={handleMovieClick} />
+              <Carrusel onMovieClick={handleMovieClick} />
+              <TopMovies onMovieClick={handleMovieClick} catalogo={catalogo} />
+              <Planes />
+              <TopSeries onMovieClick={handleMovieClick} />
+            </>
+          }
+        />
+        <Route
+          path="/administrador"
+          element={
+            <Administrador
+              catalogo={catalogo}
+              eliminarContenido={eliminarContenido}
+              modificarContenido={modificarContenido}
+              destacarFila={destacarFila}
+              filaDestacada={filaDestacada}
+            />
+          }
+        />
+        <Route
+          path="/administrador/crear"
+          element={
+            <FormularioContenido
+              agregarContenido={agregarContenido}
+              titulo="AGREGAR NUEVO CONTENIDO"
+              textoBoton="Agregar"
+            />
+          }
+        />
+        <Route
+          path="/administrador/editar/:id"
+          element={
+            <FormularioContenido
+              modificarContenido={modificarContenido}
+              buscarContenido={buscarContenido}
+              titulo="EDITAR CONTENIDO"
+              textoBoton="Actualizar"
+            />
+          }
+        />
+        <Route path="/acercadenosotros" element={<AcercadeNosotros />} />
+      </Routes>
+    </main>
   );
 }
 
-// Componente para detalle de película usando params
+// Componente para detalle de película
 function MovieDetailWrapper() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -112,25 +218,18 @@ function MovieDetailWrapper() {
     return <h2 className="text-danger">Película no encontrada</h2>;
   }
 
-  const handleBack = () => {
-    navigate('/');
-  };
-
-  const handleMovieClick = (movieId) => {
-    navigate(`/pelicula/${movieId}`);
-  };
-
   return (
     <MovieDetail
       movie={movie}
-      onBack={handleBack}
+      onBack={() => navigate("/")}
       relatedMovies={relatedMovies}
-      onMovieClick={handleMovieClick}
+      onMovieClick={(movieId) => navigate(`/pelicula/${movieId}`)}
       logoImage={logoImage}
     />
   );
 }
 
+// Componente principal de la aplicación
 function App() {
   return (
     <Router>
@@ -139,7 +238,7 @@ function App() {
 
         <Routes>
           {/* Página principal */}
-          <Route path="/" element={<HomePage />} />
+          <Route path="/*" element={<HomePage />} />
 
           {/* Detalle de película */}
           <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
