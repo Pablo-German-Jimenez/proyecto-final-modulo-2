@@ -4,12 +4,6 @@ import ItemTablaContenido from "./ItemTablaContenido";
 import FormularioContenido from "./FormularioContenido";
 
 import { Link } from "react-router";
-
-const Administrador = ({ catalogo, agregarContenido, eliminarContenido, destacarFila, filaDestacada }) => {
-
-import { useNavigate } from "react-router";
-import { Link } from "react-router";
-
 const Administrador = ({ catalogo, agregarContenido, eliminarContenido, modificarContenido, filaDestacada, destacarFila }) => {
 
   const [showModal, setShowModal] = useState(false);
