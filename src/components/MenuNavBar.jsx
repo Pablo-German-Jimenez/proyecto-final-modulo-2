@@ -131,7 +131,7 @@ const MenuNavBar = () => {
                   <Form.Label>Cuenta</Form.Label>
                   <Form.Control type="email" placeholder="Ingresá tu Email!" />
                   <Form.Text className="text-muted">
-                   </Form.Text>
+                  </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Label>Contraseña</Form.Label>

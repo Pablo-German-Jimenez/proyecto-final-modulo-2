@@ -113,16 +113,16 @@ footer {
   color: #B5B5B5;
   font-size: 1rem;
 }
-/*card exclusivos*/
-.cardExclusivos{
-  width: 250px;
-  height: 200px;
-  border-radius: 20px;
-}
 .img-exclusivos{
-  width: 100% !important;
-  height: 300px ;
-  border-radius: 20%;
+  width: 200px ;
+  height: 250px;
+  border-radius: 10px;
+}
+.titulo-exclusivo {
+  width: 180px;
+  white-space: nowrap;        /* Evita que el texto haga salto de línea */
+  overflow: hidden;           /* Oculta el exceso de texto */
+  text-overflow: ellipsis;    /* Agrega "..." al final */
 }
 .degradeMorado{
   background: linear-gradient(
@@ -136,18 +136,19 @@ footer {
   width: 100px;
   height: 100px;
 }
-.bgformContenido{
-  background: linear-gradient(135deg, #1a001a 0%, #3d005d 100%);
-  border-radius: 10px;
-  padding: 20px;
-  color: white;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5)
-}
 .form-dark {
   background: linear-gradient(135deg, #2a1a3f 0%, #5c2a7f 100%);
   border-radius: 10px;
   padding: 20px;
   color: white;
+}
+.imgtableAdmin{
+  width: 120px;
+  height: 150px;
+  border-radius: 10px;
+}
+.highlight td {
+  background-color: black;
 }
 /*media query para dispositivos medianos*/
 @media(min-width: 768px) and (max-width: 991px){

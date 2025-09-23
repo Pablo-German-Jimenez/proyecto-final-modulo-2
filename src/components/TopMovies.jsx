@@ -203,129 +203,129 @@ const TopMovies = ({ onMovieClick }) => {
                   <TrendingUp size={24} color="#fff" />
                 </div>
               </div>
-              
+
               <div className="top-movies-container position-relative">
                 {/* Botón Izquierda */}
-                <button 
-                  className="top-movies-arrow left d-none d-lg-block" 
+                <button
+                  className="top-movies-arrow left d-none d-lg-block"
                   onClick={() => scroll(-400)}
                 >
                   <ChevronLeft size={24} />
                 </button>
 
                 {/* Scroll de películas */}
-                <div 
-                  className="top-movies-scroll" 
+                <div
+                  className="top-movies-scroll"
                   ref={scrollRef}
                   style={{
                     scrollSnapType: "x mandatory",
                     scrollBehavior: "smooth"
                   }}
                 >
-                   {topMoviesData.map((movie, index) => (
-                     <div 
-                       key={movie.id} 
-                       className="top-movie-item me-3"
-                       style={{
-                         scrollSnapAlign: "start",
-                         minWidth: "280px",
-                         maxWidth: "320px"
-                       }}
-                       onMouseEnter={() => handleMouseEnter(movie.id)}
-                       onMouseLeave={handleMouseLeave}
-                     >
-                       {/* Número de ranking */}
-                       <div className="ranking-number">
-                         {index + 1}
-                       </div>
-                       
-                       {/* Tarjeta de película */}
-                       <Card 
-                         className="top-movie-card h-100 shadow-lg border-0"
-                         style={{ cursor: "pointer" }}
-                         onClick={() => handleMovieClick(movie.movieId)}
-                       >
-                         <div className="position-relative">
-                           <Card.Img 
-                             variant="top" 
-                             src={movie.image} 
-                             alt={movie.title}
-                             className="top-movie-image"
-                           />
-                           
-                           {/* Badge */}
-                           <Badge 
-                             className="position-absolute top-0 end-0 m-2"
-                             style={getBadgeStyle(movie.badgeType)}
-                           >
-                             {movie.badge}
-                           </Badge>
-                           
-                           {/* Icono de compra */}
-                           <div className="shopping-icon">
-                             <ShoppingBag size={20} color="#ffc107" />
-                           </div>
+                  {topMoviesData.map((movie, index) => (
+                    <div
+                      key={movie.id}
+                      className="top-movie-item me-3"
+                      style={{
+                        scrollSnapAlign: "start",
+                        minWidth: "280px",
+                        maxWidth: "320px"
+                      }}
+                      onMouseEnter={() => handleMouseEnter(movie.id)}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      {/* Número de ranking */}
+                      <div className="ranking-number">
+                        {index + 1}
+                      </div>
 
-                           {/* Overlay de hover */}
-                           {hoveredMovie === movie.id && (
-                             <div className="movie-hover-overlay">
-                               <div className="hover-content">
-                                 {/* Botones de acción */}
-                                 <div className="action-buttons">
-                                   <button className="action-btn add-btn">
-                                     <Plus size={20} />
-                                   </button>
-                                   <button className="action-btn play-btn">
-                                     <Play size={16} />
-                                   </button>
-                                 </div>
+                      {/* Tarjeta de película */}
+                      <Card
+                        className="top-movie-card h-100 shadow-lg border-0"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleMovieClick(movie.movieId)}
+                      >
+                        <div className="position-relative">
+                          <Card.Img
+                            variant="top"
+                            src={movie.image}
+                            alt={movie.title}
+                            className="top-movie-image"
+                          />
 
-                                 {/* Información de suscripción */}
-                                 <div className="subscription-info">
-                                   <span className="subscription-text">Ver con un periodo de prueba gratis de Prime</span>
-                                   <ShoppingBag size={16} color="#ffc107" />
-                                 </div>
+                          {/* Badge */}
+                          <Badge
+                            className="position-absolute top-0 end-0 m-2"
+                            style={getBadgeStyle(movie.badgeType)}
+                          >
+                            {movie.badge}
+                          </Badge>
 
-                                 {/* Detalles de la película */}
-                                 <div className="movie-details">
-                                   <div className="movie-meta">
-                                     <span className="year">{movie.year}</span>
-                                     <span className="duration">{movie.duration}</span>
-                                     <Badge className="age-rating" variant="dark">{movie.ageRating}</Badge>
-                                   </div>
-                                   
-                                   <div className="movie-description">
-                                     {movie.description}
-                                   </div>
-                                   
-                                   <div className="movie-genre">
-                                     {movie.genre}
-                                   </div>
-                                 </div>
-                               </div>
-                             </div>
-                           )}
-                         </div>
-                         
-                         <Card.Body className="p-3">
-                           <Card.Title 
-                             className="text-white mb-0 fw-bold"
-                             style={{ 
-                               fontSize: "1rem",
-                               lineHeight: "1.3"
-                             }}
-                           >
-                             {movie.title}
-                           </Card.Title>
-                         </Card.Body>
-                       </Card>
-                     </div>
-                   ))}
+                          {/* Icono de compra */}
+                          <div className="shopping-icon">
+                            <ShoppingBag size={20} color="#ffc107" />
+                          </div>
+
+                          {/* Overlay de hover */}
+                          {hoveredMovie === movie.id && (
+                            <div className="movie-hover-overlay">
+                              <div className="hover-content">
+                                {/* Botones de acción */}
+                                <div className="action-buttons">
+                                  <button className="action-btn add-btn">
+                                    <Plus size={20} />
+                                  </button>
+                                  <button className="action-btn play-btn">
+                                    <Play size={16} />
+                                  </button>
+                                </div>
+
+                                {/* Información de suscripción */}
+                                <div className="subscription-info">
+                                  <span className="subscription-text">Ver con un periodo de prueba gratis de Prime</span>
+                                  <ShoppingBag size={16} color="#ffc107" />
+                                </div>
+
+                                {/* Detalles de la película */}
+                                <div className="movie-details">
+                                  <div className="movie-meta">
+                                    <span className="year">{movie.year}</span>
+                                    <span className="duration">{movie.duration}</span>
+                                    <Badge className="age-rating" variant="dark">{movie.ageRating}</Badge>
+                                  </div>
+
+                                  <div className="movie-description">
+                                    {movie.description}
+                                  </div>
+
+                                  <div className="movie-genre">
+                                    {movie.genre}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        <Card.Body className="p-3">
+                          <Card.Title
+                            className="text-white mb-0 fw-bold"
+                            style={{
+                              fontSize: "1rem",
+                              lineHeight: "1.3"
+                            }}
+                          >
+                            {movie.title}
+                          </Card.Title>
+                        </Card.Body>
+                      </Card>
+                    </div>
+                  ))}
                 </div>
 
                 {/* Botón Derecha */}
-                <button 
-                  className="top-movies-arrow right d-none d-lg-block" 
+                <button
+                  className="top-movies-arrow right d-none d-lg-block"
                   onClick={() => scroll(400)}
                 >
                   <ChevronRight size={24} />
