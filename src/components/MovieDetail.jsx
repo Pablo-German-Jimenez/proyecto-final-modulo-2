@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { ChevronLeft, Play, Plus } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import './MovieDetail.css';
 
 const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) => {

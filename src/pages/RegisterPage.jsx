@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import "../App.css";
-import MenuNavBar from "../componentes/MenuNavBar";
+import MenuNavBar from "../components/MenuNavBar";
 import Footer from "../components/Footer";
 
 function RegisterPage() {
