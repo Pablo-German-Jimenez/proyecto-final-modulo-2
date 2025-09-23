@@ -19,7 +19,7 @@ import Swal from "sweetalert2";
 // 🔹 Importar el logo
 import logoImage from "../assets/images/logosinfondo.png";
 
-const MenuNavBar = () => {
+const MenuNavBar = ({ usuarioLogueado, setUsuarioLogueado }) => {
   const brandImages = [
     "/logoEspn.png",
     "/logoDisneyPlus.png",
@@ -76,7 +76,7 @@ const MenuNavBar = () => {
   // Logout handler
   const handleLogout = () => {
     localStorage.removeItem("currentUser");
-    setCurrentUser(null);
+    setUsuarioLogueado(null);
 
     Swal.fire({
       icon: "info",
@@ -112,7 +112,26 @@ const MenuNavBar = () => {
       (u) => u.email === email && u.password === password
     );
 
-    if (userFound) {
+
+    if (data.email === import.meta.env.VITE_ADMIN_EMAIL &&
+      data.password === import.meta.env.VITE_ADMIN_PASSWORD) {
+
+      const adminUser = { name: "Admin", email: data.email }; // cualquier info que necesites
+      localStorage.setItem("currentUser", JSON.stringify(adminUser));
+      setUsuarioLogueado(adminUser);
+
+      Swal.fire({
+        title: "Bienvenido Admin",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      }).then(() => {
+        handleCloseModal();
+        navigate("/administrador");
+      });
+
+      return; // importante salir aquí para no seguir con la lógica de usuarios normales
+    } else if (userFound) {
       localStorage.setItem("currentUser", JSON.stringify(userFound));
       setCurrentUser(userFound);
 
@@ -226,9 +245,9 @@ const MenuNavBar = () => {
           </Navbar.Collapse>
 
           {/* 🔹 Botón login/logout */}
-          {currentUser ? (
+          {usuarioLogueado ? (
             <div className="d-flex align-items-center gap-3">
-              <span className="text-white">¡Hola, {currentUser.name}!</span>
+              <span className="text-white">¡Hola, {usuarioLogueado.name}!</span>
               <button
                 type="button"
                 className="btn btn-outline-danger my-3"

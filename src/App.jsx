@@ -26,6 +26,7 @@ import TopSeries from "./components/TopSeries";
 import SavedMovies from "./components/SavedMovies";
 import MovieDetail from "./components/MovieDetail";
 import GenreFilter from "./components/GenreFilter";
+import ProtectorAdmin from "./components/routes/ProtectorAdmin";
 
 // Importar imágenes
 import deadpoolImage from "./assets/images/deadpool.jfif";
@@ -189,23 +190,32 @@ function App() {
     setCatalogo(nuevoCatalogo);
   };
 
+  const [usuarioLogueado, setUsuarioLogueado] = useState(() => {
+    return JSON.parse(localStorage.getItem("currentUser")) || null;
+  });
+
+
   return (
     <AuthProvider>
       <SavedMoviesProvider>
-        <Router>
-          <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
-            <MenuNavBar />
+        <div style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
+          <MenuNavBar usuarioLogueado={usuarioLogueado} setUsuarioLogueado={setUsuarioLogueado} />
 
-            <Routes>
-              {/* Página principal */}
-              <Route path="/" element={<HomePage />} />
+          <Routes>
+            {/* Página principal */}
+            <Route path="/" element={<HomePage />} />
 
-              {/* Detalle de película */}
-              <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
+            {/* Detalle de película */}
+            <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
 
-              {/* Páginas adicionales */}
-              <Route path="/registro" element={<RegisterPage />} />
-              <Route path="/acerca" element={<AcercadeNosotros />} />
+            {/* Páginas adicionales */}
+            <Route path="/registro" element={<RegisterPage />} />
+            <Route path="/acerca" element={<AcercadeNosotros />} />
+            <Route path="/formulario" element={<FormularioContenido />} />
+            <Route path="/login" element={<h2>Página de login (próximamente)</h2>} />
+
+            {/* Rutas protegidas de admin */}
+            <Route element={<ProtectorAdmin usuarioLogueado={usuarioLogueado} />}>
               <Route
                 path="/administrador"
                 element={
@@ -239,18 +249,14 @@ function App() {
                   />
                 }
               />
-              <Route path="/formulario" element={<FormularioContenido />} />
-              <Route
-                path="/login"
-                element={<h2>Página de login (próximamente)</h2>}
-              />
-            </Routes>
+            </Route>
+          </Routes>
 
-            <Footer />
-          </div>
-        </Router>
+          <Footer />
+        </div>
       </SavedMoviesProvider>
     </AuthProvider>
+
   );
 }
 
