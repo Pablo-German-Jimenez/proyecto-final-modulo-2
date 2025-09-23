@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,7 +6,8 @@ import {
   useParams,
   useNavigate,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
+
+// Contextos (de tu rama)
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { SavedMoviesProvider } from "./contexts/SavedMoviesContext";
 
@@ -43,8 +44,7 @@ const moviesData = {
     year: "2016",
     ageRating: "18+",
     genre: "ACCIÓN",
-    description:
-      "Deadpool (HBO): El mercenario con boca suelta Wade Wilson se convierte en el antihéroe más irreverente y divertido del universo Marvel.",
+    description: "Deadpool (HBO)...",
     backgroundImage: deadpoolImage,
   },
   garras: {
@@ -54,8 +54,7 @@ const moviesData = {
     year: "2024",
     ageRating: "13+",
     genre: "DEPORTES",
-    description:
-      "Una épica historia de superación personal y deporte que sigue a un joven jugador de baloncesto en su lucha por alcanzar sus sueños.",
+    description: "Una épica historia...",
     backgroundImage: garraImage,
   },
   conjuro: {
@@ -65,8 +64,7 @@ const moviesData = {
     year: "2016",
     ageRating: "18+",
     genre: "TERROR",
-    description:
-      "Los investigadores paranormales Ed y Lorraine Warren enfrentan uno de sus casos más aterradores en esta secuela.",
+    description: "Los investigadores...",
     backgroundImage: conjuroBannerImage,
   },
   purga: {
@@ -76,8 +74,7 @@ const moviesData = {
     year: "2014",
     ageRating: "18+",
     genre: "THRILLER",
-    description:
-      "En esta secuela, la noche de La Purga se extiende por toda la ciudad mientras varios ciudadanos luchan por sobrevivir.",
+    description: "En esta secuela...",
     backgroundImage: purgaBannerImage,
   },
   toystory: {
@@ -87,25 +84,63 @@ const moviesData = {
     year: "2019",
     ageRating: "TP",
     genre: "ANIMACIÓN",
-    description:
-      "Woody, Buzz y los juguetes regresan en una aventura que explora el amor, la amistad y encontrar tu lugar en el mundo.",
+    description: "Woody, Buzz y los juguetes...",
     backgroundImage: toyStoryBannerImage,
   },
 };
 
-// Página principal con funcionalidad completa de catálogo
+// Página principal
 function HomePage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const [genre, setGenre] = useState("Todos");
 
-  const handleMovieClick = (movieId) => {
-    navigate(`/pelicula/${movieId}`);
-  };
+  const handleMovieClick = (movieId) => navigate(`/pelicula/${movieId}`);
 
-  // Estado y lógica de catálogo en LocalStorage
+  return (
+    <main style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
+      <HeroMovie onMovieClick={handleMovieClick} />
+      <GenreFilter selectedGenre={genre} onChange={setGenre} />
+      <Carrusel onMovieClick={handleMovieClick} />
+      <TopMovies onMovieClick={handleMovieClick} selectedGenre={genre} />
+      {isAuthenticated() ? (
+        <SavedMovies onMovieClick={handleMovieClick} />
+      ) : (
+        <Planes />
+      )}
+      <TopSeries onMovieClick={handleMovieClick} />
+    </main>
+  );
+}
+
+// Detalle de película
+function MovieDetailWrapper() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const movie = moviesData[id];
+  const relatedMovies = Object.values(moviesData);
+
+  if (!movie) return <h2 className="text-danger">Película no encontrada</h2>;
+
+  return (
+    <MovieDetail
+      movie={movie}
+      onBack={() => navigate("/")}
+      relatedMovies={relatedMovies}
+      onMovieClick={(movieId) => navigate(`/pelicula/${movieId}`)}
+      logoImage={logoImage}
+    />
+  );
+}
+
+// App principal
+function App() {
+  // Lógica de catálogo
   const catalogoLS = JSON.parse(localStorage.getItem("catalogoKey")) || [];
   const [catalogo, setCatalogo] = useState(catalogoLS);
+  const [filaDestacada, setFilaDestacada] = useState(
+    catalogoLS.find((item) => item.destacado)?.id || null
+  );
 
   useEffect(() => {
     localStorage.setItem("catalogoKey", JSON.stringify(catalogo));
@@ -121,9 +156,8 @@ function HomePage() {
     return true;
   };
 
-  const buscarContenido = (idContenido) => {
-    return catalogo.find((item) => item.id === idContenido);
-  };
+  const buscarContenido = (idContenido) =>
+    catalogo.find((item) => item.id === idContenido);
 
   const modificarContenido = (idContenido, dataCatalogo) => {
     setCatalogo(
@@ -133,10 +167,6 @@ function HomePage() {
     );
     return true;
   };
-
-  const [filaDestacada, setFilaDestacada] = useState(
-    catalogoLS.find((item) => item.destacado)?.id || null
-  );
 
   const destacarFila = (id) => {
     const nuevoCatalogo = catalogo.map((item) => {
@@ -160,89 +190,6 @@ function HomePage() {
   };
 
   return (
-    <main style={{ backgroundColor: "#141414", minHeight: "100vh" }}>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <HeroMovie onMovieClick={handleMovieClick} />
-              <GenreFilter selectedGenre={genre} onChange={setGenre} />
-              <Carrusel onMovieClick={handleMovieClick} />
-              <TopMovies onMovieClick={handleMovieClick} catalogo={catalogo} selectedGenre={genre} />
-              {isAuthenticated() ? (
-                <SavedMovies onMovieClick={handleMovieClick} />
-              ) : (
-                <Planes />
-              )}
-              <TopSeries onMovieClick={handleMovieClick} />
-            </>
-          }
-        />
-        <Route
-          path="/administrador"
-          element={
-            <Administrador
-              catalogo={catalogo}
-              eliminarContenido={eliminarContenido}
-              modificarContenido={modificarContenido}
-              destacarFila={destacarFila}
-              filaDestacada={filaDestacada}
-            />
-          }
-        />
-        <Route
-          path="/administrador/crear"
-          element={
-            <FormularioContenido
-              agregarContenido={agregarContenido}
-              titulo="AGREGAR NUEVO CONTENIDO"
-              textoBoton="Agregar"
-            />
-          }
-        />
-        <Route
-          path="/administrador/editar/:id"
-          element={
-            <FormularioContenido
-              modificarContenido={modificarContenido}
-              buscarContenido={buscarContenido}
-              titulo="EDITAR CONTENIDO"
-              textoBoton="Actualizar"
-            />
-          }
-        />
-        <Route path="/acercadenosotros" element={<AcercadeNosotros />} />
-      </Routes>
-    </main>
-  );
-}
-
-// Componente para detalle de película
-function MovieDetailWrapper() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const movie = moviesData[id];
-  const relatedMovies = Object.values(moviesData);
-
-  if (!movie) {
-    return <h2 className="text-danger">Película no encontrada</h2>;
-  }
-
-  return (
-    <MovieDetail
-      movie={movie}
-      onBack={() => navigate("/")}
-      relatedMovies={relatedMovies}
-      onMovieClick={(movieId) => navigate(`/pelicula/${movieId}`)}
-      logoImage={logoImage}
-    />
-  );
-}
-
-// Componente principal de la aplicación
-function App() {
-  return (
     <AuthProvider>
       <SavedMoviesProvider>
         <Router>
@@ -251,7 +198,7 @@ function App() {
 
             <Routes>
               {/* Página principal */}
-              <Route path="/*" element={<HomePage />} />
+              <Route path="/" element={<HomePage />} />
 
               {/* Detalle de película */}
               <Route path="/pelicula/:id" element={<MovieDetailWrapper />} />
@@ -259,9 +206,44 @@ function App() {
               {/* Páginas adicionales */}
               <Route path="/registro" element={<RegisterPage />} />
               <Route path="/acerca" element={<AcercadeNosotros />} />
-              <Route path="/admin" element={<Administrador />} />
+              <Route
+                path="/administrador"
+                element={
+                  <Administrador
+                    catalogo={catalogo}
+                    eliminarContenido={eliminarContenido}
+                    modificarContenido={modificarContenido}
+                    destacarFila={destacarFila}
+                    filaDestacada={filaDestacada}
+                  />
+                }
+              />
+              <Route
+                path="/administrador/crear"
+                element={
+                  <FormularioContenido
+                    agregarContenido={agregarContenido}
+                    titulo="AGREGAR NUEVO CONTENIDO"
+                    textoBoton="Agregar"
+                  />
+                }
+              />
+              <Route
+                path="/administrador/editar/:id"
+                element={
+                  <FormularioContenido
+                    modificarContenido={modificarContenido}
+                    buscarContenido={buscarContenido}
+                    titulo="EDITAR CONTENIDO"
+                    textoBoton="Actualizar"
+                  />
+                }
+              />
               <Route path="/formulario" element={<FormularioContenido />} />
-              <Route path="/login" element={<h2>Página de login (próximamente)</h2>} />
+              <Route
+                path="/login"
+                element={<h2>Página de login (próximamente)</h2>}
+              />
             </Routes>
 
             <Footer />

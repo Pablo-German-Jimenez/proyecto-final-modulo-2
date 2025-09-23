@@ -8,7 +8,11 @@ const CardExclusivos = ({ titulo, img }) => {
         src={img}
         className="img-exclusivos"
       />
+
+      <Card.Title className="text-center mt-2 mb-3">{titulo}</Card.Title>
+
       <Card.Title className="text-center mt-2 mb-3 titulo-exclusivo">{titulo}</Card.Title>
+
     </Card>
   );
 };
