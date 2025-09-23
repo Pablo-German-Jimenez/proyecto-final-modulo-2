@@ -7,3 +7,238 @@
 main{
   flex-grow: 1;
 }
+
+footer {
+  background: linear-gradient(180deg, #0f051e 0%, #1a0b2e 50%, #2a003f 100%);
+  color: #fff;
+  padding: 30px;
+}
+.linksfooter{
+  color: #b3b3b3;
+  text-decoration: none;
+  font-weight: 500; 
+}
+.imgAcerca{
+  width: 100%;
+  height: 320px;
+  padding: 0px;
+  background-Color: rgba(0,0,0,1);
+  background-image: url("https://images.pexels.com/photos/19658083/pexels-photo-19658083.jpeg");
+  background-size: cover;
+  background-position: center 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.imgAcerca::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    to bottom, 
+    rgba(0, 0, 0, 0.4), 
+    rgba(0, 0, 0, 0.4)
+  );
+  z-index: 1;
+}
+.tituloAcerca{
+  font-size: 55px;
+  color: white;
+  text-shadow: 0px 0px 10px #9D4EDD;
+  z-index: 2;
+}
+.justificado{
+  text-align: justify;
+}
+.quienes-somos{
+ background: linear-gradient(
+    135deg,
+    #0d0d0d 0%,  
+    #1a1a1a 50%,  
+    #2b0f3f 100%  
+  );
+  color: #ffffff;
+  padding: 2rem 1rem;
+  border-radius: 6px;
+
+}
+.quienes-somos h2 {
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.quienes-somos p {
+  color: #B5B5B5;
+}
+.vision-mision-valores{
+  background: linear-gradient(
+    135deg,
+    #0d0d0d 0%,  
+    #1a1a1a 50%,  
+    #2b0f3f 100%  
+  );
+  padding: 2.5rem 1rem;
+  border-radius: 6px;
+}
+
+.vision-mision-valores .col-12 {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(157, 78, 221, 0.4);
+  border-radius: 6px;
+  padding: 1.5rem;
+  text-align: center;
+}
+.vision-mision-valores i {
+  color: #9D4EDD;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
+}
+
+/* Títulos */
+.vision-mision-valores h3 {
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Texto */
+.vision-mision-valores p {
+  color: #B5B5B5;
+  font-size: 1rem;
+}
+.img-exclusivos{
+  width: 200px ;
+  height: 250px;
+  border-radius: 10px;
+}
+.titulo-exclusivo {
+  width: 180px;
+  white-space: nowrap;        /* Evita que el texto haga salto de línea */
+  overflow: hidden;           /* Oculta el exceso de texto */
+  text-overflow: ellipsis;    /* Agrega "..." al final */
+}
+.degradeMorado{
+  background: linear-gradient(
+    135deg,
+    #0d0d0d 0%,  
+    #1a1a1a 50%,  
+    #2b0f3f 100%  
+  );
+}
+.avatarIntegrantes{
+  width: 100px;
+  height: 100px;
+}
+.form-dark {
+  background: linear-gradient(135deg, #2a1a3f 0%, #5c2a7f 100%);
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+}
+.imgtableAdmin{
+  width: 120px;
+  height: 150px;
+  border-radius: 10px;
+}
+.highlight td {
+  background-color: black;
+}
+/*media query para dispositivos medianos*/
+@media(min-width: 768px) and (max-width: 991px){
+  .imgAcerca{
+    background-position: center 20%;
+  }
+}
+/*Media query para dispositivos large*/
+@media(min-width: 992px) and (max-width: 1199px){
+  .imgAcerca{
+    background-position: center 50%;
+  }
+}
+
+.search-form{
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* FORMULARIO DE REGISTRO */
+
+.form-container {
+  background: rgba(0, 0, 0, 0.85);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  width: 100%;
+  max-width: 400px;
+  color: #fff;
+}
+
+
+button, .btn-primary {
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover, .btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(37, 117, 252, 0.8);
+}
+
+
+.text-link {
+  color: #00aaff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+
+.modal-content {
+  background: rgba(15, 15, 15, 0.95);
+  border-radius: 12px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+.modal-header, .modal-footer {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.modal-title {
+  font-weight: bold;
+  color: #fff;
+}
+
+
+.modal-content .form-control {
+  background-color: #0f0f0f;
+  border: 1px solid #2f2f2f;
+  color: #fff;
+}
+.modal-content .form-control::placeholder {
+  color: #bdbdbd;
+}
+
+
+.modal-content .btn-primary {
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  border: none;
+}
+.modal-content .btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(37, 117, 252, 0.8);
+}
