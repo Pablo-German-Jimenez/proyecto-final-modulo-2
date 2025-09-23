@@ -1,8 +1,10 @@
 import  { useRef, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import { Card, Badge } from "react-bootstrap";
-import { ChevronLeft, ChevronRight, TrendingUp, ShoppingBag, Plus, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, TrendingUp, ShoppingBag, Plus, Play, ThumbsUp } from "lucide-react";
 import "./TopMovies.css";
 import "./TopSeries.css"; // Reutilizamos estilos idénticos del hover de series
+import { useSavedMovies } from "../contexts/SavedMoviesContext";
 
 // Importar imágenes de películas (usando las carteleras disponibles)
 import deadpoolCartelera from "../assets/images/deadpool.jfif";
@@ -147,6 +149,25 @@ const topMoviesData = [
 const TopMovies = ({ onMovieClick }) => {
   const scrollRef = useRef(null);
   const [hoveredMovie, setHoveredMovie] = useState(null);
+  const { isAuthenticated } = useAuth();
+  const { addSavedMovie, isMovieSaved } = useSavedMovies();
+
+  const handleSave = (movie) => {
+    if (!isAuthenticated()) return;
+    if (!addSavedMovie) return;
+    const movieToSave = {
+      id: movie.id,
+      movieId: movie.movieId,
+      title: movie.title,
+      image: movie.image,
+      year: movie.year,
+      duration: movie.duration,
+      ageRating: movie.ageRating,
+      description: movie.description,
+      genre: movie.genre
+    };
+    addSavedMovie(movieToSave);
+  };
 
   // Función para manejar clic en película
   const handleMovieClick = (movieId) => {
@@ -281,11 +302,39 @@ const TopMovies = ({ onMovieClick }) => {
                                   </button>
                                 </div>
 
-                                {/* Información de suscripción */}
-                                <div className="subscription-info">
-                                  <span className="subscription-text">Ver con un periodo de prueba gratis de Prime</span>
-                                  <ShoppingBag size={16} color="#ffc107" />
-                                </div>
+                                {/* Información de suscripción (solo si no está logueado) */}
+                                {!isAuthenticated() && (
+                                  <div className="subscription-info">
+                                    <span className="subscription-text">Ver con un periodo de prueba gratis de Prime</span>
+                                    <ShoppingBag size={16} color="#ffc107" />
+                                  </div>
+                                )}
+
+                                {/* Acciones cuando está logueado */}
+                                {isAuthenticated() && (
+                                  <div className="d-flex gap-2 mb-3 flex-wrap">
+                                    <button
+                                      className="btn btn-light btn-sm fw-bold"
+                                      onClick={(e)=>{e.stopPropagation(); onMovieClick && onMovieClick(movie.movieId);}}
+                                    >
+                                      ▶ Reproducir
+                                    </button>
+                                    <button
+                                      className="btn btn-outline-light btn-sm fw-bold"
+                                      onClick={(e)=>{e.stopPropagation(); handleSave(movie);}}
+                                      title={isMovieSaved && isMovieSaved(movie.id) ? "Ya guardada" : "Agregar a mi lista"}
+                                    >
+                                      + Mi lista
+                                    </button>
+                                    <button
+                                      className="btn btn-outline-light btn-sm fw-bold"
+                                      onClick={(e)=>e.stopPropagation()}
+                                      title="Me gusta"
+                                    >
+                                      <ThumbsUp size={16} className="me-1"/> Me gusta
+                                    </button>
+                                  </div>
+                                )}
 
                                 {/* Detalles de la película */}
                                 <div className="series-details">

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import { Card, Badge } from "react-bootstrap";
-import { ChevronLeft, ChevronRight, TrendingUp, ShoppingBag, Plus, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, TrendingUp, ShoppingBag, Plus, Play, ThumbsUp } from "lucide-react";
 import "./TopSeries.css";
 
 // Importar imágenes de series (usando las carteleras disponibles)
@@ -151,6 +152,7 @@ const topSeriesData = [
 const TopSeries = ({ onMovieClick }) => {
   const scrollRef = useRef(null);
   const [hoveredSeries, setHoveredSeries] = useState(null);
+  const { isAuthenticated } = useAuth();
 
   // Función para manejar clic en serie
   const handleMovieClick = (movieId) => {
@@ -289,11 +291,38 @@ const TopSeries = ({ onMovieClick }) => {
                                   </button>
                                 </div>
 
-                                {/* Información de suscripción */}
-                                <div className="subscription-info">
-                                  <span className="subscription-text">Ver con un periodo de prueba gratis de Prime</span>
-                                  <ShoppingBag size={16} color="#ffc107" />
-                                </div>
+                                {/* Información de suscripción (solo si no está logueado) */}
+                                {!isAuthenticated() && (
+                                  <div className="subscription-info">
+                                    <span className="subscription-text">Ver con un periodo de prueba gratis de Prime</span>
+                                    <ShoppingBag size={16} color="#ffc107" />
+                                  </div>
+                                )}
+
+                                {/* Acciones cuando está logueado */}
+                                {isAuthenticated() && (
+                                  <div className="d-flex gap-2 mb-3 flex-wrap">
+                                    <button
+                                      className="btn btn-light btn-sm fw-bold"
+                                      onClick={(e)=>{e.stopPropagation(); onMovieClick && onMovieClick(series.movieId);}}
+                                    >
+                                      ▶ Reproducir
+                                    </button>
+                                    <button
+                                      className="btn btn-outline-light btn-sm fw-bold"
+                                      onClick={(e)=>e.stopPropagation()}
+                                    >
+                                      + Mi lista
+                                    </button>
+                                    <button
+                                      className="btn btn-outline-light btn-sm fw-bold"
+                                      onClick={(e)=>e.stopPropagation()}
+                                      title="Me gusta"
+                                    >
+                                      <ThumbsUp size={16} className="me-1"/> Me gusta
+                                    </button>
+                                  </div>
+                                )}
 
                                 {/* Detalles de la serie */}
                                 <div className="series-details">

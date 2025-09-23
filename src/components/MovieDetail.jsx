@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { ChevronLeft, Play, Plus } from 'lucide-react';
+import { ChevronLeft, Play, Plus, ThumbsUp } from 'lucide-react';
+import { useAuth } from "../contexts/AuthContext";
+import { useSavedMovies } from "../contexts/SavedMoviesContext";
 import './MovieDetail.css';
 
 const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const { addSavedMovie } = useSavedMovies();
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -14,6 +18,22 @@ const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) 
     if (onMovieClick && relatedMovie.id) {
       onMovieClick(relatedMovie.id);
     }
+  };
+
+  const handleSave = () => {
+    if (!isAuthenticated()) return;
+    const movieToSave = {
+      id: movie.id,
+      movieId: movie.id,
+      title: movie.title,
+      image: movie.backgroundImage,
+      year: movie.year,
+      duration: movie.duration,
+      ageRating: movie.ageRating,
+      description: movie.description,
+      genre: movie.genre
+    };
+    addSavedMovie(movieToSave);
   };
 
   // Filtrar las películas relacionadas para excluir la película actual
@@ -76,13 +96,27 @@ const MovieDetail = ({ movie, onBack, relatedMovies, onMovieClick, logoImage }) 
                     {movie.description}
                   </p>
 
-                  <div className="action-buttons">
-                    <Button 
-                      className="subscribe-btn"
-                      onClick={handlePlay}
-                    >
-                      SUSCRÍBETE AHORA
-                    </Button>
+                  <div className="action-buttons d-flex gap-2 flex-wrap">
+                    {isAuthenticated() ? (
+                      <>
+                        <Button className="action-primary-like-subscribe" onClick={handlePlay}>
+                          ▶ Reproducir
+                        </Button>
+                        <Button className="action-primary-like-subscribe" onClick={handleSave}>
+                          + Mi lista
+                        </Button>
+                        <Button className="action-primary-like-subscribe">
+                          <ThumbsUp size={16} className="me-1"/> Me gusta
+                        </Button>
+                      </>
+                    ) : (
+                      <Button 
+                        className="subscribe-btn"
+                        onClick={handlePlay}
+                      >
+                        SUSCRÍBETE AHORA
+                      </Button>
+                    )}
                   </div>
                 </div>
               </Col>

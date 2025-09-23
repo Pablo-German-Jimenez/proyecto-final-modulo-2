@@ -278,11 +278,13 @@ const Carrusel = ({ onMovieClick }) => {
                               </button>
                             </div>
 
-                            {/* Información de suscripción */}
-                            <div className="carrusel-subscription-info">
-                              <span className="carrusel-subscription-text">Ver con un periodo de prueba gratis de Prime</span>
-                              <ShoppingBag size={12} color="#ffc107" />
-                            </div>
+                            {/* Información de suscripción (solo si no está logueado) */}
+                            {!isAuthenticated() && (
+                              <div className="carrusel-subscription-info">
+                                <span className="carrusel-subscription-text">Ver con un periodo de prueba gratis de Prime</span>
+                                <ShoppingBag size={12} color="#ffc107" />
+                              </div>
+                            )}
 
                             {/* Detalles de la película */}
                             <div className="carrusel-movie-details">
