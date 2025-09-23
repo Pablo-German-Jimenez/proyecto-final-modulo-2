@@ -146,7 +146,7 @@ const topMoviesData = [
   }
 ];
 
-const TopMovies = ({ onMovieClick }) => {
+const TopMovies = ({ onMovieClick, selectedGenre = "Todos" }) => {
   const scrollRef = useRef(null);
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const { isAuthenticated } = useAuth();
@@ -244,7 +244,9 @@ const TopMovies = ({ onMovieClick }) => {
                     scrollBehavior: "smooth"
                   }}
                 >
-                  {topMoviesData.map((movie, index) => (
+                  {topMoviesData
+                    .filter((m)=> selectedGenre === "Todos" ? true : (m.genre && m.genre.toLowerCase().includes(selectedGenre.toLowerCase())))
+                    .map((movie, index) => (
                     <div
                       key={movie.id}
                       className="top-movie-item me-3"

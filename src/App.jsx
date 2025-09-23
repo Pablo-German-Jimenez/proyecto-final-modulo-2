@@ -24,6 +24,7 @@ import Planes from "./components/Planes";
 import TopSeries from "./components/TopSeries";
 import SavedMovies from "./components/SavedMovies";
 import MovieDetail from "./components/MovieDetail";
+import GenreFilter from "./components/GenreFilter";
 
 // Importar imágenes
 import deadpoolImage from "./assets/images/deadpool.jfif";
@@ -96,6 +97,7 @@ const moviesData = {
 function HomePage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const [genre, setGenre] = useState("Todos");
 
   const handleMovieClick = (movieId) => {
     navigate(`/pelicula/${movieId}`);
@@ -165,8 +167,9 @@ function HomePage() {
           element={
             <>
               <HeroMovie onMovieClick={handleMovieClick} />
+              <GenreFilter selectedGenre={genre} onChange={setGenre} />
               <Carrusel onMovieClick={handleMovieClick} />
-              <TopMovies onMovieClick={handleMovieClick} catalogo={catalogo} />
+              <TopMovies onMovieClick={handleMovieClick} catalogo={catalogo} selectedGenre={genre} />
               {isAuthenticated() ? (
                 <SavedMovies onMovieClick={handleMovieClick} />
               ) : (
