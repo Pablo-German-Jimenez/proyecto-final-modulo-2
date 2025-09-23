@@ -119,7 +119,7 @@ const AcercadeNosotros = () => {
             </div>
             <div className="col-12 col-md-3 mt-2 d-flex flex-column align-items-center">
               <img
-                src="src\assets\images\integrante4grupo3 (3).jpeg"
+                src=`src\assets\images\integrante4grupo3 (3).jpeg`
                 alt="integrante del equipo"
                 className="imgIntegrantes"
               />
