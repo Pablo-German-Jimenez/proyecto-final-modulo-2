@@ -34,7 +34,7 @@ Este proyecto fue desarrollado utilizando una combinación de tecnologías moder
 
 Puedes acceder a la versión más reciente del proyecto en el siguiente enlace:
 
-* *Enlace del Proyecto:* [Click here!](https://pixelsmovies-front.netlify.app/)
+* *Enlace del Proyecto:* [Click Aquí!](https://pixelmovies3d.netlify.app/))
 
 ---
 
